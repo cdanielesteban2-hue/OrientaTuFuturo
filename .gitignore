@@ -1,0 +1,17 @@
+# Logs
+php_error.log
+*.log
+
+# Entorno y archivos del sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
