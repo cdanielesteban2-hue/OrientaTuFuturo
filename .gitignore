@@ -13,5 +13,7 @@ desktop.ini
 *.suo
 *.ntvs*
 *.njsproj
-*.sln
 *.sw?
+
+# Temporales
+scratch_*

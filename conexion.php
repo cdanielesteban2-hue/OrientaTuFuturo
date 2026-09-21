@@ -24,9 +24,21 @@ class baseDatos {
             $opcionesPDO[PDO::ATTR_DEFAULT_FETCH_MODE] = PDO::FETCH_ASSOC;
             
             try {
-                // Intenta establecer la conexión con la base de datos usando PDO
-                // DSN: mysql:host=localhost;dbname=orienta_tu_futuro, Usuario: 'root', Contraseña: ''
-                self::$instancia = new PDO('mysql:host=localhost;dbname=orienta_tu_futuro', 'root', '', $opcionesPDO);
+                // Detecta si se ejecuta en entorno local o en el servidor de producción
+                $servidor = $_SERVER['SERVER_NAME'] ?? 'localhost';
+                if ($servidor === 'localhost' || $servidor === '127.0.0.1') {
+                    $host = 'localhost';
+                    $db   = 'orienta_tu_futuro';
+                    $user = 'root';
+                    $pass = '';
+                } else {
+                    $host = 'sql309.infinityfree.com';
+                    $db   = 'if0_42975485_OrientaTuFuturo';
+                    $user = 'if0_42975485';
+                    $pass = 'nAPKj4IpkB3h';
+                }
+
+                self::$instancia = new PDO("mysql:host={$host};dbname={$db};charset=utf8mb4", $user, $pass, $opcionesPDO);
             } catch (Exception $error) {
                 // Si la conexión falla, detiene la ejecución de la aplicación mostrando el mensaje de error
                 die("Error de conexión a la base de datos: " . $error->getMessage());

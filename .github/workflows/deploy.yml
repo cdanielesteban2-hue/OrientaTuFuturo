@@ -1,0 +1,34 @@
+name: Despliegue Automatico a InfinityFree
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  web-deploy:
+    name: Desplegar por FTP
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Sincronizar codigo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: 📂 Desplegar a InfinityFree por FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ftpupload.net
+          username: if0_42975485
+          password: ${{ secrets.FTP_PASSWORD || 'nAPKj4IpkB3h' }}
+          port: 21
+          server-dir: /htdocs/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github*/**
+            **/utilidades/*.sql
+            **/scratch*
+            php_error.log
+            README.md
