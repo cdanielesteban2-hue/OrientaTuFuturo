@@ -6,11 +6,11 @@
     --bg-navbar: rgba(255, 255, 255, 0.85);
     --text-primary: #0f172a;
     --text-secondary: #475569;
-    --primary: #4f46e5;
-    --primary-light: #e0e7ff;
-    --primary-hover: #4338ca;
-    --accent: #06b6d4;
-    --accent-light: #ecfeff;
+    --primary: #2563eb;
+    --primary-light: #eff6ff;
+    --primary-hover: #1d4ed8;
+    --accent: #eab308;
+    --accent-light: #fefce8;
     --success: #10b981;
     --warning: #f59e0b;
     --danger: #ef4444;
@@ -76,14 +76,15 @@ a:hover {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--primary) 0%, #6366f1 100%);
+    background-color: var(--primary);
     color: white;
-    box-shadow: 0 4px 14px rgb(79 70 229 / 0.3);
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
 }
 
 .btn-primary:hover {
+    background-color: var(--primary-hover);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgb(79 70 229 / 0.4);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
     color: white;
 }
 
@@ -159,18 +160,53 @@ a:hover {
 
 .navbar-brand {
     font-family: var(--font-heading);
-    font-size: 1.4rem;
-    font-weight: 800;
     color: var(--text-primary);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
+    text-decoration: none;
 }
 
-.navbar-brand span {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+.navbar-logo-img {
+    height: 48px;
+    width: 48px;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+}
+
+.navbar-brand:hover .navbar-logo-img {
+    transform: scale(1.05);
+}
+
+.brand-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.15;
+}
+
+.brand-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--text-primary);
+}
+
+.brand-title-accent {
+    color: #2563eb; /* Azul institucional */
+}
+
+[data-theme="dark"] .brand-title-accent {
+    color: #facc15; /* Amarillo dorado en modo oscuro */
+}
+
+.brand-motto {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
 }
 
 .navbar-menu {

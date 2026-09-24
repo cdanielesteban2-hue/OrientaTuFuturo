@@ -1,9 +1,12 @@
 <?php $url_base = constant('URL_BASE'); ?>
 <nav class="navbar">
     <div class="navbar-container">
-        <a href="<?php echo $url_base; ?>paginas/inicio" class="navbar-brand" style="display: flex; align-items: center; gap: 15px;">
-            <img src="<?php echo $url_base; ?>recursos/img/logo.png" alt="Logo Orienta tu FUTURO" style="height: 70px; width: auto; object-fit: contain;">
-            <span style="font-weight: 800; font-size: 1.5rem; letter-spacing: -0.5px;">Orienta tu FUTURO</span>
+        <a href="<?php echo $url_base; ?>paginas/inicio" class="navbar-brand">
+            <img src="<?php echo $url_base; ?>recursos/img/logo_navbar.png" alt="Logo Orienta tu FUTURO" class="navbar-logo-img">
+            <div class="brand-text-container">
+                <span class="brand-title">Orienta tu <span class="brand-title-accent">FUTURO</span></span>
+                <span class="brand-motto">Informar para decidir</span>
+            </div>
         </a>
         
         <ul class="navbar-menu">
