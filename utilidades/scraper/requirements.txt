@@ -1,0 +1,17 @@
+# Dependencias principales del Scraper de OrientaTuFuturo
+# Instalar con: pip install -r requirements.txt
+
+# Peticiones HTTP y parsing estático
+requests>=2.31.0
+beautifulsoup4>=4.12.3
+urllib3>=2.0.0
+lxml>=5.1.0
+
+# Renderizado dinámico y automatización de navegador
+playwright>=1.42.0
+
+# Conexión y operaciones con MySQL
+mysql-connector-python>=8.3.0
+
+# Gestión de variables de entorno y utilidades
+python-dotenv>=1.0.1
