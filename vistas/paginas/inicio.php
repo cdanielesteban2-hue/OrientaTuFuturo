@@ -33,7 +33,7 @@
                     <span>Comenzar Test Vocacional</span>
                     <i class="fa-solid fa-arrow-right"></i>
                 </a>
-                <a href="<?php echo $url_base; ?>universidades/inicio" class="inline-flex justify-center items-center gap-2.5 px-7 py-4 bg-slate-900/90 hover:bg-slate-800 text-white font-semibold rounded-xl border border-slate-700/80 hover:border-slate-500 hover:-translate-y-0.5 transition duration-200 text-base">
+                <a href="<?php echo $url_base; ?>universidades/inicio" class="inline-flex justify-center items-center gap-2.5 px-7 py-4 hero-light-btn bg-slate-900/90 hover:bg-slate-800 text-white font-semibold rounded-xl border border-slate-700/80 hover:border-slate-500 hover:-translate-y-0.5 transition duration-200 text-base">
                     <i class="fa-solid fa-building-columns text-blue-400"></i>
                     <span>Ver Universidades</span>
                 </a>
@@ -124,7 +124,7 @@
                 </div>
 
                 <!-- Botón de acción en la tarjeta -->
-                <a href="<?php echo $url_base; ?>programas/inicio" class="w-full py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-sm font-bold flex items-center justify-center gap-2 border border-slate-700 transition">
+                <a href="<?php echo $url_base; ?>programas/inicio" class="simulator-catalog-btn w-full py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-sm font-bold flex items-center justify-center gap-2 border border-slate-700 transition">
                     <span>Explorar catálogo de programas</span>
                     <i class="fa-solid fa-arrow-right text-xs"></i>
                 </a>

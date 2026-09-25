@@ -11,6 +11,18 @@
         <h3 class="filter-title"><i class="fa-solid fa-filter"></i> Filtrar Búsqueda</h3>
         
         <form method="GET" action="<?php echo $url_base; ?>universidades/inicio">
+            <!-- Buscador por nombre -->
+            <div class="form-group">
+                <label class="form-label" for="buscar">Buscar universidad</label>
+                <div style="position: relative;">
+                    <i class="fa-solid fa-magnifying-glass" style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--text-secondary); font-size:0.85rem;"></i>
+                    <input type="text" class="form-input" id="buscar" name="buscar"
+                           placeholder="Ej: Nacional, EAFIT..."
+                           value="<?php echo htmlspecialchars($buscar); ?>"
+                           style="padding-left: 36px;">
+                </div>
+            </div>
+
             <div class="form-group">
                 <label class="form-label" for="ciudad">Ciudad</label>
                 <select class="form-input" id="ciudad" name="ciudad">
@@ -35,7 +47,7 @@
             <button type="submit" class="btn btn-primary" style="width: 100%;">
                 <i class="fa-solid fa-magnifying-glass"></i> Aplicar Filtros
             </button>
-            <?php if ($ciudad !== '' || $tipo !== ''): ?>
+            <?php if ($ciudad !== '' || $tipo !== '' || $buscar !== ''): ?>
                 <a href="<?php echo $url_base; ?>universidades/inicio" class="btn btn-outline" style="width: 100%; margin-top: 10px; font-size: 0.85rem; padding: 8px;">
                     Limpiar Búsqueda
                 </a>

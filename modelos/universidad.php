@@ -17,11 +17,16 @@ class Universidad {
         return $consulta->fetch();
     }
 
-    public static function filtrar($ciudad = '', $tipo = '', $pagina = 1, $por_pagina = 8) {
+    public static function filtrar($ciudad = '', $tipo = '', $pagina = 1, $por_pagina = 8, $buscar = '') {
         $db = baseDatos::crearInstancia();
         $condiciones = [];
         $parametros = [];
 
+        if ($buscar !== '') {
+            $condiciones[] = "(nombre LIKE ? OR descripcion LIKE ?)";
+            $parametros[] = '%' . $buscar . '%';
+            $parametros[] = '%' . $buscar . '%';
+        }
         if ($ciudad !== '') {
             $condiciones[] = "ciudad = ?";
             $parametros[] = $ciudad;
@@ -50,10 +55,15 @@ class Universidad {
         return $consulta->fetchAll();
     }
 
-    public static function contarFiltrados($ciudad = '', $tipo = '') {
+    public static function contarFiltrados($ciudad = '', $tipo = '', $buscar = '') {
         $db = baseDatos::crearInstancia();
         $condiciones = [];
         $parametros = [];
+        if ($buscar !== '') {
+            $condiciones[] = "(nombre LIKE ? OR descripcion LIKE ?)";
+            $parametros[] = '%' . $buscar . '%';
+            $parametros[] = '%' . $buscar . '%';
+        }
         if ($ciudad !== '') { $condiciones[] = "ciudad = ?"; $parametros[] = $ciudad; }
         if ($tipo !== '') { $condiciones[] = "tipo = ?"; $parametros[] = $tipo; }
         $sql = "SELECT COUNT(*) FROM universidades";

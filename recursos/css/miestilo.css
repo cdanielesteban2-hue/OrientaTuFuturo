@@ -1386,3 +1386,123 @@ a:hover {
         grid-row: auto;
     }
 }
+
+/* ==========================================================================
+   Footer (adapta a modo claro y oscuro con variables del tema)
+   ========================================================================== */
+
+.footer {
+    background-color: #0f172a;
+    color: #f8fafc;
+    border-top: 1px solid #1e293b;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.footer-container {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.footer-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #ffffff;
+    font-family: var(--font-heading);
+}
+
+.footer-text {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    margin-bottom: 18px;
+    line-height: 1.7;
+}
+
+.footer-socials {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.footer-socials a {
+    color: #64748b;
+    transition: color 0.2s;
+}
+
+.footer-socials a:hover {
+    color: #facc15;
+}
+
+.footer-copy {
+    font-size: 0.78rem;
+    color: #475569;
+    border-top: 1px solid #1e293b;
+    padding-top: 16px;
+    margin-top: 0;
+}
+
+/* ==========================================================================
+   Correcciones Modo Claro — elementos oscuros en inicio.php
+   ========================================================================== */
+
+/* Tarjeta del simulador vocacional — fondo oscuro por diseño (siempre oscuro) */
+/* El hero principal es siempre oscuro por paleta de marca, no es un bug */
+
+/* Botón "Ver Universidades" en hero: en modo claro usa slate-800 que es oscuro, 
+   lo corregimos para que use un fondo claro con borde */
+[data-theme="light"] .hero-light-btn {
+    background-color: #f1f5f9 !important;
+    color: #0f172a !important;
+    border-color: #cbd5e1 !important;
+}
+[data-theme="light"] .hero-light-btn:hover {
+    background-color: #e2e8f0 !important;
+    border-color: #94a3b8 !important;
+}
+
+/* Corregir chips de carrera en el simulador (bg-slate-800 en modo claro) */
+[data-theme="light"] #areaCareers span {
+    background-color: #f1f5f9 !important;
+    color: #1e293b !important;
+    border: 1px solid #e2e8f0;
+}
+
+/* Corrección del contenido del simulador en modo claro */
+[data-theme="light"] #areaContent {
+    background-color: #f8fafc !important;
+    border-color: #e2e8f0 !important;
+}
+[data-theme="light"] #areaDescription,
+[data-theme="light"] #areaUnis {
+    color: #334155 !important;
+}
+
+/* El botón "Explorar catálogo" del simulador en modo claro */
+[data-theme="light"] #areaContent + a,
+[data-theme="light"] .simulator-catalog-btn {
+    background-color: #f1f5f9 !important;
+    color: #1e293b !important;
+    border-color: #e2e8f0 !important;
+}
+
+/* main-content: quitar padding extra en páginas full-width como inicio */
+.main-content {
+    padding: 0;
+}
+
+/* Las secciones de inicio.php manejan su propio padding */
+
+/* Formulario de búsqueda (input en modo oscuro) */
+[data-theme="dark"] .form-input {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+/* Asegurar que el texto en tarjetas de becas y universidades en inicio.php 
+   se vea correctamente en modo claro — las clases dark: de Tailwind lo gestionan */
+
+/* ========================================================================== */

@@ -23,11 +23,16 @@ class ProgramasAcademicos {
         return $consulta->fetch();
     }
 
-    public static function filtrar($area = '', $costoMax = '', $id_universidad = '', $pagina = 1, $por_pagina = 12) {
+    public static function filtrar($area = '', $costoMax = '', $id_universidad = '', $pagina = 1, $por_pagina = 12, $buscar = '') {
         $db = baseDatos::crearInstancia();
         $condiciones = [];
         $parametros = [];
 
+        if ($buscar !== '') {
+            $condiciones[] = "(p.n_programa LIKE ? OR u.nombre LIKE ?)";
+            $parametros[] = '%' . $buscar . '%';
+            $parametros[] = '%' . $buscar . '%';
+        }
         if ($area !== '') {
             $condiciones[] = "p.area = ?";
             $parametros[] = $area;
@@ -64,14 +69,19 @@ class ProgramasAcademicos {
         return $consulta->fetchAll();
     }
 
-    public static function contarFiltrados($area = '', $costoMax = '', $id_universidad = '') {
+    public static function contarFiltrados($area = '', $costoMax = '', $id_universidad = '', $buscar = '') {
         $db = baseDatos::crearInstancia();
         $condiciones = [];
         $parametros = [];
+        if ($buscar !== '') {
+            $condiciones[] = "(p.n_programa LIKE ? OR u.nombre LIKE ?)";
+            $parametros[] = '%' . $buscar . '%';
+            $parametros[] = '%' . $buscar . '%';
+        }
         if ($area !== '') { $condiciones[] = "p.area = ?"; $parametros[] = $area; }
         if ($costoMax !== '') { $condiciones[] = "p.costo <= ?"; $parametros[] = $costoMax; }
         if ($id_universidad !== '') { $condiciones[] = "p.id_universidad = ?"; $parametros[] = $id_universidad; }
-        $sql = "SELECT COUNT(*) FROM programas_academicos p";
+        $sql = "SELECT COUNT(*) FROM programas_academicos p JOIN universidades u ON p.id_universidad = u.id_universidad";
         if (count($condiciones) > 0) { $sql .= " WHERE " . implode(" AND ", $condiciones); }
         $consulta = $db->prepare($sql);
         $consulta->execute($parametros);

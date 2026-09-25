@@ -4,24 +4,26 @@ include_once "modelos/universidad.php";
 
 class ControladorProgramas {
     public function inicio() {
-        $area = isset($_GET['area']) ? trim($_GET['area']) : '';
-        $costoMax = isset($_GET['costoMax']) ? trim($_GET['costoMax']) : '';
+        $area           = isset($_GET['area'])           ? trim($_GET['area'])           : '';
+        $costoMax       = isset($_GET['costoMax'])       ? trim($_GET['costoMax'])       : '';
         $id_universidad = isset($_GET['id_universidad']) ? trim($_GET['id_universidad']) : '';
-        $pagina = isset($_GET['pagina']) ? max(1, (int)$_GET['pagina']) : 1;
-        $por_pagina = 12;
+        $buscar         = isset($_GET['buscar'])         ? trim($_GET['buscar'])         : '';
+        $pagina         = isset($_GET['pagina'])         ? max(1, (int)$_GET['pagina'])  : 1;
+        $por_pagina     = 12;
 
         if ($_POST) {
-            $area = isset($_POST['area']) ? trim($_POST['area']) : '';
-            $costoMax = isset($_POST['costoMax']) ? trim($_POST['costoMax']) : '';
+            $area           = isset($_POST['area'])           ? trim($_POST['area'])           : '';
+            $costoMax       = isset($_POST['costoMax'])       ? trim($_POST['costoMax'])       : '';
             $id_universidad = isset($_POST['id_universidad']) ? trim($_POST['id_universidad']) : '';
-            $pagina = 1;
+            $buscar         = isset($_POST['buscar'])         ? trim($_POST['buscar'])         : '';
+            $pagina         = 1;
         }
 
-        $total_registros = ProgramasAcademicos::contarFiltrados($area, $costoMax, $id_universidad);
-        $total_paginas = max(1, ceil($total_registros / $por_pagina));
-        $programas = ProgramasAcademicos::filtrar($area, $costoMax, $id_universidad, $pagina, $por_pagina);
-        $areas = ProgramasAcademicos::obtenerAreas();
-        $universidades = Universidad::listar();
+        $total_registros = ProgramasAcademicos::contarFiltrados($area, $costoMax, $id_universidad, $buscar);
+        $total_paginas   = max(1, ceil($total_registros / $por_pagina));
+        $programas       = ProgramasAcademicos::filtrar($area, $costoMax, $id_universidad, $pagina, $por_pagina, $buscar);
+        $areas           = ProgramasAcademicos::obtenerAreas();
+        $universidades   = Universidad::listar();
 
         include_once "vistas/programas/inicio.php";
     }

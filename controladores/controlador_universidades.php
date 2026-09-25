@@ -4,21 +4,23 @@ include_once "modelos/resenia.php";
 
 class ControladorUniversidades {
     public function inicio() {
-        $ciudad = isset($_GET['ciudad']) ? trim($_GET['ciudad']) : '';
-        $tipo = isset($_GET['tipo']) ? trim($_GET['tipo']) : '';
-        $pagina = isset($_GET['pagina']) ? max(1, (int)$_GET['pagina']) : 1;
+        $ciudad  = isset($_GET['ciudad'])  ? trim($_GET['ciudad'])  : '';
+        $tipo    = isset($_GET['tipo'])    ? trim($_GET['tipo'])    : '';
+        $buscar  = isset($_GET['buscar'])  ? trim($_GET['buscar'])  : '';
+        $pagina  = isset($_GET['pagina'])  ? max(1, (int)$_GET['pagina']) : 1;
         $por_pagina = 8;
 
         if ($_POST) {
-            $ciudad = isset($_POST['ciudad']) ? trim($_POST['ciudad']) : '';
-            $tipo = isset($_POST['tipo']) ? trim($_POST['tipo']) : '';
-            $pagina = 1;
+            $ciudad  = isset($_POST['ciudad'])  ? trim($_POST['ciudad'])  : '';
+            $tipo    = isset($_POST['tipo'])    ? trim($_POST['tipo'])    : '';
+            $buscar  = isset($_POST['buscar'])  ? trim($_POST['buscar'])  : '';
+            $pagina  = 1;
         }
 
-        $total_registros = Universidad::contarFiltrados($ciudad, $tipo);
-        $total_paginas = max(1, ceil($total_registros / $por_pagina));
-        $universidades = Universidad::filtrar($ciudad, $tipo, $pagina, $por_pagina);
-        $ciudades = Universidad::obtenerCiudades();
+        $total_registros = Universidad::contarFiltrados($ciudad, $tipo, $buscar);
+        $total_paginas   = max(1, ceil($total_registros / $por_pagina));
+        $universidades   = Universidad::filtrar($ciudad, $tipo, $pagina, $por_pagina, $buscar);
+        $ciudades        = Universidad::obtenerCiudades();
 
         include_once "vistas/universidades/inicio.php";
     }
