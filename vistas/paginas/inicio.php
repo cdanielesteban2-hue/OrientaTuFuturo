@@ -1,7 +1,7 @@
 <?php $url_base = constant('URL_BASE'); ?>
 
 <!-- Hero Section Principal (Colores: Negro, Azul, Amarillo, Blanco) -->
-<section class="relative bg-[#020617] text-white border-b border-slate-800/80 overflow-hidden">
+<section class="hero-theme-section relative text-white border-b border-slate-800/80 overflow-hidden">
     <!-- Fondo con gradiente sutil y cuadrícula arquitectónica limpia -->
     <div class="absolute inset-0 opacity-15 pointer-events-none" style="background-image: linear-gradient(to right, rgba(255,255,255,0.07) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.07) 1px, transparent 1px); background-size: 40px 40px;"></div>
     <div class="absolute -top-32 -left-32 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>

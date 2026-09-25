@@ -1,31 +1,48 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
+/* ══════════════════════════════════════════════════════════
+   MODO CLARO — Blanco limpio + Azul marino institucional
+   ══════════════════════════════════════════════════════════ */
 :root {
-    --bg-main: #f8fafc;
-    --bg-card: #ffffff;
-    --bg-navbar: rgba(255, 255, 255, 0.85);
-    --text-primary: #0f172a;
-    --text-secondary: #475569;
-    --primary: #2563eb;
-    --primary-light: #eff6ff;
-    --primary-hover: #1d4ed8;
-    --accent: #eab308;
-    --accent-light: #fefce8;
-    --success: #10b981;
-    --warning: #f59e0b;
-    --danger: #ef4444;
-    --border-color: #e2e8f0;
-    --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    /* Fondos */
+    --bg-main:   #f2f6fd;           /* Blanco con toque azul muy suave */
+    --bg-card:   #ffffff;           /* Blanco puro para tarjetas */
+    --bg-navbar: rgba(255, 255, 255, 0.96);
+    --bg-section: #e8f0fa;          /* Secciones alternas ligeramente azuladas */
+
+    /* Texto */
+    --text-primary:   #0d1e3d;      /* Azul marino muy oscuro (casi negro) */
+    --text-secondary: #3a5a8c;      /* Azul medio, cálido y legible */
+
+    /* Colores de marca */
+    --primary:        #1a4fba;      /* Azul institucional profundo */
+    --primary-light:  #ddeaff;      /* Azul pastel para fondos de badge */
+    --primary-hover:  #0f3a9e;
+    --accent:         #eab308;      /* Amarillo dorado */
+    --accent-light:   #fef9c3;
+    --success: #059669;
+    --warning: #d97706;
+    --danger:  #dc2626;
+
+    /* Bordes */
+    --border-color: #bdd0ee;        /* Azul claro, diferenciado del fondo */
+
+    /* Tipografía */
+    --font-sans:    'Plus Jakarta Sans', -apple-system, sans-serif;
     --font-heading: 'Outfit', sans-serif;
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    --shadow-premium: 0 20px 25px -5px rgb(79 70 229 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.05);
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 20px;
+
+    /* Sombras (con tinte azul para que se vea natural, no gris) */
+    --shadow-sm:      0 1px 3px rgba(26, 79, 186, 0.08);
+    --shadow-md:      0 4px 12px rgba(26, 79, 186, 0.10), 0 1px 4px rgba(0,0,0,0.04);
+    --shadow-lg:      0 10px 30px rgba(26, 79, 186, 0.12), 0 4px 10px rgba(0,0,0,0.06);
+    --shadow-premium: 0 20px 40px rgba(26, 79, 186, 0.14), 0 8px 16px rgba(0,0,0,0.05);
+
+    /* Radio y transición */
+    --radius-sm:   8px;
+    --radius-md:   14px;
+    --radius-lg:   22px;
     --radius-full: 9999px;
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition:  all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Base resets */
@@ -41,6 +58,7 @@ body {
     font-family: var(--font-sans);
     line-height: 1.6;
     overflow-x: hidden;
+    transition: background-color 0.4s ease, color 0.3s ease;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -865,19 +883,39 @@ a:hover {
 /* ==========================================================================
    Modo Oscuro Personalizado (Premium Dark Mode)
    ========================================================================== */
+/* ══════════════════════════════════════════════════════════
+   MODO OSCURO — Azul medianoche profundo + Negro
+   Estética académica premium, sin ser robótico
+   ══════════════════════════════════════════════════════════ */
 [data-theme="dark"] {
-    --bg-main: #0b0f19;
-    --bg-card: #151f32;
-    --bg-navbar: rgba(11, 15, 25, 0.85);
-    --text-primary: #f8fafc;
-    --text-secondary: #94a3b8;
-    --border-color: #1e293b;
-    --primary-light: #1e1b4b;
-    --accent-light: #083344;
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.4);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.5);
-    --shadow-premium: 0 20px 25px -5px rgb(0 0 0 / 0.6), 0 8px 10px -6px rgb(0 0 0 / 0.4);
+    /* Fondos — capas de profundidad azul-negro */
+    --bg-main:    #060d1a;          /* Negro con alma azul profunda */
+    --bg-card:    #0d1a2f;          /* Azul noche para tarjetas */
+    --bg-navbar:  rgba(6, 13, 26, 0.94);
+    --bg-section: #071224;          /* Secciones un tono más oscuro */
+
+    /* Texto */
+    --text-primary:   #e4eeff;      /* Blanco cálido azulado */
+    --text-secondary: #7da6cc;      /* Azul acero medio */
+
+    /* Colores de marca */
+    --primary:        #4a90e2;      /* Azul brillante en oscuro */
+    --primary-light:  #0e2040;      /* Azul muy oscuro para fondos de badge */
+    --primary-hover:  #3a7bd5;
+    --accent:         #facc15;      /* Amarillo dorado vibrante */
+    --accent-light:   #1a1500;
+    --success: #34d399;
+    --warning: #fbbf24;
+    --danger:  #f87171;
+
+    /* Bordes — líneas sutiles azul oscuro */
+    --border-color: #162440;
+
+    /* Sombras profundas */
+    --shadow-sm:      0 1px 3px rgba(0, 0, 0, 0.5);
+    --shadow-md:      0 4px 12px rgba(0, 0, 0, 0.4), 0 1px 4px rgba(0, 10, 30, 0.6);
+    --shadow-lg:      0 10px 30px rgba(0, 0, 0, 0.5), 0 4px 10px rgba(0, 10, 30, 0.5);
+    --shadow-premium: 0 20px 40px rgba(0, 0, 0, 0.65), 0 8px 16px rgba(4, 74, 186, 0.08);
 }
 
 /* Estilos de la tarjeta hero e ilustraciones en modo oscuro */
@@ -1445,65 +1483,184 @@ a:hover {
 }
 
 /* ==========================================================================
-   Correcciones Modo Claro — elementos oscuros en inicio.php
+   SISTEMA DE TEMAS — Hero + Overrides académicos por modo
    ========================================================================== */
 
-/* Tarjeta del simulador vocacional — fondo oscuro por diseño (siempre oscuro) */
-/* El hero principal es siempre oscuro por paleta de marca, no es un bug */
+/* ── Hero Section — responde al tema ─────────────────────────────────────── */
 
-/* Botón "Ver Universidades" en hero: en modo claro usa slate-800 que es oscuro, 
-   lo corregimos para que use un fondo claro con borde */
+/* MODO OSCURO — Azul medianoche profundo */
+[data-theme="dark"] .hero-theme-section {
+    background: linear-gradient(160deg, #060d1a 0%, #0a1628 60%, #06112b 100%);
+    color: #e4eeff;
+    border-bottom-color: #162440;
+}
+
+/* MODO CLARO — Blanco + Azul marino profundo */
+[data-theme="light"] .hero-theme-section {
+    background: linear-gradient(160deg, #0d1e3d 0%, #1a3a6e 55%, #0f2a5c 100%);
+    color: #ffffff;
+    border-bottom-color: #1a3a6e;
+}
+
+/* Texto del hero — en modo claro el párrafo era slate-300, se mantiene legible */
+[data-theme="light"] .hero-theme-section p {
+    color: #c8d8f0;
+}
+
+[data-theme="light"] .hero-theme-section .text-slate-400 {
+    color: #8aa8cc !important;
+}
+
+/* Botón secundario "Ver Universidades" en modo claro */
 [data-theme="light"] .hero-light-btn {
-    background-color: #f1f5f9 !important;
-    color: #0f172a !important;
-    border-color: #cbd5e1 !important;
+    background-color: rgba(255,255,255,0.08) !important;
+    color: #ffffff !important;
+    border-color: rgba(255,255,255,0.25) !important;
 }
 [data-theme="light"] .hero-light-btn:hover {
-    background-color: #e2e8f0 !important;
-    border-color: #94a3b8 !important;
+    background-color: rgba(255,255,255,0.16) !important;
+    border-color: rgba(255,255,255,0.5) !important;
 }
 
-/* Corregir chips de carrera en el simulador (bg-slate-800 en modo claro) */
+/* ── Navbar — ajuste de contraste por tema ──────────────────────────────── */
+[data-theme="light"] .navbar {
+    background-color: rgba(255, 255, 255, 0.97);
+    border-bottom: 1px solid #bdd0ee;
+    box-shadow: 0 1px 8px rgba(26, 79, 186, 0.07);
+}
+
+[data-theme="dark"] .navbar {
+    background-color: rgba(6, 13, 26, 0.96);
+    border-bottom: 1px solid #162440;
+}
+
+/* ── Modo Claro — elementos generales ───────────────────────────────────── */
+[data-theme="light"] body {
+    background-color: #f2f6fd;
+}
+
+[data-theme="light"] .card,
+[data-theme="light"] .card-premium,
+[data-theme="light"] .filter-sidebar,
+[data-theme="light"] .chart-container,
+[data-theme="light"] .question-card,
+[data-theme="light"] .auth-card,
+[data-theme="light"] .map-card-container {
+    background: #ffffff;
+    border-color: #c8d8f0;
+    box-shadow: 0 2px 8px rgba(26,79,186,0.06), 0 1px 3px rgba(0,0,0,0.03);
+}
+
+[data-theme="light"] .dropdown-menu {
+    background-color: #ffffff;
+    border-color: #c8d8f0;
+    box-shadow: 0 8px 24px rgba(26,79,186,0.12);
+}
+
+[data-theme="light"] .form-input {
+    background-color: #f2f6fd;
+    color: #0d1e3d;
+    border-color: #bdd0ee;
+}
+
+[data-theme="light"] .form-input:focus {
+    background-color: #ffffff;
+    border-color: #1a4fba;
+    box-shadow: 0 0 0 3px rgba(26,79,186,0.14);
+}
+
+/* ── Modo Oscuro — elementos generales ──────────────────────────────────── */
+[data-theme="dark"] body {
+    background-color: #060d1a;
+}
+
+[data-theme="dark"] .card,
+[data-theme="dark"] .card-premium,
+[data-theme="dark"] .filter-sidebar,
+[data-theme="dark"] .chart-container,
+[data-theme="dark"] .question-card,
+[data-theme="dark"] .auth-card,
+[data-theme="dark"] .map-card-container {
+    background: #0d1a2f;
+    border-color: #162440;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+
+[data-theme="dark"] .dropdown-menu {
+    background-color: #0d1a2f;
+    border-color: #162440;
+    box-shadow: 0 10px 32px rgba(0,0,0,0.6);
+}
+
+[data-theme="dark"] select,
+[data-theme="dark"] textarea {
+    background-color: var(--bg-main) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .form-input {
+    background-color: #060d1a;
+    color: #e4eeff;
+    border-color: #162440;
+}
+
+/* ── Simulador vocacional ─────────────────────────────────────────────── */
 [data-theme="light"] #areaCareers span {
-    background-color: #f1f5f9 !important;
-    color: #1e293b !important;
-    border: 1px solid #e2e8f0;
+    background-color: #ddeaff !important;
+    color: #0d1e3d !important;
+    border: 1px solid #bdd0ee;
 }
 
-/* Corrección del contenido del simulador en modo claro */
 [data-theme="light"] #areaContent {
-    background-color: #f8fafc !important;
-    border-color: #e2e8f0 !important;
+    background-color: #f2f6fd !important;
+    border-color: #bdd0ee !important;
 }
+
 [data-theme="light"] #areaDescription,
 [data-theme="light"] #areaUnis {
-    color: #334155 !important;
+    color: #1a3a6e !important;
 }
 
-/* El botón "Explorar catálogo" del simulador en modo claro */
-[data-theme="light"] #areaContent + a,
 [data-theme="light"] .simulator-catalog-btn {
-    background-color: #f1f5f9 !important;
-    color: #1e293b !important;
-    border-color: #e2e8f0 !important;
+    background-color: #ddeaff !important;
+    color: #0d1e3d !important;
+    border-color: #bdd0ee !important;
 }
 
-/* main-content: quitar padding extra en páginas full-width como inicio */
-.main-content {
-    padding: 0;
+/* ── Secciones alternas de inicio.php ───────────────────────────────────── */
+[data-theme="light"] .timeline-section,
+[data-theme="light"] .bento-section,
+[data-theme="light"] .features-section {
+    background-color: #f2f6fd;
 }
 
-/* Las secciones de inicio.php manejan su propio padding */
-
-/* Formulario de búsqueda (input en modo oscuro) */
-[data-theme="dark"] .form-input {
-    background-color: var(--bg-main);
-    color: var(--text-primary);
-    border-color: var(--border-color);
+[data-theme="light"] .section-header-dark h2,
+[data-theme="light"] .step-content h3 {
+    color: #0d1e3d;
 }
 
-/* Asegurar que el texto en tarjetas de becas y universidades en inicio.php 
-   se vea correctamente en modo claro — las clases dark: de Tailwind lo gestionan */
+[data-theme="light"] .section-header-dark p,
+[data-theme="light"] .step-content p {
+    color: #3a5a8c;
+}
+
+[data-theme="light"] .timeline-connector {
+    background: #bdd0ee;
+}
+
+/* CTA section en modo claro — mantiene su fondo oscuro de marca */
+[data-theme="light"] .cta-immersive {
+    background: linear-gradient(160deg, #0d1e3d 0%, #1a4fba 100%);
+}
+
+/* ── Hero premium — sección de inicio.php (bento section) ────────────────── */
+[data-theme="light"] .hero-premium {
+    background: linear-gradient(160deg, #0d1e3d 0%, #1a3a6e 60%, #0f2a5c 100%);
+}
+
+/* main-content padding */
+.main-content { padding: 0; }
 
 /* ==========================================================================
    SISTEMA DE GLOW INTERACTIVO — Mouse spotlight, card glow, ripple, partículas
@@ -1876,33 +2033,6 @@ a:hover {
     display: inline-block;
 }
 
-/* ── Modo claro: modo claro light más profundo ──────────────────────────── */
-:root {
-    --bg-main: #f0f4f9;
-    --bg-card: #ffffff;
-    --border-color: #d1dde8;
-}
-
-/* ── Modo claro mejorado: cards con fondo diferenciado ─────────────────── */
-[data-theme="light"] .card,
-[data-theme="light"] .card-premium,
-[data-theme="light"] .filter-sidebar,
-[data-theme="light"] .chart-container,
-[data-theme="light"] .question-card,
-[data-theme="light"] .auth-card {
-    background: #ffffff;
-    border-color: #d4dde8;
-    box-shadow: 0 1px 3px rgba(37,99,235,0.06), 0 4px 12px rgba(0,0,0,0.04);
-}
-
-[data-theme="light"] body {
-    background-color: #eef2f8;
-}
-
-[data-theme="light"] .directory-layout,
-[data-theme="light"] .features-section {
-    background-color: #eef2f8;
-}
 
 /* ── Highlight de sección activa ────────────────────────────────────────── */
 .navbar-item a.active {
@@ -1913,6 +2043,14 @@ a:hover {
 .navbar-item a.active::after {
     width: 100%;
     background: linear-gradient(90deg, var(--primary), #facc15);
+}
+
+/* ── Directory layout fondo ─────────────────────────────────────────────── */
+[data-theme="light"] .directory-layout {
+    background-color: #f2f6fd;
+}
+[data-theme="dark"] .directory-layout {
+    background-color: #060d1a;
 }
 
 /* ========================================================================== */
