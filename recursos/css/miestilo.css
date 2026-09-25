@@ -1505,4 +1505,414 @@ a:hover {
 /* Asegurar que el texto en tarjetas de becas y universidades en inicio.php 
    se vea correctamente en modo claro — las clases dark: de Tailwind lo gestionan */
 
+/* ==========================================================================
+   SISTEMA DE GLOW INTERACTIVO — Mouse spotlight, card glow, ripple, partículas
+   Paleta: Azul #2563eb | Amarillo #facc15 | Blanco #ffffff | Negro #0f172a
+   ========================================================================== */
+
+/* ── Cursor Spotlight ────────────────────────────────────────────────────── */
+#mouse-spotlight {
+    position: fixed;
+    top: 0; left: 0;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(37, 99, 235, 0.07) 0%,
+        rgba(250, 204, 21, 0.04) 40%,
+        transparent 70%
+    );
+    pointer-events: none;
+    z-index: 9999;
+    will-change: transform;
+    transition: opacity 0.3s ease;
+}
+
+[data-theme="dark"] #mouse-spotlight {
+    background: radial-gradient(
+        circle,
+        rgba(37, 99, 235, 0.12) 0%,
+        rgba(250, 204, 21, 0.06) 40%,
+        transparent 70%
+    );
+}
+
+/* ── Partículas flotantes de fondo ──────────────────────────────────────── */
+#bg-particles {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.bg-particle {
+    position: absolute;
+    border-radius: 50%;
+    animation: particleFloat linear infinite;
+    filter: blur(1px);
+}
+
+@keyframes particleFloat {
+    0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity: inherit; }
+    33%  { transform: translateY(-40px) translateX(20px) rotate(120deg); }
+    66%  { transform: translateY(-20px) translateX(-15px) rotate(240deg); }
+    100% { transform: translateY(0) translateX(0) rotate(360deg); opacity: inherit; }
+}
+
+/* ── Card Glow reactivo al mouse ────────────────────────────────────────── */
+.card,
+.card-premium,
+.bento-card,
+.list-item-fav,
+.question-card,
+.auth-card,
+.feature-card,
+.map-card-container,
+.filter-sidebar,
+.chart-container {
+    position: relative;
+    overflow: hidden;
+    --glow-x: 50%;
+    --glow-y: 50%;
+    --glow-opacity: 0;
+    transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1),
+                box-shadow 0.35s cubic-bezier(0.23, 1, 0.32, 1),
+                border-color 0.35s ease;
+}
+
+.card::before,
+.card-premium::before,
+.bento-card::before,
+.list-item-fav::before,
+.question-card::before,
+.auth-card::before,
+.feature-card::before,
+.map-card-container::before,
+.filter-sidebar::before,
+.chart-container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(
+        circle 160px at var(--glow-x) var(--glow-y),
+        rgba(37, 99, 235, 0.13) 0%,
+        rgba(250, 204, 21, 0.06) 50%,
+        transparent 70%
+    );
+    opacity: var(--glow-opacity);
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 0;
+    border-radius: inherit;
+}
+
+.card:hover,
+.card-premium:hover,
+.list-item-fav:hover,
+.feature-card:hover {
+    border-color: rgba(37, 99, 235, 0.35) !important;
+    box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.12),
+                0 12px 32px rgba(37, 99, 235, 0.12),
+                0 2px 8px rgba(0,0,0,0.08);
+}
+
+[data-theme="dark"] .card:hover,
+[data-theme="dark"] .card-premium:hover,
+[data-theme="dark"] .list-item-fav:hover,
+[data-theme="dark"] .feature-card:hover {
+    border-color: rgba(250, 204, 21, 0.25) !important;
+    box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.1),
+                0 12px 32px rgba(37, 99, 235, 0.18),
+                0 2px 8px rgba(0,0,0,0.4);
+}
+
+/* ── Ripple en botones ──────────────────────────────────────────────────── */
+.btn,
+[class*="btn-"] {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle at var(--btn-gx, 50%) var(--btn-gy, 50%),
+        rgba(255,255,255,0.15) 0%,
+        transparent 65%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.btn:hover::after {
+    opacity: 1;
+}
+
+.btn-ripple {
+    position: absolute;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    transform: translate(-50%, -50%) scale(0);
+    animation: rippleAnim 0.6s linear forwards;
+    pointer-events: none;
+}
+
+@keyframes rippleAnim {
+    to {
+        transform: translate(-50%, -50%) scale(40);
+        opacity: 0;
+    }
+}
+
+/* ── Navbar al hacer scroll ─────────────────────────────────────────────── */
+.navbar-scrolled {
+    box-shadow: 0 4px 24px rgba(37, 99, 235, 0.10),
+                0 1px 3px rgba(0,0,0,0.05) !important;
+    border-bottom-color: rgba(37, 99, 235, 0.18) !important;
+}
+
+[data-theme="dark"] .navbar-scrolled {
+    box-shadow: 0 4px 24px rgba(250, 204, 21, 0.08),
+                0 1px 3px rgba(0,0,0,0.3) !important;
+    border-bottom-color: rgba(250, 204, 21, 0.12) !important;
+}
+
+/* ── Hover glow en links del navbar ─────────────────────────────────────── */
+.navbar-item a {
+    transition: color 0.25s ease, text-shadow 0.25s ease;
+}
+
+.navbar-item a:hover {
+    text-shadow: 0 0 12px rgba(37, 99, 235, 0.4);
+}
+
+[data-theme="dark"] .navbar-item a:hover {
+    text-shadow: 0 0 14px rgba(250, 204, 21, 0.5);
+    color: #facc15 !important;
+}
+
+/* ── Hover en las opciones del dropdown ─────────────────────────────────── */
+.dropdown-menu li a:hover {
+    background: linear-gradient(90deg, rgba(37,99,235,0.08) 0%, transparent 100%);
+    padding-left: 26px;
+    color: var(--primary) !important;
+}
+
+/* ── Botones — hover glow reforzado ─────────────────────────────────────── */
+.btn-primary:hover {
+    box-shadow: 0 0 0 4px rgba(37,99,235,0.18),
+                0 8px 24px rgba(37,99,235,0.35);
+}
+
+.btn-gold:hover {
+    box-shadow: 0 0 0 4px rgba(250,204,21,0.18),
+                0 8px 24px rgba(250,204,21,0.4);
+}
+
+.btn-outline-light:hover {
+    box-shadow: 0 0 0 4px rgba(255,255,255,0.08),
+                0 8px 20px rgba(255,255,255,0.1);
+}
+
+/* ── Feature icons — hover pulse ───────────────────────────────────────── */
+.feature-icon {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.feature-card:hover .feature-icon {
+    transform: scale(1.15) rotate(-5deg);
+    box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+    background-color: var(--primary) !important;
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .feature-card:hover .feature-icon {
+    box-shadow: 0 0 20px rgba(250, 204, 21, 0.35);
+    background-color: rgba(250, 204, 21, 0.15) !important;
+    color: #facc15 !important;
+}
+
+/* ── Inputs — focus glow ────────────────────────────────────────────────── */
+.form-input:focus {
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.18),
+                0 0 20px rgba(37,99,235,0.08);
+    border-color: var(--primary) !important;
+}
+
+/* ── Badge — hover shimmer ──────────────────────────────────────────────── */
+.badge {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.badge:hover {
+    transform: scale(1.06);
+    box-shadow: 0 2px 10px rgba(37,99,235,0.2);
+}
+
+.badge-accent:hover {
+    box-shadow: 0 2px 10px rgba(250,204,21,0.3);
+}
+
+/* ── Bento cards — glow de borde al hover ───────────────────────────────── */
+.bento-card:hover {
+    box-shadow: 0 0 30px rgba(37,99,235,0.18),
+                0 20px 40px rgba(0,0,0,0.15);
+}
+
+/* ── Timeline steps — glow al hover ────────────────────────────────────── */
+.timeline-step:hover .step-number {
+    box-shadow: 0 0 25px rgba(37,99,235,0.4);
+    transform: scale(1.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.step-number {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ── Hero premium — animación del badge ─────────────────────────────────── */
+.badge-gold-glow {
+    animation: badgePulse 3s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+    0%, 100% { box-shadow: 0 0 8px rgba(250,204,21,0.2); }
+    50%       { box-shadow: 0 0 20px rgba(250,204,21,0.5); }
+}
+
+/* ── Efecto shimmer en título hero ──────────────────────────────────────── */
+.title-gold {
+    position: relative;
+}
+
+.title-gold span {
+    background: linear-gradient(
+        135deg,
+        #facc15 0%,
+        #fde047 25%,
+        #ca8a04 50%,
+        #fde047 75%,
+        #facc15 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmerGold 4s linear infinite;
+}
+
+@keyframes shimmerGold {
+    0%   { background-position: 0% center; }
+    100% { background-position: 200% center; }
+}
+
+/* ── Hover en cards de resultados del test ──────────────────────────────── */
+.option-item:hover {
+    background: linear-gradient(90deg, rgba(37,99,235,0.06) 0%, transparent 100%);
+    border-color: var(--primary);
+    transform: translateX(4px);
+}
+
+/* ── Dashboard welcome — efecto sheen ──────────────────────────────────── */
+.dashboard-welcome {
+    position: relative;
+    overflow: hidden;
+}
+
+.dashboard-welcome::after {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: linear-gradient(
+        115deg,
+        transparent 45%,
+        rgba(255,255,255,0.06) 50%,
+        transparent 55%
+    );
+    animation: sheenSlide 6s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes sheenSlide {
+    0%   { transform: translateX(-100%); }
+    50%  { transform: translateX(100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* ── Navbar logo — glow hover ───────────────────────────────────────────── */
+.navbar-brand:hover .navbar-logo-img {
+    filter: drop-shadow(0 0 12px rgba(37,99,235,0.4));
+    transform: scale(1.06);
+}
+
+[data-theme="dark"] .navbar-brand:hover .navbar-logo-img {
+    filter: drop-shadow(0 0 12px rgba(250,204,21,0.5));
+}
+
+/* ── Selector de tema — glow ────────────────────────────────────────────── */
+.theme-toggle-btn:hover {
+    background-color: rgba(37,99,235,0.1) !important;
+    box-shadow: 0 0 14px rgba(37,99,235,0.25);
+}
+
+[data-theme="dark"] .theme-toggle-btn:hover {
+    background-color: rgba(250,204,21,0.1) !important;
+    box-shadow: 0 0 14px rgba(250,204,21,0.3);
+}
+
+/* ── Footer socials — glow ──────────────────────────────────────────────── */
+.footer-socials a:hover {
+    color: #facc15;
+    text-shadow: 0 0 12px rgba(250,204,21,0.6);
+    transform: scale(1.2);
+    display: inline-block;
+}
+
+/* ── Modo claro: modo claro light más profundo ──────────────────────────── */
+:root {
+    --bg-main: #f0f4f9;
+    --bg-card: #ffffff;
+    --border-color: #d1dde8;
+}
+
+/* ── Modo claro mejorado: cards con fondo diferenciado ─────────────────── */
+[data-theme="light"] .card,
+[data-theme="light"] .card-premium,
+[data-theme="light"] .filter-sidebar,
+[data-theme="light"] .chart-container,
+[data-theme="light"] .question-card,
+[data-theme="light"] .auth-card {
+    background: #ffffff;
+    border-color: #d4dde8;
+    box-shadow: 0 1px 3px rgba(37,99,235,0.06), 0 4px 12px rgba(0,0,0,0.04);
+}
+
+[data-theme="light"] body {
+    background-color: #eef2f8;
+}
+
+[data-theme="light"] .directory-layout,
+[data-theme="light"] .features-section {
+    background-color: #eef2f8;
+}
+
+/* ── Highlight de sección activa ────────────────────────────────────────── */
+.navbar-item a.active {
+    color: var(--primary) !important;
+    font-weight: 700;
+}
+
+.navbar-item a.active::after {
+    width: 100%;
+    background: linear-gradient(90deg, var(--primary), #facc15);
+}
+
 /* ========================================================================== */

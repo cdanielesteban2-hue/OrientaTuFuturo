@@ -120,5 +120,7 @@
             easing: 'ease-out-cubic',
         });
     </script>
+    <!-- Mouse Glow & Interactivity Effects -->
+    <script src="<?php echo constant('URL_BASE'); ?>recursos/js/mouse-glow.js"></script>
 </body>
 </html>
