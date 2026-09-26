@@ -78,19 +78,25 @@
                     </div>
                 </div>
 
-                <!-- Pestañas de Áreas -->
-                <div class="grid grid-cols-2 gap-2 mb-6" id="areaTabs">
-                    <button type="button" class="area-tab-btn active px-3 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition duration-150 bg-blue-600 text-white" onclick="selectArea('tech')">
-                        <i class="fa-solid fa-code"></i> Tecnología
+                <!-- Pestañas de las 6 Áreas RIASEC (Filadd + Holland) -->
+                <div class="grid grid-cols-3 gap-1.5 mb-6" id="areaTabs">
+                    <button type="button" class="area-tab-btn active px-2 py-2 rounded-xl text-xs font-bold flex flex-col items-center justify-center gap-1 transition duration-150 bg-blue-600 text-white" onclick="selectArea('tech')">
+                        <i class="fa-solid fa-screwdriver-wrench"></i> <span>Técnica (R)</span>
                     </button>
-                    <button type="button" class="area-tab-btn px-3 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition duration-150 bg-slate-800/80 text-slate-300 hover:bg-slate-800" onclick="selectArea('salud')">
-                        <i class="fa-solid fa-heart-pulse"></i> Salud
+                    <button type="button" class="area-tab-btn px-2 py-2 rounded-xl text-xs font-bold flex flex-col items-center justify-center gap-1 transition duration-150 bg-slate-800/80 text-slate-300 hover:bg-slate-800" onclick="selectArea('salud')">
+                        <i class="fa-solid fa-microscope"></i> <span>Científica (I)</span>
                     </button>
-                    <button type="button" class="area-tab-btn px-3 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition duration-150 bg-slate-800/80 text-slate-300 hover:bg-slate-800" onclick="selectArea('negocios')">
-                        <i class="fa-solid fa-chart-line"></i> Negocios
+                    <button type="button" class="area-tab-btn px-2 py-2 rounded-xl text-xs font-bold flex flex-col items-center justify-center gap-1 transition duration-150 bg-slate-800/80 text-slate-300 hover:bg-slate-800" onclick="selectArea('diseno')">
+                        <i class="fa-solid fa-palette"></i> <span>Artística (A)</span>
                     </button>
-                    <button type="button" class="area-tab-btn px-3 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition duration-150 bg-slate-800/80 text-slate-300 hover:bg-slate-800" onclick="selectArea('diseno')">
-                        <i class="fa-solid fa-pen-nib"></i> Diseño y Arte
+                    <button type="button" class="area-tab-btn px-2 py-2 rounded-xl text-xs font-bold flex flex-col items-center justify-center gap-1 transition duration-150 bg-slate-800/80 text-slate-300 hover:bg-slate-800" onclick="selectArea('social')">
+                        <i class="fa-solid fa-hand-holding-heart"></i> <span>Social (S)</span>
+                    </button>
+                    <button type="button" class="area-tab-btn px-2 py-2 rounded-xl text-xs font-bold flex flex-col items-center justify-center gap-1 transition duration-150 bg-slate-800/80 text-slate-300 hover:bg-slate-800" onclick="selectArea('negocios')">
+                        <i class="fa-solid fa-chart-line"></i> <span>Negocios (E)</span>
+                    </button>
+                    <button type="button" class="area-tab-btn px-2 py-2 rounded-xl text-xs font-bold flex flex-col items-center justify-center gap-1 transition duration-150 bg-slate-800/80 text-slate-300 hover:bg-slate-800" onclick="selectArea('admin')">
+                        <i class="fa-solid fa-clipboard-check"></i> <span>Gestión (C)</span>
                     </button>
                 </div>
 
@@ -561,32 +567,46 @@
 <script>
     const areaData = {
         tech: {
-            category: "Ingeniería & Software",
-            demand: "Alta Demanda Laboral",
-            description: "Pensamiento analítico, resolución estructurada de problemas y pasión por la innovación tecnológica.",
-            careers: ["Ingeniería de Sistemas", "Ciencia de Datos", "Ciberseguridad", "Inteligencia Artificial"],
-            unis: "U. Nacional, UniAndes, EAFIT"
+            category: "Técnica-Práctica (Realista)",
+            demand: "Alta Demanda (92% Empleabilidad)",
+            description: "Pensamiento lógico-espacial, desarrollo de software, automatización robótica y pasión por la tecnología tangible.",
+            careers: ["Ingeniería de Sistemas", "Ingeniería Mecatrónica", "Ingeniería Civil", "Tecnología en Software"],
+            unis: "UDES, UdeM, U. Nacional, UniAndes, EAFIT, ITM"
         },
         salud: {
-            category: "Ciencias Biomédicas y Cuidado",
-            demand: "Vocación Asistencial y Científica",
-            description: "Empatía humana, alta resiliencia, interés por la biología y dedicación al bienestar de las personas.",
-            careers: ["Medicina", "Enfermería", "Fisioterapia", "Odontología"],
-            unis: "U. de Antioquia, Javeriana, U. del Valle"
-        },
-        negocios: {
-            category: "Gestión, Economía y Leyes",
-            demand: "Liderazgo y Estrategia",
-            description: "Capacidad de negociación, visión financiera, pensamiento crítico y liderazgo organizacional.",
-            careers: ["Administración de Empresas", "Derecho", "Finanzas", "Negocios Internacionales"],
-            unis: "UniAndes, EAFIT, Externado, U. de Medellín"
+            category: "Científica-Investigativa (Investigador)",
+            demand: "Alta Demanda (91% Empleabilidad)",
+            description: "Rigor científico, investigación biomédica, curiosidad por los fenómenos naturales y método analítico.",
+            careers: ["Medicina Humana", "Bioingeniería", "Química Farmacéutica", "Nutrición y Dietética"],
+            unis: "UDES, U. de Antioquia, Javeriana, UniAndes"
         },
         diseno: {
-            category: "Creatividad, Comunicación y Hábitat",
-            demand: "Expresión y Funcionalidad",
-            description: "Sensibilidad espacial y estética, comunicación visual, pensamiento divergente e innovación en medios.",
-            careers: ["Arquitectura", "Diseño Gráfico", "Diseño Industrial", "Comunicación Social"],
-            unis: "Javeriana, Nacional, UPB, Jorge Tadeo Lozano"
+            category: "Artística-Creativa (Artístico)",
+            demand: "Sector Creativo (83% Empleabilidad)",
+            description: "Sensibilidad espacial y estética, comunicación visual, pensamiento divergente e innovación conceptual.",
+            careers: ["Arquitectura y Urbanismo", "Diseño Gráfico", "Cine y Medios Audiovisuales", "Diseño Industrial"],
+            unis: "UdeM, UDES, Javeriana, UPB, U. Nacional"
+        },
+        social: {
+            category: "Social-Humanitaria (Social)",
+            demand: "Vocación de Servicio (87% Empleabilidad)",
+            description: "Empatía profunda, escucha activa, vocación de servicio, salud comunitaria y mediación de conflictos.",
+            careers: ["Psicología", "Enfermería", "Comunicación Social", "Fisioterapia", "Trabajo Social"],
+            unis: "UDES, UdeM, Javeriana, UdeA, U. del Valle"
+        },
+        negocios: {
+            category: "Empresarial-Comercial (Emprendedor)",
+            demand: "Liderazgo y Estrategia (90% Empleabilidad)",
+            description: "Capacidad de negociación, persuasión, visión de nuevos negocios, liderazgo comercial y derecho.",
+            careers: ["Administración de Empresas", "Negocios Internacionales", "Derecho", "Economía"],
+            unis: "UdeM, UDES, EAFIT, UniAndes, CESA"
+        },
+        admin: {
+            category: "Administrativa-Organizacional (Convencional)",
+            demand: "Gestión y Control (89% Empleabilidad)",
+            description: "Atención meticulosa al detalle, gestión de datos, auditoría contable, logística y optimización de procesos.",
+            careers: ["Contaduría Pública", "Ingeniería Industrial", "Administración Pública", "Gestión de Datos"],
+            unis: "UDES, UdeM, U. Nacional, Javeriana, ITM"
         }
     };
 

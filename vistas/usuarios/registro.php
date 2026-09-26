@@ -51,7 +51,7 @@
                 </label>
             </div>
 
-            <button type="submit" class="btn btn-accent" style="width: 100%; padding: 12px;">
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; font-weight: 700; background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35); border: none; color: white;">
                 <i class="fa-solid fa-rocket"></i> Registrarme y Empezar
             </button>
         </form>

@@ -29,6 +29,8 @@ jobs:
             **/.git*/**
             **/.github*/**
             **/utilidades/*.sql
+            **/utilidades/scraper/**
+            **/frontend-next/**
             **/scratch*
             php_error.log
             README.md
