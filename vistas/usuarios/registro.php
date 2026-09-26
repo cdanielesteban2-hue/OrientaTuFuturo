@@ -28,7 +28,12 @@
 
             <div class="form-group">
                 <label class="form-label" for="password"><i class="fa-solid fa-lock"></i> Contraseña</label>
-                <input class="form-input" type="password" id="password" name="password" placeholder="Mínimo 6 caracteres" required>
+                <div style="position: relative; display: flex; align-items: center;">
+                    <input class="form-input" type="password" id="password" name="password" placeholder="Mínimo 6 caracteres" required style="width: 100%; padding-right: 44px;">
+                    <button type="button" onclick="togglePasswordVisibility('password', this)" style="position: absolute; right: 12px; background: none; border: none; cursor: pointer; color: var(--text-secondary); font-size: 1.05rem; padding: 6px; display: flex; align-items: center; justify-content: center; transition: var(--transition);" title="Mostrar u ocultar contraseña" aria-label="Mostrar u ocultar contraseña">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+                </div>
             </div>
 
             <div class="form-group" style="margin-bottom: 25px;">
@@ -61,3 +66,19 @@
         </div>
     </div>
 </div>
+
+<script>
+function togglePasswordVisibility(inputId, button) {
+    const input = document.getElementById(inputId);
+    const icon = button.querySelector('i');
+    if (!input || !icon) return;
+    
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.className = 'fa-solid fa-eye-slash';
+    } else {
+        input.type = 'password';
+        icon.className = 'fa-solid fa-eye';
+    }
+}
+</script>
