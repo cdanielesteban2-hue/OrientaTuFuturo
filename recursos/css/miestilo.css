@@ -2053,4 +2053,26 @@ a:hover {
     background-color: #060d1a;
 }
 
+/* ── Directorios — evitar que el filtro se superponga al footer ────────────── */
+/*
+ * El efecto glow redefine .filter-sidebar como position: relative después
+ * de la regla original. Dejamos el panel en el flujo del grid y alineado al
+ * inicio para que la altura del directorio siempre incluya todo su contenido.
+ */
+.directory-layout {
+    align-items: start;
+    min-height: max-content;
+}
+
+.filter-sidebar {
+    position: sticky;
+    align-self: start;
+}
+
+@media (max-width: 900px) {
+    .filter-sidebar {
+        position: static;
+    }
+}
+
 /* ========================================================================== */
