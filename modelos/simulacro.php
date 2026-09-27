@@ -18,7 +18,8 @@ class Simulacro {
 
     public static function obtenerPreguntas($id_simulacro) {
         $db = baseDatos::crearInstancia();
-        $sql = "SELECT * FROM simulacro_preguntas WHERE id_simulacro = ? ORDER BY id_pregunta ASC";
+        // ORDER BY RAND() para que cada intento sea diferente e interactivo
+        $sql = "SELECT * FROM simulacro_preguntas WHERE id_simulacro = ? ORDER BY RAND()";
         $consulta = $db->prepare($sql);
         $consulta->execute([$id_simulacro]);
         return $consulta->fetchAll();
@@ -34,7 +35,7 @@ class Simulacro {
 
     public static function guardarRespuesta($id_intento, $id_pregunta, $respuesta_usuario, $es_correcta) {
         $db = baseDatos::crearInstancia();
-        $sql = "INSERT INTO simulacro_respuestas (id_intento, id_pregunta, respuesta_usuario, es_correcta) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO simulacro_respuestas (id_intento, $id_pregunta, respuesta_usuario, es_correcta) VALUES (?, ?, ?, ?)";
         $consulta = $db->prepare($sql);
         $consulta->execute([$id_intento, $id_pregunta, $respuesta_usuario, $es_correcta]);
     }
@@ -93,13 +94,9 @@ class Simulacro {
 
     public static function eliminar($id) {
         $db = baseDatos::crearInstancia();
-        // Eliminar respuestas de intentos
         $db->prepare("DELETE r FROM simulacro_respuestas r JOIN simulacro_intentos i ON r.id_intento = i.id_intento WHERE i.id_simulacro = ?")->execute([$id]);
-        // Eliminar intentos
         $db->prepare("DELETE FROM simulacro_intentos WHERE id_simulacro = ?")->execute([$id]);
-        // Eliminar preguntas
         $db->prepare("DELETE FROM simulacro_preguntas WHERE id_simulacro = ?")->execute([$id]);
-        // Eliminar simulacro
         $consulta = $db->prepare("DELETE FROM simulacros WHERE id_simulacro = ?");
         return $consulta->execute([$id]);
     }
@@ -120,7 +117,6 @@ class Simulacro {
 
     public static function eliminarPregunta($id_pregunta) {
         $db = baseDatos::crearInstancia();
-        // Eliminar respuestas asociadas
         $db->prepare("DELETE FROM simulacro_respuestas WHERE id_pregunta = ?")->execute([$id_pregunta]);
         $consulta = $db->prepare("DELETE FROM simulacro_preguntas WHERE id_pregunta = ?");
         return $consulta->execute([$id_pregunta]);
