@@ -120,7 +120,6 @@ class ControladorUsuarios {
             $avatar = isset($_POST['avatar']) ? trim($_POST['avatar']) : 'av1';
             if (!empty($nombre)) {
                 Usuario::actualizarPerfil($id, $nombre, $ciudad, $avatar);
-                // Refrescar la sesión
                 $_SESSION['usuario']['nombre'] = $nombre;
                 $_SESSION['usuario']['ciudad']  = $ciudad;
                 $_SESSION['usuario']['avatar']  = $avatar;
@@ -163,7 +162,7 @@ class ControladorUsuarios {
     }
 
     public function eliminarPrograma() {
-        if (!isset($_GET['id'])) {
+        if (!isset($_SESSION['usuario'])) {
             header("Location: " . URL_BASE . "usuarios/login");
             exit;
         }
