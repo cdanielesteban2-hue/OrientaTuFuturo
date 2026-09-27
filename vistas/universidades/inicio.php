@@ -55,7 +55,7 @@
         </form>
     </div>
 
-    <!-- Universities Grid -->
+    <!-- Universities Grid: 3 columnas x 3 filas = 9 por página -->
     <div>
         <?php if (count($universidades) === 0): ?>
             <div class="card" style="text-align: center; padding: 60px 20px;">
@@ -66,7 +66,7 @@
                 <p style="color: var(--text-secondary); margin-top: 8px;">Prueba ajustando tus filtros de ciudad o tipo de sector.</p>
             </div>
         <?php else: ?>
-            <div class="grid-cards">
+            <div class="grid-cards grid-unis-9" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
                 <?php foreach ($universidades as $uni): ?>
                     <div class="card" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
                         <div>
@@ -104,6 +104,7 @@
                 $params_base = http_build_query(array_filter([
                     'ciudad' => $ciudad,
                     'tipo'   => $tipo,
+                    'buscar' => $buscar,
                 ]));
                 ?>
                 <?php if ($pagina > 1): ?>
@@ -136,3 +137,22 @@
         <?php endif; ?>
     </div>
 </div>
+
+<style>
+/* Grid 3x3 en escritorio; 2 y 1 columnas en pantallas más pequeñas */
+.grid-unis-9 {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 20px !important;
+}
+@media (max-width: 1100px) {
+    .grid-unis-9 {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+@media (max-width: 640px) {
+    .grid-unis-9 {
+        grid-template-columns: 1fr !important;
+    }
+}
+</style>
