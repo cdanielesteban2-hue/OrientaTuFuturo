@@ -2062,6 +2062,7 @@ a:hover {
 .directory-layout {
     align-items: start;
     min-height: max-content;
+    margin-bottom: 48px;
 }
 
 .filter-sidebar {
