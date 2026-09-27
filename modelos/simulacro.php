@@ -35,7 +35,7 @@ class Simulacro {
 
     public static function guardarRespuesta($id_intento, $id_pregunta, $respuesta_usuario, $es_correcta) {
         $db = baseDatos::crearInstancia();
-        $sql = "INSERT INTO simulacro_respuestas (id_intento, $id_pregunta, respuesta_usuario, es_correcta) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO simulacro_respuestas (id_intento, id_pregunta, respuesta_usuario, es_correcta) VALUES (?, ?, ?, ?)";
         $consulta = $db->prepare($sql);
         $consulta->execute([$id_intento, $id_pregunta, $respuesta_usuario, $es_correcta]);
     }
@@ -72,10 +72,6 @@ class Simulacro {
         $consulta->execute([$id_usuario]);
         return $consulta->fetchAll();
     }
-
-    // ============================================
-    // CRUD ADMIN
-    // ============================================
 
     public static function crear($titulo, $materia, $color, $icono, $descripcion) {
         $db = baseDatos::crearInstancia();
