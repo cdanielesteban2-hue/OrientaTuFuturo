@@ -1,4 +1,9 @@
 <?php $url_base = constant('URL_BASE'); ?>
+<?php
+// Amarillo dorado fijo para número de pregunta y opción seleccionada
+$color_ui = '#eab308';
+$color_ui_dark = '#ca8a04';
+?>
 <div class="container" style="max-width: 1100px; padding: 30px 24px; width: 100%; margin: 0 auto;">
     
     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 12px;">
@@ -27,9 +32,9 @@
     <form method="POST" action="<?php echo $url_base; ?>simulacros/resolver?id=<?php echo $simulacro['id_simulacro']; ?>" id="form-simulacro">
         
         <?php foreach ($preguntas as $index => $p): ?>
-            <div class="card-premium simulacro-pregunta" style="margin-bottom: 28px; padding: 28px 32px;">
+            <div class="card-premium simulacro-pregunta" style="margin-bottom: 28px; padding: 28px 32px; border: 1px solid <?php echo $color_ui; ?>55;">
                 <div style="display: flex; align-items: flex-start; gap: 16px; margin-bottom: 22px;">
-                    <div style="background: linear-gradient(135deg, <?php echo $simulacro['color']; ?>, <?php echo $simulacro['color']; ?>cc); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.15rem; flex-shrink: 0;">
+                    <div style="background: linear-gradient(135deg, <?php echo $color_ui; ?>, <?php echo $color_ui_dark; ?>); color: #1a1a1a; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.15rem; flex-shrink: 0; box-shadow: 0 2px 8px <?php echo $color_ui; ?>55;">
                         <?php echo $index + 1; ?>
                     </div>
                     <h3 style="font-size: 1.12rem; line-height: 1.65; margin: 0; color: var(--text-primary); font-weight: 600; flex: 1;">
@@ -48,7 +53,7 @@
                     foreach ($opciones as $letra => $texto): 
                     ?>
                         <label class="radio-container opcion-btn" style="padding: 16px 20px; border: 2px solid var(--border-color, var(--border)); border-radius: 12px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: flex-start; gap: 16px; min-height: 56px; background: var(--bg-card, #fff);">
-                            <input type="radio" name="respuestas[<?php echo $p['id_pregunta']; ?>]" value="<?php echo $letra; ?>" required style="margin-top: 4px; width: 20px; height: 20px; flex-shrink: 0; accent-color: <?php echo $simulacro['color']; ?>;">
+                            <input type="radio" name="respuestas[<?php echo $p['id_pregunta']; ?>]" value="<?php echo $letra; ?>" required style="margin-top: 4px; width: 20px; height: 20px; flex-shrink: 0; accent-color: <?php echo $color_ui; ?>;">
                             <span class="letra-opcion" style="font-weight: 800; color: var(--text-muted); text-transform: uppercase; font-size: 1.05rem; min-width: 28px;"><?php echo $letra; ?>.</span>
                             <span class="texto-opcion" style="color: var(--text-secondary); line-height: 1.55; font-size: 1rem; flex: 1;"><?php echo htmlspecialchars($texto); ?></span>
                         </label>
@@ -61,7 +66,7 @@
             <i class="fa-solid fa-flag-checkered" style="font-size: 2rem; color: var(--text-muted); margin-bottom: 12px;"></i>
             <h3 style="margin-bottom: 12px;">¿Terminaste de responder?</h3>
             <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 0.95rem;">Asegúrate de haber marcado todas las respuestas antes de finalizar.</p>
-            <button type="submit" class="btn btn-primary" style="padding: 16px 48px; font-size: 1.15rem; font-weight: 700;">
+            <button type="submit" class="btn btn-primary" style="padding: 16px 48px; font-size: 1.15rem; font-weight: 700; background: linear-gradient(135deg, <?php echo $color_ui; ?>, <?php echo $color_ui_dark; ?>); color: #1a1a1a; border: none;">
                 <i class="fa-solid fa-paper-plane"></i> Finalizar y Calificar
             </button>
         </div>
@@ -71,24 +76,26 @@
 
 <style>
 .opcion-btn:hover {
-    background-color: var(--bg-body, #f8fafc) !important;
-    border-color: <?php echo $simulacro['color']; ?> !important;
+    background-color: #fefce8 !important;
+    border-color: #eab308 !important;
     transform: translateX(4px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    box-shadow: 0 4px 12px rgba(234, 179, 8, 0.15);
 }
 .opcion-btn:has(input:checked),
 .opcion-btn.selected {
-    background-color: <?php echo $simulacro['color']; ?>12 !important;
-    border-color: <?php echo $simulacro['color']; ?> !important;
-    box-shadow: 0 0 0 1px <?php echo $simulacro['color']; ?>40;
+    background-color: #fef9c3 !important;
+    border-color: #eab308 !important;
+    box-shadow: 0 0 0 2px rgba(234, 179, 8, 0.35);
 }
 .opcion-btn:has(input:checked) .letra-opcion,
-.opcion-btn:has(input:checked) .texto-opcion {
-    color: <?php echo $simulacro['color']; ?> !important;
+.opcion-btn:has(input:checked) .texto-opcion,
+.opcion-btn.selected .letra-opcion,
+.opcion-btn.selected .texto-opcion {
+    color: #a16207 !important;
     font-weight: 600;
 }
 .opcion-btn input:checked {
-    accent-color: <?php echo $simulacro['color']; ?>;
+    accent-color: #eab308;
 }
 @media (max-width: 640px) {
     .simulacro-pregunta { padding: 20px 16px !important; }
@@ -96,7 +103,6 @@
 }
 </style>
 <script>
-// Mejor feedback visual al seleccionar (compatibilidad con navegadores sin :has)
 document.querySelectorAll('.opcion-btn').forEach(function(label) {
     var input = label.querySelector('input[type=radio]');
     if (!input) return;
