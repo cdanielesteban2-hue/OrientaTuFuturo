@@ -7,10 +7,12 @@
 --   combinación (universidad, carrera).
 --
 -- Importante:
---   Los costos incluidos son valores de referencia para poblar el catálogo y
---   distinguir universidades públicas y privadas. No sustituyen la tarifa
---   oficial de cada periodo académico. Para precios oficiales se debe ejecutar
---   el scraper o actualizar el catálogo con la fuente institucional vigente.
+--   Los costos incluidos son valores REFERENCIALES en pesos colombianos para
+--   poblar el catálogo y distinguir universidades públicas y privadas. NO son
+--   precios oficiales: la matrícula real cambia por programa, sede, número de
+--   créditos, estrato, semestre y resolución de cada institución. Para no
+--   desinformar, verifica cada valor en la página oficial antes de publicarlo
+--   como tarifa vigente y actualiza el catálogo con la fuente institucional.
 --
 -- La base de datos del proyecto usa costo como matrícula semestral en COP.
 -- Para exigir exactamente 72 universidades antes de insertar, cambia:
@@ -177,9 +179,10 @@ VALUES
 ;
 
 --
--- El factor por ID evita que todos los registros tengan exactamente el mismo
--- precio, sin perder el carácter reproducible del catálogo de referencia.
--- Los costos se redondean al millar más cercano.
+--   El factor por ID evita que todos los registros tengan exactamente el mismo
+--   precio, sin perder el carácter reproducible del catálogo REFERENCIAL.
+--   Los costos se redondean al millar más cercano. No deben mostrarse como
+--   “precio oficial” dentro de la aplicación sin una verificación adicional.
 --
 INSERT INTO programas_academicos
     (id_universidad, n_programa, area, duracion, costo, slug)
