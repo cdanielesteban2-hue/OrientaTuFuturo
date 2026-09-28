@@ -10,52 +10,21 @@
     </div>
 
     <div class="preicfes-mode-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-bottom: 40px;">
-        <a href="<?php echo $url_base; ?>simulacros/resolver?modo=aleatorio" class="card-premium preicfes-mode-card" style="border-top: 4px solid #2563eb; text-decoration: none; color: inherit;">
-            <span class="preicfes-mode-icon" style="background: #dbeafe; color: #2563eb;"><i class="fa-solid fa-shuffle"></i></span>
-            <h2 style="font-size: 1.35rem; margin: 15px 0 8px;">Pre-ICFES aleatorio</h2>
-            <p style="color: var(--text-secondary); margin: 0 0 18px;">25 preguntas mezcladas de todas las materias disponibles.</p>
-            <span class="btn btn-primary" style="width: 100%;">Comenzar prueba mixta <i class="fa-solid fa-arrow-right"></i></span>
-        </a>
-        <a href="<?php echo $url_base; ?>simulacros/profundizado" class="card-premium preicfes-mode-card" style="border-top: 4px solid #eab308; text-decoration: none; color: inherit;">
-            <span class="preicfes-mode-icon" style="background: #fef3c7; color: #a16207;"><i class="fa-solid fa-layer-group"></i></span>
-            <h2 style="font-size: 1.35rem; margin: 15px 0 8px;">Pre-ICFES profundizado</h2>
-            <p style="color: var(--text-secondary); margin: 0 0 18px;">Elige una materia y practica 25 preguntas específicas.</p>
-            <span class="btn" style="width: 100%; background: #eab308; color: #422006;">Elegir materia <i class="fa-solid fa-arrow-right"></i></span>
-        </a>
+        <?php foreach ($modalidades as $clave => $modalidad): ?>
+            <?php $es_normal = $clave === 'normal'; ?>
+            <a href="<?php echo $url_base; ?>simulacros/resolver?modo=aleatorio&modalidad=<?php echo urlencode($clave); ?>" class="card-premium preicfes-mode-card" style="border-top: 4px solid <?php echo $es_normal ? '#8b5cf6' : '#2563eb'; ?>; text-decoration: none; color: inherit;">
+                <span class="preicfes-mode-icon" style="background: <?php echo $es_normal ? '#ede9fe' : '#dbeafe'; ?>; color: <?php echo $es_normal ? '#7c3aed' : '#2563eb'; ?>;"><i class="fa-solid <?php echo $es_normal ? 'fa-flag-checkered' : 'fa-shuffle'; ?>"></i></span>
+                <h2 style="font-size: 1.25rem; margin: 15px 0 8px;"><?php echo htmlspecialchars(str_replace('Pre-ICFES aleatorio — ', '', $modalidad['titulo'])); ?></h2>
+                <p style="color: var(--text-secondary); margin: 0 0 8px;"><strong><?php echo $modalidad['preguntas']; ?> preguntas</strong> · <?php echo htmlspecialchars($modalidad['duracion']); ?></p>
+                <p style="color: var(--text-secondary); margin: 0 0 18px; font-size: .9rem;"><?php echo htmlspecialchars($modalidad['descripcion']); ?></p>
+                <span class="btn <?php echo $es_normal ? '' : 'btn-primary'; ?>" style="width: 100%; <?php echo $es_normal ? 'background: #8b5cf6; color: white;' : ''; ?>">Comenzar <i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+        <?php endforeach; ?>
     </div>
 
-    <h2 style="font-size: 1.5rem; margin-bottom: 20px; border-bottom: 2px solid var(--border); padding-bottom: 10px;">
-        <i class="fa-solid fa-list-check"></i> Simulacros Disponibles
-    </h2>
-
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-bottom: 40px;">
-        <?php if (!empty($simulacros)): ?>
-            <?php foreach ($simulacros as $s): ?>
-                <div class="card-premium" style="display: flex; flex-direction: column; height: 100%; border-top: 4px solid <?php echo $s['color']; ?>;">
-                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
-                        <div style="background-color: <?php echo $s['color']; ?>20; color: <?php echo $s['color']; ?>; width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
-                            <i class="<?php echo $s['icono']; ?>"></i>
-                        </div>
-                        <div>
-                            <span style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: <?php echo $s['color']; ?>;"><?php echo htmlspecialchars($s['materia']); ?></span>
-                            <h3 style="font-size: 1.2rem; margin: 0;"><?php echo htmlspecialchars($s['titulo']); ?></h3>
-                        </div>
-                    </div>
-                    <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; flex-grow: 1; margin-bottom: 20px;">
-                        <?php echo htmlspecialchars($s['descripcion']); ?>
-                    </p>
-                    <a href="<?php echo $url_base; ?>simulacros/resolver?id=<?php echo $s['id_simulacro']; ?>" class="btn" style="width: 100%; background-color: <?php echo $s['color']; ?>; color: white;">
-                        <i class="fa-solid fa-play"></i> Iniciar Simulacro
-                    </a>
-                </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <div style="grid-column: 1 / -1; text-align: center; padding: 40px; background-color: var(--bg-card); border-radius: var(--radius-lg); border: 1px dashed var(--border);">
-                <i class="fa-solid fa-folder-open" style="font-size: 3rem; color: var(--text-muted); margin-bottom: 15px;"></i>
-                <p style="color: var(--text-secondary);">Aún no hay simulacros disponibles. ¡Vuelve pronto!</p>
-            </div>
-        <?php endif; ?>
-    </div>
+    <p style="text-align: center; color: var(--text-secondary); margin: -18px auto 40px; max-width: 720px;">
+        El simulacro normal es una sola prueba de 247 preguntas: primero presenta 123 y, al pulsar continuar, presenta las 124 restantes. Cada sección tiene un límite de 4 horas, igual que la referencia de tiempo y cantidad de preguntas del ICFES real.
+    </p>
 
     <?php if (!empty($intentos)): ?>
         <h2 style="font-size: 1.5rem; margin-bottom: 20px; border-bottom: 2px solid var(--border); padding-bottom: 10px;">

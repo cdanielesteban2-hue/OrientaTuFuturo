@@ -28,9 +28,16 @@
             <a href="<?php echo $url_base; ?>simulacros/inicio" class="btn btn-outline">
                 <i class="fa-solid fa-arrow-left"></i> Volver a Simulacros
             </a>
-            <?php $url_reintento = ($intento['materia'] === 'Mixto')
-                ? $url_base . 'simulacros/resolver?modo=aleatorio'
-                : $url_base . 'simulacros/resolver?materia=' . urlencode($intento['materia']); ?>
+            <?php
+                if ($intento['materia'] === 'Mixto') {
+                    $modalidad_reintento = 'corto';
+                    if (strpos($intento['titulo'], 'intermedio') !== false) $modalidad_reintento = 'intermedio';
+                    if (strpos($intento['titulo'], 'normal') !== false) $modalidad_reintento = 'normal';
+                    $url_reintento = $url_base . 'simulacros/resolver?modo=aleatorio&modalidad=' . $modalidad_reintento;
+                } else {
+                    $url_reintento = $url_base . 'simulacros/resolver?materia=' . urlencode($intento['materia']);
+                }
+            ?>
             <a href="<?php echo $url_reintento; ?>" class="btn btn-primary">
                 <i class="fa-solid fa-rotate-right"></i> Reintentar
             </a>

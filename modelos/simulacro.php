@@ -27,7 +27,7 @@ class Simulacro {
 
     public static function obtenerPreguntasAleatorias($limite = 25) {
         $db = baseDatos::crearInstancia();
-        $limite = max(1, min(25, (int) $limite));
+        $limite = max(1, min(247, (int) $limite));
         $sql = "SELECT p.*, s.materia, s.titulo AS simulacro_titulo
                 FROM simulacro_preguntas p
                 JOIN simulacros s ON p.id_simulacro = s.id_simulacro
@@ -35,6 +35,26 @@ class Simulacro {
                 ORDER BY RAND()
                 LIMIT " . $limite;
         return $db->query($sql)->fetchAll();
+    }
+
+    public static function obtenerPreguntasPorIds(array $ids) {
+        $ids = array_values(array_filter(array_map('intval', $ids), static function ($id) {
+            return $id > 0;
+        }));
+        if (empty($ids)) return [];
+        $db = baseDatos::crearInstancia();
+        $placeholders = implode(',', array_fill(0, count($ids), '?'));
+        $consulta = $db->prepare("SELECT p.*, s.materia, s.titulo AS simulacro_titulo
+                                  FROM simulacro_preguntas p
+                                  JOIN simulacros s ON p.id_simulacro = s.id_simulacro
+                                  WHERE p.id_pregunta IN ($placeholders)");
+        $consulta->execute($ids);
+        $preguntas = $consulta->fetchAll();
+        $orden = array_flip($ids);
+        usort($preguntas, static function ($a, $b) use ($orden) {
+            return ($orden[$a['id_pregunta']] ?? 0) <=> ($orden[$b['id_pregunta']] ?? 0);
+        });
+        return $preguntas;
     }
 
     public static function obtenerPreguntasPorMateria($materia, $limite = 25) {
@@ -62,16 +82,45 @@ class Simulacro {
         return $consulta->fetch();
     }
 
-    public static function obtenerSimulacroAleatorio() {
+    public static function obtenerModalidadesAleatorias() {
+        return [
+            'corto' => [
+                'titulo' => 'Pre-ICFES aleatorio — Simulacro corto',
+                'descripcion' => '60 preguntas mixtas de todas las materias. Tiempo límite: 2 horas.',
+                'preguntas' => 60,
+                'segundos' => 2 * 60 * 60,
+                'duracion' => '2 horas'
+            ],
+            'intermedio' => [
+                'titulo' => 'Pre-ICFES aleatorio — Simulacro intermedio',
+                'descripcion' => '120 preguntas mixtas de todas las materias. Tiempo límite: 4 horas.',
+                'preguntas' => 120,
+                'segundos' => 4 * 60 * 60,
+                'duracion' => '4 horas'
+            ],
+            'normal' => [
+                'titulo' => 'Pre-ICFES aleatorio — Simulacro normal',
+                'descripcion' => '247 preguntas en una sola prueba: primero 123 y luego 124. Cada sección tiene 4 horas, igual que el tiempo y número de preguntas del ICFES real.',
+                'preguntas' => 247,
+                'segundos' => 4 * 60 * 60,
+                'duracion' => '4 horas por sección'
+            ],
+        ];
+    }
+
+    public static function obtenerSimulacroAleatorio($modalidad = 'corto') {
+        $modalidades = self::obtenerModalidadesAleatorias();
+        $config = $modalidades[$modalidad] ?? $modalidades['corto'];
         $db = baseDatos::crearInstancia();
-        $consulta = $db->query("SELECT * FROM simulacros WHERE titulo = 'Pre-ICFES Aleatorio' LIMIT 1");
+        $consulta = $db->prepare("SELECT * FROM simulacros WHERE titulo = ? LIMIT 1");
+        $consulta->execute([$config['titulo']]);
         $simulacro = $consulta->fetch();
         if ($simulacro) return $simulacro;
 
         $insertar = $db->prepare("INSERT INTO simulacros (titulo, descripcion, materia, color, icono) VALUES (?, ?, ?, ?, ?)");
         $insertar->execute([
-            'Pre-ICFES Aleatorio',
-            'Simulacro mixto con preguntas de Inglés, Ciencias Naturales, Lectura Crítica, Matemáticas y Sociales.',
+            $config['titulo'],
+            $config['descripcion'],
             'Mixto',
             '#2563eb',
             'fa-solid fa-shuffle'

@@ -4,11 +4,13 @@
 $color_ui = '#eab308';
 $color_ui_dark = '#ca8a04';
 $accion_resolver = isset($_GET['modo']) && $_GET['modo'] === 'aleatorio'
-    ? $url_base . 'simulacros/resolver?modo=aleatorio'
+    ? $url_base . 'simulacros/resolver?modo=aleatorio&modalidad=' . urlencode($_GET['modalidad'] ?? 'corto')
     : (isset($_GET['materia'])
         ? $url_base . 'simulacros/resolver?materia=' . urlencode($_GET['materia'])
         : $url_base . 'simulacros/resolver?id=' . $simulacro['id_simulacro']);
 $etiqueta_prueba = isset($_GET['materia']) ? $_GET['materia'] : ($simulacro['materia'] === 'Mixto' ? 'Prueba mixta' : $simulacro['materia']);
+$es_normal = isset($es_normal) && $es_normal;
+$tiempo_inicial = isset($_SESSION[$session_key]['inicio']) ? max(0, $tiempo_limite_segundos - (time() - $_SESSION[$session_key]['inicio'])) : $tiempo_limite_segundos;
 ?>
 <div class="container" style="max-width: 1100px; padding: 30px 24px; width: 100%; margin: 0 auto;">
     
@@ -21,13 +23,18 @@ $etiqueta_prueba = isset($_GET['materia']) ? $_GET['materia'] : ($simulacro['mat
                 <?php echo htmlspecialchars($simulacro['titulo']); ?>
             </h1>
             <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 6px 0 0 0;">
-                <i class="fa-solid fa-list-ol"></i> <?php echo count($preguntas); ?> preguntas · resultado porcentual y explicación de errores
+                <i class="fa-solid fa-list-ol"></i> <?php echo count($preguntas_vista); ?> preguntas en esta sección<?php echo $es_normal ? ' · ' . ($fase === 1 ? 'parte 1 de 2' : 'parte 2 de 2') : ''; ?> · resultado porcentual y explicación de errores
             </p>
         </div>
         <a href="<?php echo $url_base; ?>simulacros/inicio" class="btn btn-outline" style="padding: 10px 18px;">
             <i class="fa-solid fa-xmark"></i> Salir
         </a>
     </div>
+    <?php if ($tiempo_limite_segundos > 0): ?>
+        <div id="cronometro" data-segundos="<?php echo $tiempo_inicial; ?>" style="position: sticky; top: 82px; z-index: 20; display: flex; align-items: center; justify-content: center; gap: 10px; margin: 0 0 24px; padding: 13px 18px; border: 1px solid #eab30866; border-radius: 14px; background: #fffbeb; color: #92400e; font-weight: 800; box-shadow: 0 5px 16px rgba(15,23,42,.12);">
+            <i class="fa-solid fa-clock"></i> Tiempo restante: <span id="cronometro-valor">--:--:--</span>
+        </div>
+    <?php endif; ?>
 
     <?php if (!empty($error)): ?>
         <div class="alert-error" style="margin-bottom: 25px;">
@@ -37,11 +44,11 @@ $etiqueta_prueba = isset($_GET['materia']) ? $_GET['materia'] : ($simulacro['mat
 
     <form method="POST" action="<?php echo htmlspecialchars($accion_resolver); ?>" id="form-simulacro">
         
-        <?php foreach ($preguntas as $index => $p): ?>
+        <?php foreach ($preguntas_vista as $index => $p): ?>
             <div class="card-premium simulacro-pregunta" style="margin-bottom: 28px; padding: 28px 32px; border: 1px solid <?php echo $color_ui; ?>55;">
                 <div style="display: flex; align-items: flex-start; gap: 16px; margin-bottom: 22px;">
                     <div style="background: linear-gradient(135deg, <?php echo $color_ui; ?>, <?php echo $color_ui_dark; ?>); color: #1a1a1a; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.15rem; flex-shrink: 0; box-shadow: 0 2px 8px <?php echo $color_ui; ?>55;">
-                        <?php echo $index + 1; ?>
+                        <?php echo $es_normal && $fase === 2 ? $index + 124 : $index + 1; ?>
                     </div>
                     <h3 style="font-size: 1.12rem; line-height: 1.65; margin: 0; color: var(--text-primary); font-weight: 600; flex: 1;">
                         <?php echo nl2br(htmlspecialchars($p['pregunta'])); ?>
@@ -70,10 +77,10 @@ $etiqueta_prueba = isset($_GET['materia']) ? $_GET['materia'] : ($simulacro['mat
 
         <div style="background-color: var(--bg-card); padding: 28px; border-radius: var(--radius-lg); border: 1px solid var(--border-color, var(--border)); text-align: center; margin-top: 36px;">
             <i class="fa-solid fa-flag-checkered" style="font-size: 2rem; color: var(--text-muted); margin-bottom: 12px;"></i>
-            <h3 style="margin-bottom: 12px;">¿Terminaste de responder?</h3>
-            <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 0.95rem;">Asegúrate de haber marcado todas las respuestas antes de finalizar.</p>
-            <button type="submit" class="btn btn-primary" style="padding: 16px 48px; font-size: 1.15rem; font-weight: 700; background: linear-gradient(135deg, <?php echo $color_ui; ?>, <?php echo $color_ui_dark; ?>); color: #1a1a1a; border: none;">
-                <i class="fa-solid fa-paper-plane"></i> Finalizar y Calificar
+            <h3 style="margin-bottom: 12px;"><?php echo $es_normal && $fase === 1 ? '¿Terminaste la primera sección?' : '¿Terminaste de responder?'; ?></h3>
+            <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 0.95rem;"><?php echo $es_normal && $fase === 1 ? 'Al continuar comenzarás las 124 preguntas restantes. Tendrás otras 4 horas para esta segunda sección.' : 'Asegúrate de haber marcado todas las respuestas antes de finalizar.'; ?></p>
+            <button type="submit" name="<?php echo $es_normal && $fase === 1 ? 'continuar_segunda_seccion' : 'finalizar_simulacro'; ?>" value="1" class="btn btn-primary" style="padding: 16px 48px; font-size: 1.15rem; font-weight: 700; background: linear-gradient(135deg, <?php echo $color_ui; ?>, <?php echo $color_ui_dark; ?>); color: #1a1a1a; border: none;">
+                <i class="fa-solid <?php echo $es_normal && $fase === 1 ? 'fa-arrow-right' : 'fa-paper-plane'; ?>"></i> <?php echo $es_normal && $fase === 1 ? 'Continuar a la segunda sección' : 'Finalizar y Calificar'; ?>
             </button>
         </div>
 
@@ -121,4 +128,24 @@ document.querySelectorAll('.opcion-btn').forEach(function(label) {
     });
     if (input.checked) label.classList.add('selected');
 });
+
+var cronometro = document.getElementById('cronometro');
+if (cronometro) {
+    var formulario = document.getElementById('form-simulacro');
+    var restante = parseInt(cronometro.getAttribute('data-segundos'), 10);
+    var valor = document.getElementById('cronometro-valor');
+    var intervalo = setInterval(function() {
+        var horas = Math.floor(restante / 3600);
+        var minutos = Math.floor((restante % 3600) / 60);
+        var segundos = restante % 60;
+        valor.textContent = [horas, minutos, segundos].map(function(n) { return String(n).padStart(2, '0'); }).join(':');
+        if (restante <= 300) cronometro.style.color = '#b91c1c';
+        if (restante <= 0) {
+            clearInterval(intervalo);
+            formulario.querySelectorAll('[required]').forEach(function(input) { input.removeAttribute('required'); });
+            formulario.submit();
+        }
+        restante--;
+    }, 1000);
+}
 </script>

@@ -3,7 +3,7 @@
  * Seeder idempotente del banco Pre-ICFES.
  * Ejecutar desde la raíz del proyecto: php utilidades/seeder_preicfes.php
  *
- * Crea cinco simulacros, uno por materia, y 25 preguntas por cada uno.
+ * Crea cinco simulacros, uno por materia, y 50 preguntas por cada uno.
  * Las preguntas quedan disponibles para el modo aleatorio y profundizado.
  */
 require_once __DIR__ . '/../conexion.php';
@@ -73,7 +73,7 @@ foreach ($materias as $materia => [$color, $icono, $base]) {
     $buscarPregunta = $db->prepare('SELECT id_pregunta FROM simulacro_preguntas WHERE id_simulacro = ? AND pregunta = ? LIMIT 1');
     $insertarPregunta = $db->prepare('INSERT INTO simulacro_preguntas (id_simulacro, pregunta, opcion_a, opcion_b, opcion_c, opcion_d, correcta, justificacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
 
-    for ($i = 0; $i < 25; $i++) {
+    for ($i = 0; $i < 50; $i++) {
         [$pregunta, $a, $b, $c, $d, $correcta, $justificacion] = $base[$i % count($base)];
         $numero = $i + 1;
         $preguntaUnica = $pregunta . ' (' . $variantes[$i % count($variantes)] . ', pregunta ' . $numero . ')';

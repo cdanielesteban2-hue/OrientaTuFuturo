@@ -2,15 +2,13 @@
 include_once "modelos/simulacro.php";
 
 class ControladorSimulacros {
-    private const LIMITE_PREGUNTAS = 25;
-
     public function inicio() {
         if (!isset($_SESSION['usuario'])) {
             header("Location: " . URL_BASE . "usuarios/login");
             exit;
         }
 
-        $simulacros = Simulacro::obtenerTodos();
+        $modalidades = Simulacro::obtenerModalidadesAleatorias();
         $materias = Simulacro::obtenerMateriasPreIcfes();
         $intentos = Simulacro::obtenerIntentosUsuario($_SESSION['usuario']['id']);
 
@@ -36,17 +34,49 @@ class ControladorSimulacros {
 
         $modo = isset($_GET['modo']) ? trim($_GET['modo']) : '';
         $materia = isset($_GET['materia']) ? trim($_GET['materia']) : '';
+        $modalidad = isset($_GET['modalidad']) ? trim($_GET['modalidad']) : 'corto';
         $materias_validas = Simulacro::obtenerMateriasPreIcfes();
+        $modalidades = Simulacro::obtenerModalidadesAleatorias();
+        $es_aleatorio = ($modo === 'aleatorio' && isset($modalidades[$modalidad]));
+        $session_key = 'preicfes_' . ($es_aleatorio ? 'aleatorio_' . $modalidad : 'materia_' . md5($materia));
+        $es_normal = $es_aleatorio && $modalidad === 'normal';
 
-        if ($modo === 'aleatorio') {
-            $simulacro = Simulacro::obtenerSimulacroAleatorio();
-            $preguntas = Simulacro::obtenerPreguntasAleatorias(self::LIMITE_PREGUNTAS);
+        if ($es_aleatorio) {
+            $configuracion = $modalidades[$modalidad];
+            $simulacro = Simulacro::obtenerSimulacroAleatorio($modalidad);
+            $tiempo_limite_segundos = $configuracion['segundos'];
+            $duracion_texto = $configuracion['duracion'];
+            if ($_POST && !empty($_SESSION[$session_key]['preguntas'])) {
+                $preguntas = Simulacro::obtenerPreguntasPorIds($_SESSION[$session_key]['preguntas']);
+            } elseif (!empty($_SESSION[$session_key]['preguntas'])) {
+                $preguntas = Simulacro::obtenerPreguntasPorIds($_SESSION[$session_key]['preguntas']);
+            } else {
+                $preguntas = Simulacro::obtenerPreguntasAleatorias($configuracion['preguntas']);
+                $_SESSION[$session_key] = [
+                    'preguntas' => array_column($preguntas, 'id_pregunta'),
+                    'inicio' => time(),
+                    'fase' => 1,
+                    'respuestas' => []
+                ];
+            }
         } elseif (in_array($materia, $materias_validas, true)) {
             $simulacro = Simulacro::obtenerSimulacroPorMateria($materia);
-            $preguntas = Simulacro::obtenerPreguntasPorMateria($materia, self::LIMITE_PREGUNTAS);
+            $tiempo_limite_segundos = 0;
+            $duracion_texto = '';
+            if ($_POST && !empty($_SESSION[$session_key]['preguntas'])) {
+                $preguntas = Simulacro::obtenerPreguntasPorIds($_SESSION[$session_key]['preguntas']);
+            } else {
+                $preguntas = Simulacro::obtenerPreguntasPorMateria($materia, 25);
+                $_SESSION[$session_key] = [
+                    'preguntas' => array_column($preguntas, 'id_pregunta'),
+                    'inicio' => time()
+                ];
+            }
         } elseif (isset($_GET['id'])) {
             $simulacro = Simulacro::obtenerPorId($_GET['id']);
             $preguntas = $simulacro ? Simulacro::obtenerPreguntas($simulacro['id_simulacro']) : [];
+            $tiempo_limite_segundos = 0;
+            $duracion_texto = '';
         } else {
             header("Location: " . URL_BASE . "simulacros/inicio");
             exit;
@@ -57,45 +87,49 @@ class ControladorSimulacros {
             exit;
         }
 
-        $error = "";
+        $fase = $es_normal ? (int) ($_SESSION[$session_key]['fase'] ?? 1) : 1;
+        $preguntas_vista = $es_normal
+            ? ($fase === 1 ? array_slice($preguntas, 0, 123) : array_slice($preguntas, 123, 124))
+            : $preguntas;
 
+        $error = "";
+        $tiempo_agotado = false;
         if ($_POST) {
             $respuestas_enviadas = isset($_POST['respuestas']) ? $_POST['respuestas'] : [];
-
-            if (count($respuestas_enviadas) < count($preguntas)) {
+            $inicio = $_SESSION[$session_key]['inicio'] ?? time();
+            $tiempo_agotado = $tiempo_limite_segundos > 0 && (time() - $inicio) > $tiempo_limite_segundos;
+            if ($es_normal && $fase === 1 && (isset($_POST['continuar_segunda_seccion']) || $tiempo_agotado)) {
+                if (!$tiempo_agotado && count($respuestas_enviadas) < count($preguntas_vista)) {
+                    $error = "Responde las 123 preguntas de la primera sección antes de continuar.";
+                } else {
+                    $_SESSION[$session_key]['respuestas'] = $respuestas_enviadas;
+                    $_SESSION[$session_key]['fase'] = 2;
+                    $_SESSION[$session_key]['inicio'] = time();
+                    header("Location: " . URL_BASE . "simulacros/resolver?modo=aleatorio&modalidad=normal");
+                    exit;
+                }
+            } elseif (!$tiempo_agotado && count($respuestas_enviadas) < count($preguntas_vista)) {
                 $error = "Por favor responde todas las preguntas antes de terminar el simulacro.";
             } else {
-                // Calcular puntaje
+                if ($es_normal) {
+                    $respuestas_enviadas = array_merge($_SESSION[$session_key]['respuestas'] ?? [], $respuestas_enviadas);
+                }
                 $correctas = 0;
                 $total_preguntas = count($preguntas);
                 $respuestas_evaluadas = [];
-
                 foreach ($preguntas as $pregunta) {
                     $id_pregunta = $pregunta['id_pregunta'];
                     $respuesta_usuario = isset($respuestas_enviadas[$id_pregunta]) ? strtolower(trim($respuestas_enviadas[$id_pregunta])) : '';
-                    $es_correcta = ($respuesta_usuario === strtolower($pregunta['correcta'])) ? 1 : 0;
-                    
-                    if ($es_correcta) {
-                        $correctas++;
-                    }
-
-                    $respuestas_evaluadas[] = [
-                        'id_pregunta' => $id_pregunta,
-                        'respuesta_usuario' => $respuesta_usuario,
-                        'es_correcta' => $es_correcta
-                    ];
+                    $es_correcta = ($respuesta_usuario !== '' && $respuesta_usuario === strtolower($pregunta['correcta'])) ? 1 : 0;
+                    if ($es_correcta) $correctas++;
+                    $respuestas_evaluadas[] = ['id_pregunta' => $id_pregunta, 'respuesta_usuario' => $respuesta_usuario, 'es_correcta' => $es_correcta];
                 }
-
-                $puntaje = round(($correctas / $total_preguntas) * 100);
-
-                // Guardar Intento
+                $puntaje = $total_preguntas > 0 ? round(($correctas / $total_preguntas) * 100) : 0;
                 $id_intento = Simulacro::guardarIntento($_SESSION['usuario']['id'], $simulacro['id_simulacro'], $puntaje);
-
-                // Guardar Respuestas Individuales
                 foreach ($respuestas_evaluadas as $resp) {
                     Simulacro::guardarRespuesta($id_intento, $resp['id_pregunta'], $resp['respuesta_usuario'], $resp['es_correcta']);
                 }
-
+                unset($_SESSION[$session_key]);
                 header("Location: " . URL_BASE . "simulacros/resultado?id=" . $id_intento);
                 exit;
             }
