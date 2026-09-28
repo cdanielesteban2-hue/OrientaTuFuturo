@@ -28,15 +28,39 @@
             <a href="<?php echo $url_base; ?>simulacros/inicio" class="btn btn-outline">
                 <i class="fa-solid fa-arrow-left"></i> Volver a Simulacros
             </a>
-            <a href="<?php echo $url_base; ?>simulacros/resolver?id=<?php echo $intento['id_simulacro']; ?>" class="btn btn-primary">
+            <?php $url_reintento = ($intento['materia'] === 'Mixto')
+                ? $url_base . 'simulacros/resolver?modo=aleatorio'
+                : $url_base . 'simulacros/resolver?materia=' . urlencode($intento['materia']); ?>
+            <a href="<?php echo $url_reintento; ?>" class="btn btn-primary">
                 <i class="fa-solid fa-rotate-right"></i> Reintentar
             </a>
         </div>
     </div>
 
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 35px;">
+        <div class="card-premium" style="text-align: center; padding: 18px; border-top: 3px solid #10b981;">
+            <strong style="display: block; color: #10b981; font-size: 1.65rem;"><?php echo $correctas; ?></strong>
+            <span style="color: var(--text-secondary); font-size: .9rem;">Respuestas correctas</span>
+        </div>
+        <div class="card-premium" style="text-align: center; padding: 18px; border-top: 3px solid #ef4444;">
+            <strong style="display: block; color: #ef4444; font-size: 1.65rem;"><?php echo $incorrectas; ?></strong>
+            <span style="color: var(--text-secondary); font-size: .9rem;">Respuestas por revisar</span>
+        </div>
+        <div class="card-premium" style="text-align: center; padding: 18px; border-top: 3px solid #2563eb;">
+            <strong style="display: block; color: #2563eb; font-size: 1.65rem;"><?php echo count($respuestas); ?></strong>
+            <span style="color: var(--text-secondary); font-size: .9rem;">Preguntas respondidas</span>
+        </div>
+    </div>
+
     <h2 style="font-size: 1.5rem; margin-bottom: 25px; border-bottom: 2px solid var(--border); padding-bottom: 10px;">
-        <i class="fa-solid fa-list-check"></i> Revisión de Respuestas
+        <i class="fa-solid fa-list-check"></i> Revisión y explicación de respuestas
     </h2>
+    <?php if ($incorrectas > 0): ?>
+        <p style="color: var(--text-secondary); margin: -10px 0 25px;">
+            <i class="fa-solid fa-lightbulb" style="color: var(--accent);"></i>
+            Las preguntas marcadas en rojo son tus errores. Lee su explicación para entender el procedimiento y volver a intentarlas.
+        </p>
+    <?php endif; ?>
 
     <!-- Revisión de Preguntas -->
     <?php foreach ($respuestas as $index => $r): ?>
@@ -67,8 +91,8 @@
                 <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;">
                     <?php foreach ($opciones as $letra => $texto): ?>
                         <?php 
-                            $es_la_elegida = ($r['respuesta_usuario'] === $letra);
-                            $es_la_correcta = ($r['correcta'] === $letra);
+                            $es_la_elegida = (strtolower($r['respuesta_usuario']) === $letra);
+                            $es_la_correcta = (strtolower($r['correcta']) === $letra);
                             
                             $estilo_li = "padding: 10px 15px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.95rem; display: flex; gap: 10px; align-items: flex-start;";
                             
@@ -109,3 +133,8 @@
         </a>
     </div>
 </div>
+<style>
+@media (max-width: 600px) {
+    .container > div[style*="grid-template-columns: repeat(3"] { grid-template-columns: 1fr !important; }
+}
+</style>

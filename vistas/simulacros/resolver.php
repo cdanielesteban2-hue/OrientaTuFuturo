@@ -3,19 +3,25 @@
 // Amarillo dorado fijo para número de pregunta y opción seleccionada
 $color_ui = '#eab308';
 $color_ui_dark = '#ca8a04';
+$accion_resolver = isset($_GET['modo']) && $_GET['modo'] === 'aleatorio'
+    ? $url_base . 'simulacros/resolver?modo=aleatorio'
+    : (isset($_GET['materia'])
+        ? $url_base . 'simulacros/resolver?materia=' . urlencode($_GET['materia'])
+        : $url_base . 'simulacros/resolver?id=' . $simulacro['id_simulacro']);
+$etiqueta_prueba = isset($_GET['materia']) ? $_GET['materia'] : ($simulacro['materia'] === 'Mixto' ? 'Prueba mixta' : $simulacro['materia']);
 ?>
 <div class="container" style="max-width: 1100px; padding: 30px 24px; width: 100%; margin: 0 auto;">
     
     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 12px;">
         <div>
             <span style="background-color: <?php echo $simulacro['color']; ?>20; color: <?php echo $simulacro['color']; ?>; padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase;">
-                <i class="<?php echo $simulacro['icono']; ?>"></i> <?php echo htmlspecialchars($simulacro['materia']); ?>
+                <i class="<?php echo $simulacro['icono']; ?>"></i> <?php echo htmlspecialchars($etiqueta_prueba); ?>
             </span>
             <h1 style="font-size: 1.85rem; margin: 10px 0 0 0; color: var(--text-primary);">
                 <?php echo htmlspecialchars($simulacro['titulo']); ?>
             </h1>
             <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 6px 0 0 0;">
-                <i class="fa-solid fa-shuffle"></i> Preguntas en orden aleatorio · <?php echo count($preguntas); ?> preguntas
+                <i class="fa-solid fa-list-ol"></i> <?php echo count($preguntas); ?> preguntas · resultado porcentual y explicación de errores
             </p>
         </div>
         <a href="<?php echo $url_base; ?>simulacros/inicio" class="btn btn-outline" style="padding: 10px 18px;">
@@ -29,7 +35,7 @@ $color_ui_dark = '#ca8a04';
         </div>
     <?php endif; ?>
 
-    <form method="POST" action="<?php echo $url_base; ?>simulacros/resolver?id=<?php echo $simulacro['id_simulacro']; ?>" id="form-simulacro">
+    <form method="POST" action="<?php echo htmlspecialchars($accion_resolver); ?>" id="form-simulacro">
         
         <?php foreach ($preguntas as $index => $p): ?>
             <div class="card-premium simulacro-pregunta" style="margin-bottom: 28px; padding: 28px 32px; border: 1px solid <?php echo $color_ui; ?>55;">

@@ -9,6 +9,21 @@
         </p>
     </div>
 
+    <div class="preicfes-mode-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-bottom: 40px;">
+        <a href="<?php echo $url_base; ?>simulacros/resolver?modo=aleatorio" class="card-premium preicfes-mode-card" style="border-top: 4px solid #2563eb; text-decoration: none; color: inherit;">
+            <span class="preicfes-mode-icon" style="background: #dbeafe; color: #2563eb;"><i class="fa-solid fa-shuffle"></i></span>
+            <h2 style="font-size: 1.35rem; margin: 15px 0 8px;">Pre-ICFES aleatorio</h2>
+            <p style="color: var(--text-secondary); margin: 0 0 18px;">25 preguntas mezcladas de todas las materias disponibles.</p>
+            <span class="btn btn-primary" style="width: 100%;">Comenzar prueba mixta <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+        <a href="<?php echo $url_base; ?>simulacros/profundizado" class="card-premium preicfes-mode-card" style="border-top: 4px solid #eab308; text-decoration: none; color: inherit;">
+            <span class="preicfes-mode-icon" style="background: #fef3c7; color: #a16207;"><i class="fa-solid fa-layer-group"></i></span>
+            <h2 style="font-size: 1.35rem; margin: 15px 0 8px;">Pre-ICFES profundizado</h2>
+            <p style="color: var(--text-secondary); margin: 0 0 18px;">Elige una materia y practica 25 preguntas específicas.</p>
+            <span class="btn" style="width: 100%; background: #eab308; color: #422006;">Elegir materia <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+    </div>
+
     <h2 style="font-size: 1.5rem; margin-bottom: 20px; border-bottom: 2px solid var(--border); padding-bottom: 10px;">
         <i class="fa-solid fa-list-check"></i> Simulacros Disponibles
     </h2>
@@ -70,3 +85,12 @@
         </div>
     <?php endif; ?>
 </div>
+<style>
+.preicfes-mode-icon { width: 52px; height: 52px; border-radius: 14px; display: inline-flex; align-items: center; justify-content: center; font-size: 1.35rem; }
+.preicfes-mode-card { min-height: 245px; display: flex; flex-direction: column; transition: transform .2s ease, box-shadow .2s ease; }
+.preicfes-mode-card .btn { margin-top: auto; }
+.preicfes-mode-card:hover { transform: translateY(-4px); }
+@media (max-width: 620px) {
+    .preicfes-mode-grid { grid-template-columns: 1fr !important; }
+}
+</style>

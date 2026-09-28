@@ -27,6 +27,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="<?php echo $url_base; ?>cuestionarios/inicio"><i class="fa-solid fa-clipboard-question"></i> Test Vocacional</a></li>
                     <li><a href="<?php echo $url_base; ?>simulacros/inicio"><i class="fa-solid fa-pencil"></i> Pre-ICFES</a></li>
+                    <li><a href="<?php echo $url_base; ?>simulacros/profundizado"><i class="fa-solid fa-layer-group"></i> Pre-ICFES profundizado</a></li>
                 </ul>
             </li>
             <li class="navbar-item"><a href="<?php echo $url_base; ?>paginas/nosotros"><i class="fa-solid fa-people-group"></i> Nosotros</a></li>

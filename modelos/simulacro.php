@@ -25,6 +25,60 @@ class Simulacro {
         return $consulta->fetchAll();
     }
 
+    public static function obtenerPreguntasAleatorias($limite = 25) {
+        $db = baseDatos::crearInstancia();
+        $limite = max(1, min(25, (int) $limite));
+        $sql = "SELECT p.*, s.materia, s.titulo AS simulacro_titulo
+                FROM simulacro_preguntas p
+                JOIN simulacros s ON p.id_simulacro = s.id_simulacro
+                WHERE s.materia IN ('Inglés', 'Ciencias Naturales', 'Lectura Crítica', 'Matemáticas', 'Sociales')
+                ORDER BY RAND()
+                LIMIT " . $limite;
+        return $db->query($sql)->fetchAll();
+    }
+
+    public static function obtenerPreguntasPorMateria($materia, $limite = 25) {
+        $db = baseDatos::crearInstancia();
+        $limite = max(1, min(25, (int) $limite));
+        $sql = "SELECT p.*, s.materia, s.titulo AS simulacro_titulo
+                FROM simulacro_preguntas p
+                JOIN simulacros s ON p.id_simulacro = s.id_simulacro
+                WHERE s.materia = ?
+                ORDER BY RAND()
+                LIMIT " . $limite;
+        $consulta = $db->prepare($sql);
+        $consulta->execute([$materia]);
+        return $consulta->fetchAll();
+    }
+
+    public static function obtenerMateriasPreIcfes() {
+        return ['Inglés', 'Ciencias Naturales', 'Lectura Crítica', 'Matemáticas', 'Sociales'];
+    }
+
+    public static function obtenerSimulacroPorMateria($materia) {
+        $db = baseDatos::crearInstancia();
+        $consulta = $db->prepare("SELECT * FROM simulacros WHERE materia = ? ORDER BY id_simulacro ASC LIMIT 1");
+        $consulta->execute([$materia]);
+        return $consulta->fetch();
+    }
+
+    public static function obtenerSimulacroAleatorio() {
+        $db = baseDatos::crearInstancia();
+        $consulta = $db->query("SELECT * FROM simulacros WHERE titulo = 'Pre-ICFES Aleatorio' LIMIT 1");
+        $simulacro = $consulta->fetch();
+        if ($simulacro) return $simulacro;
+
+        $insertar = $db->prepare("INSERT INTO simulacros (titulo, descripcion, materia, color, icono) VALUES (?, ?, ?, ?, ?)");
+        $insertar->execute([
+            'Pre-ICFES Aleatorio',
+            'Simulacro mixto con preguntas de Inglés, Ciencias Naturales, Lectura Crítica, Matemáticas y Sociales.',
+            'Mixto',
+            '#2563eb',
+            'fa-solid fa-shuffle'
+        ]);
+        return self::obtenerPorId($db->lastInsertId());
+    }
+
     public static function guardarIntento($id_usuario, $id_simulacro, $puntaje) {
         $db = baseDatos::crearInstancia();
         $sql = "INSERT INTO simulacro_intentos (id_usuario, id_simulacro, puntaje) VALUES (?, ?, ?)";
