@@ -59,7 +59,7 @@ class Simulacro {
 
     public static function obtenerPreguntasPorMateria($materia, $limite = 25) {
         $db = baseDatos::crearInstancia();
-        $limite = max(1, min(25, (int) $limite));
+        $limite = max(1, min(50, (int) $limite));
         $sql = "SELECT p.*, s.materia, s.titulo AS simulacro_titulo
                 FROM simulacro_preguntas p
                 JOIN simulacros s ON p.id_simulacro = s.id_simulacro

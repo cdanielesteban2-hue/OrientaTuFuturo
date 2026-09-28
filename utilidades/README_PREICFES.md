@@ -4,7 +4,7 @@
 
 - **Pre-ICFES**: prueba mixta aleatoria en modalidad corta, intermedia o normal.
 - **Modalidad normal**: una sola prueba de 247 preguntas; muestra primero 123 y, al continuar, las 124 restantes. Cada sección tiene 4 horas.
-- **Pre-ICFES profundizado**: selección de una materia concreta, con hasta 25 preguntas de esa materia.
+- **Pre-ICFES profundizado**: selección de una materia concreta y elección de 10, 25 o 50 preguntas.
 
 Materias incluidas:
 

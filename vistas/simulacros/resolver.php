@@ -6,7 +6,7 @@ $color_ui_dark = '#ca8a04';
 $accion_resolver = isset($_GET['modo']) && $_GET['modo'] === 'aleatorio'
     ? $url_base . 'simulacros/resolver?modo=aleatorio&modalidad=' . urlencode($_GET['modalidad'] ?? 'corto')
     : (isset($_GET['materia'])
-        ? $url_base . 'simulacros/resolver?materia=' . urlencode($_GET['materia'])
+        ? $url_base . 'simulacros/resolver?materia=' . urlencode($_GET['materia']) . '&cantidad=' . urlencode($_GET['cantidad'] ?? '25')
         : $url_base . 'simulacros/resolver?id=' . $simulacro['id_simulacro']);
 $etiqueta_prueba = isset($_GET['materia']) ? $_GET['materia'] : ($simulacro['materia'] === 'Mixto' ? 'Prueba mixta' : $simulacro['materia']);
 $es_normal = isset($es_normal) && $es_normal;

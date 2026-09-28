@@ -34,11 +34,14 @@ class ControladorSimulacros {
 
         $modo = isset($_GET['modo']) ? trim($_GET['modo']) : '';
         $materia = isset($_GET['materia']) ? trim($_GET['materia']) : '';
+        $cantidad = isset($_GET['cantidad']) ? (int) $_GET['cantidad'] : 25;
+        $cantidades_validas = [10, 25, 50];
+        if (!in_array($cantidad, $cantidades_validas, true)) $cantidad = 25;
         $modalidad = isset($_GET['modalidad']) ? trim($_GET['modalidad']) : 'corto';
         $materias_validas = Simulacro::obtenerMateriasPreIcfes();
         $modalidades = Simulacro::obtenerModalidadesAleatorias();
         $es_aleatorio = ($modo === 'aleatorio' && isset($modalidades[$modalidad]));
-        $session_key = 'preicfes_' . ($es_aleatorio ? 'aleatorio_' . $modalidad : 'materia_' . md5($materia));
+        $session_key = 'preicfes_' . ($es_aleatorio ? 'aleatorio_' . $modalidad : 'materia_' . md5($materia . '|' . $cantidad));
         $es_normal = $es_aleatorio && $modalidad === 'normal';
 
         if ($es_aleatorio) {
@@ -66,7 +69,7 @@ class ControladorSimulacros {
             if ($_POST && !empty($_SESSION[$session_key]['preguntas'])) {
                 $preguntas = Simulacro::obtenerPreguntasPorIds($_SESSION[$session_key]['preguntas']);
             } else {
-                $preguntas = Simulacro::obtenerPreguntasPorMateria($materia, 25);
+                $preguntas = Simulacro::obtenerPreguntasPorMateria($materia, $cantidad);
                 $_SESSION[$session_key] = [
                     'preguntas' => array_column($preguntas, 'id_pregunta'),
                     'inicio' => time()

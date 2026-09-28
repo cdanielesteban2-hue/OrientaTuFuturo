@@ -59,7 +59,7 @@ $variantes = [
 
 foreach ($materias as $materia => [$color, $icono, $base]) {
     $titulo = 'Pre-ICFES profundizado — ' . $materia;
-    $descripcion = 'Prueba de 25 preguntas de ' . $materia . ' con porcentaje y explicación de errores.';
+    $descripcion = 'Prueba configurable de 10, 25 o 50 preguntas de ' . $materia . ' con porcentaje y explicación de errores.';
 
     $buscar = $db->prepare('SELECT id_simulacro FROM simulacros WHERE titulo = ? LIMIT 1');
     $buscar->execute([$titulo]);
@@ -85,4 +85,4 @@ foreach ($materias as $materia => [$color, $icono, $base]) {
 }
 
 $db->commit();
-echo "Banco Pre-ICFES listo: 5 materias x 25 preguntas.\n";
+echo "Banco Pre-ICFES listo: 5 materias x 50 preguntas.\n";

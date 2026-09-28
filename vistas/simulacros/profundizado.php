@@ -13,18 +13,29 @@ $colores = [
         <span class="badge badge-primary"><i class="fa-solid fa-layer-group"></i> Práctica por competencias</span>
         <h1 style="font-size: 2.5rem; margin: 10px 0; color: var(--text-primary);">Pre-ICFES profundizado</h1>
         <p style="color: var(--text-secondary); font-size: 1.05rem; max-width: 700px; margin: 0 auto;">
-            Selecciona una materia. Cada prueba tiene aproximadamente 25 preguntas, calcula tu porcentaje y explica tus respuestas incorrectas al finalizar.
+            Selecciona una materia y elige entre 10, 25 o 50 preguntas. Al finalizar podrás ver tu porcentaje y la explicación de tus respuestas incorrectas.
         </p>
     </div>
     <div class="preicfes-subject-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px;">
         <?php foreach ($materias as $materia): ?>
             <?php [$color, $icono, $descripcion] = $colores[$materia]; ?>
-            <a href="<?php echo $url_base; ?>simulacros/resolver?materia=<?php echo urlencode($materia); ?>" class="card-premium preicfes-subject-card" style="border-top: 4px solid <?php echo $color; ?>; text-decoration: none; color: inherit; display: flex; flex-direction: column; min-height: 230px;">
+            <div class="card-premium preicfes-subject-card" style="border-top: 4px solid <?php echo $color; ?>; color: inherit; display: flex; flex-direction: column; min-height: 280px;">
                 <span class="preicfes-mode-icon" style="background: <?php echo $color; ?>20; color: <?php echo $color; ?>;"><i class="<?php echo $icono; ?>"></i></span>
                 <h2 style="font-size: 1.25rem; margin: 16px 0 8px;"><?php echo htmlspecialchars($materia); ?></h2>
-                <p style="color: var(--text-secondary); line-height: 1.55; flex: 1; margin-bottom: 18px;"><?php echo htmlspecialchars($descripcion); ?></p>
-                <span class="btn" style="width: 100%; background: <?php echo $color; ?>; color: white;">Resolver 25 preguntas <i class="fa-solid fa-arrow-right"></i></span>
-            </a>
+                <p style="color: var(--text-secondary); line-height: 1.55; margin-bottom: 14px;"><?php echo htmlspecialchars($descripcion); ?></p>
+                <form method="GET" action="<?php echo $url_base; ?>simulacros/resolver" class="selector-preguntas-form">
+                    <input type="hidden" name="materia" value="<?php echo htmlspecialchars($materia); ?>">
+                    <label for="cantidad-<?php echo md5($materia); ?>" style="display: block; color: var(--text-secondary); font-size: .85rem; font-weight: 700; margin-bottom: 7px;">Cantidad de preguntas</label>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <select id="cantidad-<?php echo md5($materia); ?>" name="cantidad" class="form-control" style="flex: 1; border-color: <?php echo $color; ?>88;">
+                            <option value="10">10 preguntas · práctica rápida</option>
+                            <option value="25" selected>25 preguntas · estándar</option>
+                            <option value="50">50 preguntas · completa</option>
+                        </select>
+                        <button type="submit" class="btn" style="background: <?php echo $color; ?>; color: white; white-space: nowrap;">Iniciar <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </form>
+            </div>
         <?php endforeach; ?>
     </div>
     <div style="text-align: center; margin-top: 35px;">

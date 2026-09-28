@@ -35,7 +35,8 @@
                     if (strpos($intento['titulo'], 'normal') !== false) $modalidad_reintento = 'normal';
                     $url_reintento = $url_base . 'simulacros/resolver?modo=aleatorio&modalidad=' . $modalidad_reintento;
                 } else {
-                    $url_reintento = $url_base . 'simulacros/resolver?materia=' . urlencode($intento['materia']);
+                    $cantidad_reintento = in_array(count($respuestas), [10, 25, 50], true) ? count($respuestas) : 25;
+                    $url_reintento = $url_base . 'simulacros/resolver?materia=' . urlencode($intento['materia']) . '&cantidad=' . $cantidad_reintento;
                 }
             ?>
             <a href="<?php echo $url_reintento; ?>" class="btn btn-primary">
