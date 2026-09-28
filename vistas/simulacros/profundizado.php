@@ -25,15 +25,18 @@ $colores = [
                 <p style="color: var(--text-secondary); line-height: 1.55; margin-bottom: 14px;"><?php echo htmlspecialchars($descripcion); ?></p>
                 <form method="GET" action="<?php echo $url_base; ?>simulacros/resolver" class="selector-preguntas-form">
                     <input type="hidden" name="materia" value="<?php echo htmlspecialchars($materia); ?>">
-                    <label for="cantidad-<?php echo md5($materia); ?>" style="display: block; color: var(--text-secondary); font-size: .85rem; font-weight: 700; margin-bottom: 7px;">Cantidad de preguntas</label>
-                    <div style="display: flex; gap: 10px; align-items: center;">
-                        <select id="cantidad-<?php echo md5($materia); ?>" name="cantidad" class="form-control" style="flex: 1; border-color: <?php echo $color; ?>88;">
+                    <button type="button" class="btn btn-cantidad" aria-expanded="false" onclick="toggleCantidad(this)" style="width: 100%; border: 1px solid <?php echo $color; ?>88; color: <?php echo $color; ?>; background: <?php echo $color; ?>12;">
+                        <i class="fa-solid fa-list-ol"></i> Cantidad <i class="fa-solid fa-chevron-down cantidad-chevron"></i>
+                    </button>
+                    <div class="cantidad-panel" hidden>
+                        <label for="cantidad-<?php echo md5($materia); ?>" style="display: block; color: var(--text-secondary); font-size: .85rem; font-weight: 700; margin: 10px 0 7px;">Elige el número de preguntas</label>
+                        <select id="cantidad-<?php echo md5($materia); ?>" name="cantidad" class="form-control" style="width: 100%; border-color: <?php echo $color; ?>88;">
                             <option value="10">10 preguntas · práctica rápida</option>
                             <option value="25" selected>25 preguntas · estándar</option>
                             <option value="50">50 preguntas · completa</option>
                         </select>
-                        <button type="submit" class="btn" style="background: <?php echo $color; ?>; color: white; white-space: nowrap;">Iniciar <i class="fa-solid fa-arrow-right"></i></button>
                     </div>
+                    <button type="submit" class="btn btn-empezar" style="width: 100%; background: <?php echo $color; ?>; color: white; margin-top: 10px;"><i class="fa-solid fa-play"></i> Empezar</button>
                 </form>
             </div>
         <?php endforeach; ?>
@@ -46,6 +49,10 @@ $colores = [
 .preicfes-mode-icon { width: 52px; height: 52px; border-radius: 14px; display: inline-flex; align-items: center; justify-content: center; font-size: 1.35rem; }
 .preicfes-mode-card, .preicfes-subject-card { transition: transform .2s ease, box-shadow .2s ease; }
 .preicfes-mode-card:hover, .preicfes-subject-card:hover { transform: translateY(-4px); }
+.selector-preguntas-form { margin-top: auto; }
+.btn-cantidad, .btn-empezar { min-height: 42px; justify-content: center; }
+.cantidad-chevron { margin-left: 5px; transition: transform .2s ease; }
+.btn-cantidad[aria-expanded="true"] .cantidad-chevron { transform: rotate(180deg); }
 @media (max-width: 800px) {
     .preicfes-subject-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
 }
@@ -53,3 +60,11 @@ $colores = [
     .preicfes-subject-grid { grid-template-columns: 1fr !important; }
 }
 </style>
+<script>
+function toggleCantidad(button) {
+    var panel = button.parentElement.querySelector('.cantidad-panel');
+    var abierto = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', abierto ? 'false' : 'true');
+    panel.hidden = abierto;
+}
+</script>
