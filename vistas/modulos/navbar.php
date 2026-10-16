@@ -37,8 +37,11 @@ $logado = isset($_SESSION['usuario']);
         <a href="<?php echo $url_base; ?>cuestionarios/inicio" class="side-link <?php echo nav_active('cuestionarios'); ?>">
             <i class="fa-solid fa-clipboard-list"></i> Test Vocacional
         </a>
-        <a href="<?php echo $url_base; ?>simulacros/inicio" class="side-link <?php echo nav_active('simulacros'); ?>">
+        <a href="<?php echo $url_base; ?>simulacros/inicio" class="side-link <?php echo (nav_active('simulacros/inicio') || (nav_active('simulacros') && !nav_active('profundizado'))) ? 'active' : ''; ?>">
             <i class="fa-solid fa-pencil"></i> Pre-ICFES
+        </a>
+        <a href="<?php echo $url_base; ?>simulacros/profundizado" class="side-link <?php echo nav_active('profundizado'); ?>">
+            <i class="fa-solid fa-layer-group"></i> Pre-ICFES profundizado
         </a>
         <a href="<?php echo $url_base; ?>paginas/nosotros" class="side-link <?php echo nav_active('nosotros'); ?>">
             <i class="fa-solid fa-people-group"></i> Nosotros
@@ -83,6 +86,7 @@ $logado = isset($_SESSION['usuario']);
                 <a href="<?php echo $url_base; ?>usuarios/dashboard"><i class="fa-solid fa-gauge"></i> Mi Panel</a>
                 <a href="<?php echo $url_base; ?>cuestionarios/inicio"><i class="fa-solid fa-clipboard-list"></i> Test Vocacional</a>
                 <a href="<?php echo $url_base; ?>simulacros/inicio"><i class="fa-solid fa-pencil"></i> Pre-ICFES</a>
+                <a href="<?php echo $url_base; ?>simulacros/profundizado"><i class="fa-solid fa-layer-group"></i> Pre-ICFES profundizado</a>
                 <a href="<?php echo $url_base; ?>usuarios/logout" class="danger"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
             </div>
         <?php else: ?>
