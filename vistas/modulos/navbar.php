@@ -11,20 +11,25 @@ $emoji = $avatares[$avatar_actual] ?? '👤';
 $nombre = isset($_SESSION['usuario']) ? htmlspecialchars($_SESSION['usuario']['nombre']) : 'Invitado';
 $logado = isset($_SESSION['usuario']);
 ?>
-<!-- Decoración: dragón + letras verticales -->
-<svg class="app-dragon" viewBox="0 0 400 480" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <defs>
-    <linearGradient id="dg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#64748b"/>
-      <stop offset="100%" stop-color="#94a3b8"/>
-    </linearGradient>
-  </defs>
-  <path fill="url(#dg)" d="M60 380c20-40 50-70 90-90 10-40 40-70 80-85-15-25-10-55 15-70 20-12 45-8 60 10 18-30 55-40 85-20 25 16 35 45 25 75 35 20 50 55 40 95-8 30-30 50-60 60 5 30-5 60-30 75-30 18-65 10-85-15-25 20-60 25-90 5-35-22-50-60-40-95-25-10-45-30-50-55-5-20 0-40 10-55z"/>
-  <path fill="url(#dg)" opacity="0.7" d="M200 120c30-40 80-50 120-25 25 15 40 45 35 75-20 10-45 5-60-10-10 25-35 40-65 35-30-5-50-30-45-55 5-10 10-15 15-20z"/>
-  <ellipse cx="280" cy="90" rx="18" ry="12" fill="url(#dg)"/>
-  <circle cx="288" cy="88" r="3" fill="#0f172a"/>
+<!-- Dragón estilo tinta (mockup) -->
+<svg class="app-dragon" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <g fill="none" stroke="#334155" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M120 420c40-90 110-140 190-160 30-80 110-130 200-120 40-50 110-70 170-40 50 25 75 80 60 135 55 35 80 100 55 165-20 50-70 80-125 85 10 55-25 105-80 120-60 18-120-10-145-65-45 40-115 45-170 5-55-40-75-110-50-170-40-20-70-55-75-100-5-35 5-70 30-95"/>
+    <path d="M280 220c25-45 80-70 130-55 35 12 55 45 50 80"/>
+    <path d="M520 160c20-35 60-50 95-35 25 12 40 40 30 70"/>
+    <path d="M180 300c-25 20-45 50-50 85"/>
+    <path d="M400 280c15 40 10 85-15 120"/>
+    <path d="M560 300c25 30 35 70 20 105"/>
+    <path d="M620 200c40 5 70 30 80 65"/>
+    <circle cx="640" cy="175" r="6" fill="#334155"/>
+    <path d="M655 170c12-8 28-8 38 2"/>
+    <path d="M200 450c30 25 70 30 105 15"/>
+    <path d="M320 480c40 20 85 15 120-10"/>
+  </g>
 </svg>
-<div class="app-vertical-text" aria-hidden="true">情報決断前進</div>
+<div class="app-vertical-text" aria-hidden="true">
+  <span class="vt-block">情報決断前進</span>
+</div>
 
 <aside class="app-sidebar" id="app-sidebar">
     <div class="sidebar-brand">
@@ -33,7 +38,6 @@ $logado = isset($_SESSION['usuario']);
             <span class="sidebar-logo-text">orienta<span>tu</span>futuro</span>
         </a>
     </div>
-
     <nav class="sidebar-nav">
         <a href="<?php echo $url_base; ?>paginas/inicio" class="side-link <?php echo (nav_active('paginas/inicio') || preg_match('#/(index\.php)?$#', $uri)) ? 'active' : ''; ?>">
             <i class="fa-solid fa-house"></i> Inicio
@@ -60,14 +64,8 @@ $logado = isset($_SESSION['usuario']);
         <a href="<?php echo $url_base; ?>usuarios/dashboard" class="side-link <?php echo nav_active('usuarios/dashboard'); ?>">
             <i class="fa-solid fa-gauge"></i> Mi Panel
         </a>
-        <?php if (isset($_SESSION['usuario']['rol']) && $_SESSION['usuario']['rol'] === 'admin'): ?>
-        <a href="<?php echo $url_base; ?>admin/dashboard" class="side-link <?php echo nav_active('admin'); ?>">
-            <i class="fa-solid fa-screwdriver-wrench"></i> Admin
-        </a>
-        <?php endif; ?>
         <?php endif; ?>
     </nav>
-
     <div class="sidebar-foot">
         <button id="theme-toggle" class="side-link theme-side-btn" type="button" title="Cambiar tema">
             <i class="fa-solid fa-moon"></i> Tema
@@ -80,17 +78,13 @@ $logado = isset($_SESSION['usuario']);
             <a href="<?php echo $url_base; ?>usuarios/login" class="side-link">
                 <i class="fa-solid fa-right-to-bracket"></i> Ingresar
             </a>
-            <a href="<?php echo $url_base; ?>usuarios/registro" class="btn btn-accent" style="width:100%; margin-top:8px; font-size:0.9rem;">
-                Registrarse
-            </a>
+            <a href="<?php echo $url_base; ?>usuarios/registro" class="btn btn-accent" style="width:100%; margin-top:8px; font-size:0.9rem;">Registrarse</a>
         <?php endif; ?>
     </div>
 </aside>
 
 <header class="app-topbar">
-    <button type="button" class="sidebar-toggle" id="sidebar-toggle" aria-label="Menú">
-        <i class="fa-solid fa-bars"></i>
-    </button>
+    <button type="button" class="sidebar-toggle" id="sidebar-toggle" aria-label="Menú"><i class="fa-solid fa-bars"></i></button>
     <div class="topbar-search-hint">
         <i class="fa-solid fa-compass"></i>
         <span>Tu viaje hacia el futuro comienza aquí</span>
@@ -100,26 +94,13 @@ $logado = isset($_SESSION['usuario']);
             <button type="button" class="topbar-user-btn" id="user-menu-btn" aria-haspopup="true" aria-expanded="false">
                 <span class="topbar-avatar"><?php echo $emoji; ?></span>
                 <span class="topbar-name"><?php echo $nombre; ?></span>
-                <i class="fa-solid fa-chevron-down" style="font-size:0.7rem; opacity:0.7;"></i>
+                <i class="fa-solid fa-chevron-down" style="font-size:0.7rem; opacity:0.6;"></i>
             </button>
             <div class="user-menu" id="user-menu">
-                <a href="<?php echo $url_base; ?>usuarios/dashboard">
-                    <i class="fa-solid fa-gauge"></i> Mi Panel
-                </a>
-                <a href="<?php echo $url_base; ?>cuestionarios/inicio">
-                    <i class="fa-solid fa-clipboard-list"></i> Test Vocacional
-                </a>
-                <a href="<?php echo $url_base; ?>simulacros/inicio">
-                    <i class="fa-solid fa-pencil"></i> Pre-ICFES
-                </a>
-                <?php if (isset($_SESSION['usuario']['rol']) && $_SESSION['usuario']['rol'] === 'admin'): ?>
-                <a href="<?php echo $url_base; ?>admin/dashboard">
-                    <i class="fa-solid fa-screwdriver-wrench"></i> Admin
-                </a>
-                <?php endif; ?>
-                <a href="<?php echo $url_base; ?>usuarios/logout" class="danger">
-                    <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
-                </a>
+                <a href="<?php echo $url_base; ?>usuarios/dashboard"><i class="fa-solid fa-gauge"></i> Mi Panel</a>
+                <a href="<?php echo $url_base; ?>cuestionarios/inicio"><i class="fa-solid fa-clipboard-list"></i> Test Vocacional</a>
+                <a href="<?php echo $url_base; ?>simulacros/inicio"><i class="fa-solid fa-pencil"></i> Pre-ICFES</a>
+                <a href="<?php echo $url_base; ?>usuarios/logout" class="danger"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
             </div>
         <?php else: ?>
             <a href="<?php echo $url_base; ?>usuarios/login" class="topbar-user-btn">
@@ -129,22 +110,14 @@ $logado = isset($_SESSION['usuario']);
         <?php endif; ?>
     </div>
 </header>
-
 <script>
-(function() {
-    var btn = document.getElementById('user-menu-btn');
-    var menu = document.getElementById('user-menu');
-    if (btn && menu) {
-        btn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            var open = menu.classList.toggle('open');
-            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-        });
-        document.addEventListener('click', function() {
-            menu.classList.remove('open');
-            btn.setAttribute('aria-expanded', 'false');
-        });
-        menu.addEventListener('click', function(e) { e.stopPropagation(); });
-    }
+(function(){
+  var btn=document.getElementById('user-menu-btn');
+  var menu=document.getElementById('user-menu');
+  if(btn&&menu){
+    btn.addEventListener('click',function(e){e.stopPropagation();var o=menu.classList.toggle('open');btn.setAttribute('aria-expanded',o?'true':'false');});
+    document.addEventListener('click',function(){menu.classList.remove('open');btn.setAttribute('aria-expanded','false');});
+    menu.addEventListener('click',function(e){e.stopPropagation();});
+  }
 })();
 </script>

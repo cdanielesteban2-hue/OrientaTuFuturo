@@ -1,14 +1,12 @@
-<!-- CTA final (sin bloque de puntaje ICFES) -->
-<section class="py-14 px-6 max-w-7xl mx-auto" style="text-align: center;">
-    <div class="card-premium" style="padding: 40px 28px; background: linear-gradient(135deg, var(--bg-card) 0%, var(--primary-soft) 100%); border-color: var(--border);">
-        <h2 style="font-size: 1.75rem; margin-bottom: 10px;">Empieza tu orientación hoy</h2>
-        <p style="color: var(--text-secondary); margin-bottom: 22px; max-width: 480px; margin-left: auto; margin-right: auto; font-size: 0.95rem;">
-            Test vocacional, directorio de universidades, Pre-ICFES y becas en un solo lugar.
-        </p>
-        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;">
-            <a href="<?php echo $url_base; ?>cuestionarios/inicio" class="btn btn-accent" style="padding: 12px 22px;">Hacer el test</a>
-            <a href="<?php echo $url_base; ?>simulacros/inicio" class="btn btn-primary" style="padding: 12px 22px;">Practicar Pre-ICFES</a>
-            <a href="<?php echo $url_base; ?>universidades/inicio" class="btn btn-outline" style="padding: 12px 22px;">Ver universidades</a>
-        </div>
+<!-- CTA final minimal -->
+<section style="margin-top:18px; margin-bottom:8px;">
+  <div class="mock-card" style="text-align:center; padding:28px 22px;">
+    <h2 style="font-size:1.35rem; margin:0 0 8px; color:#0f172a;">Empieza tu orientación hoy</h2>
+    <p style="color:#64748b; margin:0 0 16px; font-size:0.92rem;">Test vocacional, universidades, Pre-ICFES y becas en un solo lugar.</p>
+    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px;">
+      <a href="<?php echo constant('URL_BASE'); ?>cuestionarios/inicio" class="btn btn-accent">Hacer el test</a>
+      <a href="<?php echo constant('URL_BASE'); ?>simulacros/inicio" class="btn btn-primary">Pre-ICFES</a>
+      <a href="<?php echo constant('URL_BASE'); ?>universidades/inicio" class="btn btn-outline">Universidades</a>
     </div>
+  </div>
 </section>
