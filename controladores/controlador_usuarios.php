@@ -50,7 +50,10 @@ class ControladorUsuarios {
 
     public function login() {
         if (isset($_SESSION['usuario'])) {
-            header("Location: " . URL_BASE . "usuarios/dashboard");
+            $dest = (($_SESSION['usuario']['rol'] ?? '') === 'admin')
+                ? URL_BASE . "usuarios/admin"
+                : URL_BASE . "usuarios/dashboard";
+            header("Location: " . $dest);
             exit;
         }
 
@@ -72,7 +75,11 @@ class ControladorUsuarios {
                         'avatar' => $usuario->avatar,
                         'rol' => $usuario->rol
                     ];
-                    header("Location: " . URL_BASE . "usuarios/dashboard");
+                    if (($usuario->rol ?? 'usuario') === 'admin') {
+                        header("Location: " . URL_BASE . "usuarios/admin");
+                    } else {
+                        header("Location: " . URL_BASE . "usuarios/dashboard");
+                    }
                     exit;
                 } else {
                     $error = "Correo electrónico o contraseña incorrectos.";
@@ -98,10 +105,7 @@ class ControladorUsuarios {
         include_once "modelos/cuestionario.php";
         include_once "modelos/universidad.php";
 
-        // Ciudades dinámicas para el formulario de perfil (mismas que el filtro de universidades)
         $ciudades = Universidad::obtenerCiudades();
-        
-        // Mensajes de feedback para perfil
         $perfil_ok = isset($_GET['perfil_ok']) ? $_GET['perfil_ok'] : '';
         
         $programas     = Usuario::obtenerProgramasGuardados($id_usuario);
@@ -204,6 +208,61 @@ class ControladorUsuarios {
         }
         header("Location: " . $_SERVER['HTTP_REFERER']);
         exit;
+    }
+
+    /**
+     * Panel operativo del administrador: métricas y accesos de control.
+     */
+    public function admin() {
+        if (!isset($_SESSION['usuario'])) {
+            header("Location: " . URL_BASE . "usuarios/login");
+            exit;
+        }
+        if (($_SESSION['usuario']['rol'] ?? '') !== 'admin') {
+            header("Location: " . URL_BASE . "usuarios/dashboard");
+            exit;
+        }
+
+        include_once "conexion.php";
+        $db = baseDatos::crearInstancia();
+        $count = function ($sql) use ($db) {
+            try {
+                return (int) $db->query($sql)->fetchColumn();
+            } catch (Exception $e) {
+                return 0;
+            }
+        };
+
+        $stats = [
+            'usuarios'            => $count("SELECT COUNT(*) FROM usuarios"),
+            'universidades'       => $count("SELECT COUNT(*) FROM universidades"),
+            'programas'           => $count("SELECT COUNT(*) FROM programas_academicos"),
+            'becas'               => $count("SELECT COUNT(*) FROM becas"),
+            'tests_completados'   => $count("SELECT COUNT(*) FROM usuario_cuestionario"),
+            'simulacros'          => $count("SELECT COUNT(*) FROM simulacro_intentos"),
+            'preguntas_simulacro' => $count("SELECT COUNT(*) FROM simulacro_preguntas"),
+            'preguntas_test'      => $count("SELECT COUNT(*) FROM preguntas"),
+            'respuestas_test'     => $count("SELECT COUNT(*) FROM respuesta"),
+            'promedio_icfes'      => 0,
+        ];
+
+        try {
+            $avg = $db->query("SELECT AVG(puntaje) FROM simulacro_intentos")->fetchColumn();
+            $stats['promedio_icfes'] = $avg !== null ? round((float)$avg, 1) : 0;
+        } catch (Exception $e) {
+            $stats['promedio_icfes'] = 0;
+        }
+
+        $ultimos_usuarios = [];
+        try {
+            $ultimos_usuarios = $db->query(
+                "SELECT nombre, correo, ciudad, rol, f_registro FROM usuarios ORDER BY id_usuarios DESC LIMIT 12"
+            )->fetchAll();
+        } catch (Exception $e) {
+            $ultimos_usuarios = [];
+        }
+
+        include_once "vistas/usuarios/admin.php";
     }
 }
 ?>
