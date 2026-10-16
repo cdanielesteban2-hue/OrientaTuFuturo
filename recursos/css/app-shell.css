@@ -90,17 +90,17 @@ body.app-shell,
   border-right: 1px solid #e2e8f0;
 }
 
-.sidebar-brand { padding: 2px 6px 16px; }
-.sidebar-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
-.sidebar-logo-img { width: 32px; height: 32px; border-radius: 9px; object-fit: contain; }
+.sidebar-brand { padding: 6px 6px 28px; }
+.sidebar-logo { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+.sidebar-logo-img { width: 44px; height: 44px; border-radius: 12px; object-fit: contain; }
 .sidebar-logo-text {
-  font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1rem;
+  font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.18rem;
   color: #f1f5f9; letter-spacing: -0.02em;
 }
 .sidebar-logo-text span { color: #eab308; }
 [data-theme="light"] .sidebar-logo-text { color: #0f172a; }
 
-.sidebar-nav { display: flex; flex-direction: column; gap: 4px; flex: 1; overflow-y: auto; }
+.sidebar-nav { display: flex; flex-direction: column; gap: 5px; flex: 1; overflow-y: auto; margin-top: 4px; }
 .side-link {
   display: flex; align-items: center; gap: 10px;
   padding: 10px 12px; border-radius: 12px;
