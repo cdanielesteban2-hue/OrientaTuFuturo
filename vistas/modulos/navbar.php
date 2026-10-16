@@ -11,25 +11,8 @@ $emoji = $avatares[$avatar_actual] ?? '👤';
 $nombre = isset($_SESSION['usuario']) ? htmlspecialchars($_SESSION['usuario']['nombre']) : 'Invitado';
 $logado = isset($_SESSION['usuario']);
 ?>
-<!-- Dragón estilo tinta (mockup) -->
-<svg class="app-dragon" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <g fill="none" stroke="#334155" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M120 420c40-90 110-140 190-160 30-80 110-130 200-120 40-50 110-70 170-40 50 25 75 80 60 135 55 35 80 100 55 165-20 50-70 80-125 85 10 55-25 105-80 120-60 18-120-10-145-65-45 40-115 45-170 5-55-40-75-110-50-170-40-20-70-55-75-100-5-35 5-70 30-95"/>
-    <path d="M280 220c25-45 80-70 130-55 35 12 55 45 50 80"/>
-    <path d="M520 160c20-35 60-50 95-35 25 12 40 40 30 70"/>
-    <path d="M180 300c-25 20-45 50-50 85"/>
-    <path d="M400 280c15 40 10 85-15 120"/>
-    <path d="M560 300c25 30 35 70 20 105"/>
-    <path d="M620 200c40 5 70 30 80 65"/>
-    <circle cx="640" cy="175" r="6" fill="#334155"/>
-    <path d="M655 170c12-8 28-8 38 2"/>
-    <path d="M200 450c30 25 70 30 105 15"/>
-    <path d="M320 480c40 20 85 15 120-10"/>
-  </g>
-</svg>
-<div class="app-vertical-text" aria-hidden="true">
-  <span class="vt-block">情報決断前進</span>
-</div>
+<!-- Dragón de fondo en TODAS las páginas -->
+<div class="app-dragon-bg" aria-hidden="true"></div>
 
 <aside class="app-sidebar" id="app-sidebar">
     <div class="sidebar-brand">
@@ -78,7 +61,7 @@ $logado = isset($_SESSION['usuario']);
             <a href="<?php echo $url_base; ?>usuarios/login" class="side-link">
                 <i class="fa-solid fa-right-to-bracket"></i> Ingresar
             </a>
-            <a href="<?php echo $url_base; ?>usuarios/registro" class="btn btn-accent" style="width:100%; margin-top:8px; font-size:0.9rem;">Registrarse</a>
+            <a href="<?php echo $url_base; ?>usuarios/registro" class="btn btn-accent" style="width:100%; margin-top:8px; font-size:0.85rem;">Registrarse</a>
         <?php endif; ?>
     </div>
 </aside>
@@ -94,7 +77,7 @@ $logado = isset($_SESSION['usuario']);
             <button type="button" class="topbar-user-btn" id="user-menu-btn" aria-haspopup="true" aria-expanded="false">
                 <span class="topbar-avatar"><?php echo $emoji; ?></span>
                 <span class="topbar-name"><?php echo $nombre; ?></span>
-                <i class="fa-solid fa-chevron-down" style="font-size:0.7rem; opacity:0.6;"></i>
+                <i class="fa-solid fa-chevron-down" style="font-size:0.65rem; opacity:0.6;"></i>
             </button>
             <div class="user-menu" id="user-menu">
                 <a href="<?php echo $url_base; ?>usuarios/dashboard"><i class="fa-solid fa-gauge"></i> Mi Panel</a>

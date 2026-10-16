@@ -1,5 +1,5 @@
-<!-- pasos 01-02-03 (textos visibles en claro y oscuro) -->
-<section style="margin-top:14px;">
+<!-- pasos 01-02-03 — textos con clases visibles en oscuro y claro -->
+<section style="margin-top:12px;">
   <div class="mock-card">
     <div class="mock-steps">
       <div>

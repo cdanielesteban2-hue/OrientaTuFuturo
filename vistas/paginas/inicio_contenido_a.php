@@ -1,9 +1,5 @@
 <?php $url_base = constant('URL_BASE'); ?>
 
-<!-- Fondo dragón solo en inicio -->
-<div class="home-dragon-bg" aria-hidden="true"></div>
-<script>document.body.classList.add('is-home');</script>
-
 <div class="mock-banner">
     <h1>Tu Viaje Hacia el Futuro<br>Comienza Aquí</h1>
     <a href="<?php echo $url_base; ?>cuestionarios/inicio" class="btn btn-accent">Ver completar</a>
@@ -12,13 +8,13 @@
 <div class="mock-grid">
     <div class="mock-card">
         <h3>Mi Progreso Vocacional</h3>
-        <a href="<?php echo $url_base; ?>cuestionarios/inicio" class="btn btn-accent" style="padding:10px 18px;">
+        <a href="<?php echo $url_base; ?>cuestionarios/inicio" class="btn btn-accent" style="padding:9px 16px;">
             <i class="fa-solid fa-clipboard-list"></i> Test Vocacional
         </a>
         <div class="mock-progress-track" aria-hidden="true">
             <div class="mock-progress-fill"></div>
         </div>
-        <p style="margin:10px 0 0; font-size:0.9rem; color:#94a3b8;">Progreso de vocación</p>
+        <p class="mock-text" style="margin:8px 0 0; font-size:0.85rem;">Progreso de vocación</p>
     </div>
 
     <div class="mock-card">
@@ -76,30 +72,30 @@
     </div>
 
     <div class="mock-card">
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
             <h3 style="margin:0;">Recursos y atajos</h3>
-            <a href="<?php echo $url_base; ?>becas/inicio" class="btn btn-accent" style="padding:8px 14px; font-size:0.88rem;">Ver becas</a>
+            <a href="<?php echo $url_base; ?>becas/inicio" class="btn btn-accent" style="padding:7px 12px; font-size:0.82rem;">Ver becas</a>
         </div>
         <div class="mock-event">
             <div class="mock-event-left">
                 <i class="fa-solid fa-building-columns"></i>
                 <span>Directorio de universidades</span>
             </div>
-            <a href="<?php echo $url_base; ?>universidades/inicio" class="btn btn-outline" style="padding:6px 12px; font-size:0.85rem;">Abrir</a>
+            <a href="<?php echo $url_base; ?>universidades/inicio" class="btn btn-outline" style="padding:5px 10px; font-size:0.8rem;">Abrir</a>
         </div>
         <div class="mock-event">
             <div class="mock-event-left">
                 <i class="fa-solid fa-book-open"></i>
                 <span>Catálogo de programas</span>
             </div>
-            <a href="<?php echo $url_base; ?>programas/inicio" class="btn btn-outline" style="padding:6px 12px; font-size:0.85rem;">Abrir</a>
+            <a href="<?php echo $url_base; ?>programas/inicio" class="btn btn-outline" style="padding:5px 10px; font-size:0.8rem;">Abrir</a>
         </div>
         <div class="mock-event">
             <div class="mock-event-left">
                 <i class="fa-solid fa-pencil"></i>
                 <span>Pre-ICFES interactivo</span>
             </div>
-            <a href="<?php echo $url_base; ?>simulacros/inicio" class="btn btn-accent" style="padding:6px 12px; font-size:0.85rem;">Practicar</a>
+            <a href="<?php echo $url_base; ?>simulacros/inicio" class="btn btn-accent" style="padding:5px 10px; font-size:0.8rem;">Practicar</a>
         </div>
     </div>
 </div>
