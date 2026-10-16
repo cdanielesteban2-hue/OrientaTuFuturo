@@ -1,21 +1,22 @@
-<!-- pasos compactos bajo el dashboard mockup -->
-<section style="margin-top:22px;">
-  <div class="mock-card" style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px;">
-    <div>
-      <div style="width:36px;height:36px;border-radius:10px;background:#0f172a;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;margin-bottom:10px;">01</div>
-      <strong style="display:block;margin-bottom:4px;color:#0f172a;">Diagnóstico</strong>
-      <span style="font-size:0.84rem;color:#64748b;">Test RIASEC para mapear fortalezas.</span>
-    </div>
-    <div>
-      <div style="width:36px;height:36px;border-radius:10px;background:#eab308;color:#0a0a0a;display:flex;align-items:center;justify-content:center;font-weight:800;margin-bottom:10px;">02</div>
-      <strong style="display:block;margin-bottom:4px;color:#0f172a;">Comparar</strong>
-      <span style="font-size:0.84rem;color:#64748b;">Universidades, costos y jornadas.</span>
-    </div>
-    <div>
-      <div style="width:36px;height:36px;border-radius:10px;background:#0f172a;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;margin-bottom:10px;">03</div>
-      <strong style="display:block;margin-bottom:4px;color:#0f172a;">Becas</strong>
-      <span style="font-size:0.84rem;color:#64748b;">Oportunidades de financiación.</span>
+<!-- pasos 01-02-03 (textos visibles en claro y oscuro) -->
+<section style="margin-top:14px;">
+  <div class="mock-card">
+    <div class="mock-steps">
+      <div>
+        <div class="mock-step-num dark">01</div>
+        <strong class="mock-title" style="display:block;margin-bottom:4px;">Diagnóstico</strong>
+        <span class="mock-text" style="font-size:0.86rem;">Test RIASEC para mapear fortalezas.</span>
+      </div>
+      <div>
+        <div class="mock-step-num accent">02</div>
+        <strong class="mock-title" style="display:block;margin-bottom:4px;">Comparar</strong>
+        <span class="mock-text" style="font-size:0.86rem;">Universidades, costos y jornadas.</span>
+      </div>
+      <div>
+        <div class="mock-step-num dark">03</div>
+        <strong class="mock-title" style="display:block;margin-bottom:4px;">Becas</strong>
+        <span class="mock-text" style="font-size:0.86rem;">Oportunidades de financiación.</span>
+      </div>
     </div>
   </div>
 </section>
-<style>@media(max-width:800px){section .mock-card{grid-template-columns:1fr!important;}}</style>

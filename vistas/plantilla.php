@@ -17,8 +17,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/miestilo.css?v=20261016f">
-    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/app-shell.css?v=20261016f">
+    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/miestilo.css?v=20261016g">
+    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/app-shell.css?v=20261016g">
     <style>
       :root {
         --border-color: var(--border);
@@ -32,11 +32,6 @@
         --shadow-premium: var(--shadow-lg);
         --radius-full: 9999px;
       }
-      /* Tipografía base más legible en todo el sitio */
-      body { font-size: 16.5px; }
-      .btn { font-size: 0.95rem; }
-      .form-input, .form-control, select.form-input { font-size: 0.98rem; }
-      .badge { font-size: 0.75rem; }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="<?php echo constant('URL_BASE'); ?>recursos/js/tailwind.min.js"></script>
@@ -45,7 +40,7 @@
         darkMode: ['class', '[data-theme="dark"]'],
         theme: {
           extend: {
-            colors: { brand: { gold: '#eab308', blue: '#0b3d91', dark: '#0f172a', light: '#f6f7fb' } },
+            colors: { brand: { gold: '#eab308', blue: '#0b3d91', dark: '#0f172a', light: '#f0f2f7' } },
             fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'], heading: ['Outfit', 'sans-serif'] }
           }
         }
