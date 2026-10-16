@@ -17,8 +17,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/miestilo.css?v=20261016d">
-    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/app-shell.css?v=20261016d">
+    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/miestilo.css?v=20261016e">
+    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/app-shell.css?v=20261016e">
     <style>
       :root {
         --border-color: var(--border);
@@ -40,7 +40,7 @@
         darkMode: ['class', '[data-theme="dark"]'],
         theme: {
           extend: {
-            colors: { brand: { gold: '#f5c518', blue: '#0b3d91', dark: '#0a1628', light: '#f7f8fc' } },
+            colors: { brand: { gold: '#eab308', blue: '#0b3d91', dark: '#0f172a', light: '#f6f7fb' } },
             fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'], heading: ['Outfit', 'sans-serif'] }
           }
         }
@@ -76,9 +76,7 @@
             const btn = document.getElementById('sidebar-toggle');
             const sidebar = document.getElementById('app-sidebar');
             if (btn && sidebar) {
-                btn.addEventListener('click', function() {
-                    sidebar.classList.toggle('open');
-                });
+                btn.addEventListener('click', function() { sidebar.classList.toggle('open'); });
             }
         });
     </script>
