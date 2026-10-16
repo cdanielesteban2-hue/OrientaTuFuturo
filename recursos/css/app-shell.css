@@ -1,4 +1,4 @@
-/* App shell — dragón global, escala 90%, sin letras chinas */
+/* App shell — dragón estilo anterior + escala 90% */
 
 html {
   height: 100%;
@@ -9,11 +9,10 @@ body.app-shell,
 .app-shell {
   min-height: 100%;
   margin: 0;
-  /* Fondo azul del aplicativo (se funde con el negro del dragón) */
   background: #0b1220;
   color: #e8eef9;
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-  font-size: 15px; /* ~90% de 16.5 */
+  font-size: 15px;
   line-height: 1.55;
   position: relative;
   overflow-x: hidden;
@@ -21,40 +20,35 @@ body.app-shell,
   flex-direction: column;
 }
 
-/* Tema claro: fondo azul suave */
 [data-theme="light"] body.app-shell,
 [data-theme="light"] .app-shell {
   background: #e8eef8;
   color: #0f172a;
 }
 
-/* Dragón en TODAS las páginas — grande, centrado, poco margen */
+/* Dragón como antes: centrado, tamaño moderado (no cover) */
 .app-dragon-bg {
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background-color: #0b1220;
+  background-color: transparent;
   background-image: url('https://i.imgur.com/6QOVbPf.jpeg');
   background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover; /* cubre casi todo el viewport */
-  opacity: 0.22;
+  background-position: center 42%;
+  background-size: min(920px, 85vw);
+  opacity: 0.16;
 }
 [data-theme="light"] .app-dragon-bg {
-  background-color: #e8eef8;
-  opacity: 0.14;
-  /* Suaviza el negro del PNG sobre fondo claro */
+  opacity: 0.12;
   filter: contrast(1.05);
 }
 
-/* Ocultar SVG viejo y letras chinas */
 .app-dragon,
 .app-vertical-text {
   display: none !important;
 }
 
-/* Escala general ~90% del contenido */
 .app-body {
   margin-left: 230px;
   min-height: calc(100vh - 58px);
@@ -68,14 +62,13 @@ body.app-shell,
 .app-main {
   flex: 1 0 auto;
   width: 100%;
-  max-width: 1180px; /* más ancho = menos hueco lateral */
+  max-width: 1180px;
   margin: 0 auto;
   padding: 20px 22px 32px;
   position: relative;
   z-index: 1;
 }
 
-/* —— SIDEBAR (un poco más compacta) —— */
 .app-sidebar {
   position: fixed;
   top: 0; left: 0; bottom: 0;
@@ -127,7 +120,6 @@ body.app-shell,
 .sidebar-foot { margin-top: auto; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08); }
 [data-theme="light"] .sidebar-foot { border-top-color: #eef2f7; }
 
-/* —— TOPBAR —— */
 .app-topbar {
   position: sticky; top: 0; z-index: 60;
   margin-left: 230px;
@@ -194,7 +186,6 @@ body.app-shell,
 
 .app-body .footer { flex-shrink: 0; margin-top: auto; }
 
-/* Tipografía */
 h1, .page-title { font-size: 1.7rem; }
 h2 { font-size: 1.25rem; }
 h3, .section-title { font-size: 1.05rem; }
@@ -203,13 +194,11 @@ p, .page-sub { font-size: 0.92rem; }
 .page-sub { color: #94a3b8; }
 [data-theme="light"] .page-sub { color: #64748b; }
 
-/* Textos siempre visibles (claro y oscuro) */
 .mock-title { color: #f1f5f9 !important; }
 .mock-text { color: #94a3b8 !important; }
 [data-theme="light"] .mock-title { color: #0f172a !important; }
 [data-theme="light"] .mock-text { color: #64748b !important; }
 
-/* Cards más transparentes y un poco más grandes */
 .mock-banner {
   background: rgba(15, 22, 40, 0.55);
   border: 1px solid rgba(255,255,255,0.08);
@@ -315,7 +304,6 @@ p, .page-sub { font-size: 0.92rem; }
 .mock-step-num.accent { background: #eab308; color: #0a0a0a; }
 [data-theme="light"] .mock-step-num.dark { background: #0f172a; }
 
-/* Listas horizontales */
 .list-rows { display: flex; flex-direction: column; gap: 8px; }
 .list-row {
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
@@ -345,7 +333,6 @@ p, .page-sub { font-size: 0.92rem; }
 .list-row-meta i { margin-right: 3px; color: #60a5fa; }
 .list-row-actions { display: flex; align-items: center; gap: 7px; flex-shrink: 0; }
 
-/* Cards / forms tema oscuro */
 .card, .card-premium, .filter-sidebar {
   background: rgba(15, 22, 40, 0.55) !important;
   border-color: rgba(255,255,255,0.08) !important;
@@ -424,5 +411,8 @@ p, .page-sub { font-size: 0.92rem; }
   .list-row-actions { width: 100%; justify-content: flex-start; }
   .directory-layout { grid-template-columns: 1fr; }
   .filter-sidebar { position: static; max-height: none; }
-  .app-dragon-bg { background-size: cover; opacity: 0.18; }
+  .app-dragon-bg {
+    background-size: min(700px, 110vw);
+    opacity: 0.12;
+  }
 }

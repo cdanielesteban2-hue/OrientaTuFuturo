@@ -70,7 +70,7 @@ $logado = isset($_SESSION['usuario']);
     <button type="button" class="sidebar-toggle" id="sidebar-toggle" aria-label="Menú"><i class="fa-solid fa-bars"></i></button>
     <div class="topbar-search-hint">
         <i class="fa-solid fa-compass"></i>
-        <span>Tu viaje hacia el futuro comienza aquí</span>
+        <span>Informar para decidir, decidir para avanzar</span>
     </div>
     <div class="topbar-actions">
         <?php if ($logado): ?>
