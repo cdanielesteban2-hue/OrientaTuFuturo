@@ -17,8 +17,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/miestilo.css?v=20261016k">
-    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/app-shell.css?v=20261016k">
+    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/miestilo.css?v=20261016m">
+    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/app-shell.css?v=20261016m">
+    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/scrollbar.css?v=20261016m">
     <style>
       :root {
         --border-color: var(--border);
@@ -41,7 +42,7 @@
         theme: {
           extend: {
             colors: { brand: { gold: '#eab308', blue: '#0b3d91', dark: '#0f172a', light: '#f0f2f7' } },
-            fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'], heading: ['Outfit', 'sans-serif'] }
+            fontFamily: { sans: ['\"Plus Jakarta Sans\"', 'sans-serif'], heading: ['Outfit', 'sans-serif'] }
           }
         }
       }
