@@ -17,8 +17,8 @@ $logado = isset($_SESSION['usuario']);
 <aside class="app-sidebar" id="app-sidebar">
     <div class="sidebar-brand">
         <a href="<?php echo $url_base; ?>paginas/inicio" class="sidebar-logo">
-            <img src="<?php echo $url_base; ?>recursos/img/logo_navbar.png" alt="Logo" class="sidebar-logo-img">
-            <span class="sidebar-logo-text">orienta<span>tu</span>futuro</span>
+            <img src="<?php echo $url_base; ?>recursos/img/logo_navbar.png" alt="Logo OrientaTuFuturo" class="sidebar-logo-img">
+            <span class="sidebar-logo-text">Orienta<span>Tu</span>Futuro</span>
         </a>
     </div>
     <nav class="sidebar-nav">

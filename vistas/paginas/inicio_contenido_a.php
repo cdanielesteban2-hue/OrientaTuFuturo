@@ -30,16 +30,22 @@ if (isset($_SESSION['usuario']['id'])) {
             $label_vocacional = $pct_vocacional > 0 ? 'En progreso' : 'Sin iniciar';
         }
 
-        // Pre-ICFES: si hay intentos = 100% de práctica iniciada; además muestra mejor puntaje en etiqueta
+        // Pre-ICFES: barra = mejor puntaje real. Si no hay intentos o todos en 0 → 0%
         $intentos = Simulacro::obtenerIntentosUsuario($id_usuario);
         if (!empty($intentos)) {
-            $pct_icfes = 100;
             $mejor = 0;
             foreach ($intentos as $it) {
                 $p = (float)($it['puntaje'] ?? 0);
                 if ($p > $mejor) $mejor = $p;
             }
-            $label_icfes = 'Mejor: ' . round($mejor) . '%';
+            $pct_icfes = (int)min(100, max(0, round($mejor)));
+            if ($pct_icfes > 0) {
+                $label_icfes = 'Mejor: ' . $pct_icfes . '%';
+            } else {
+                // Intentos sin puntaje útil → se trata como no realizado
+                $pct_icfes = 0;
+                $label_icfes = 'Sin iniciar';
+            }
         } else {
             $pct_icfes = 0;
             $label_icfes = 'Sin iniciar';
