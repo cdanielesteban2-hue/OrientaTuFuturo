@@ -1,4 +1,4 @@
-/* App shell — dragón nuevo + escala 90% */
+/* App shell — dragón dual tema + tarjetas más transparentes */
 
 html {
   height: 100%;
@@ -22,11 +22,11 @@ body.app-shell,
 
 [data-theme="light"] body.app-shell,
 [data-theme="light"] .app-shell {
-  background: #e8eef8;
+  background: #f4f6fb;
   color: #0f172a;
 }
 
-/* Dragón: imagen nueva, centrado, tamaño moderado */
+/* Dragón oscuro (tema dark) */
 .app-dragon-bg {
   position: fixed;
   inset: 0;
@@ -39,9 +39,13 @@ body.app-shell,
   background-size: min(920px, 85vw);
   opacity: 0.18;
 }
+
+/* Dragón claro: fondo blanco para que no se vea el recuadro negro */
 [data-theme="light"] .app-dragon-bg {
-  opacity: 0.12;
-  filter: contrast(1.05);
+  background-image: url('https://i.imgur.com/vU1hTo7.jpeg');
+  background-color: transparent;
+  opacity: 0.14;
+  filter: none;
 }
 
 .app-dragon,
@@ -199,12 +203,12 @@ p, .page-sub { font-size: 0.92rem; }
 [data-theme="light"] .mock-title { color: #0f172a !important; }
 [data-theme="light"] .mock-text { color: #64748b !important; }
 
-/* Home cards con hover sutil */
+/* Tarjetas un poco más transparentes */
 .mock-banner, .mock-card {
-  background: rgba(15, 22, 40, 0.55);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(15, 22, 40, 0.42);
+  border: 1px solid rgba(255,255,255,0.1);
   border-radius: 16px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, background 0.2s ease;
 }
 .mock-banner {
@@ -217,18 +221,18 @@ p, .page-sub { font-size: 0.92rem; }
   border-color: rgba(234, 179, 8, 0.45);
   box-shadow: 0 10px 28px rgba(0,0,0,0.25);
   transform: translateY(-2px);
-  background: rgba(20, 30, 52, 0.7);
+  background: rgba(20, 30, 52, 0.55);
 }
 [data-theme="light"] .mock-banner,
 [data-theme="light"] .mock-card {
-  background: rgba(255,255,255,0.65);
+  background: rgba(255,255,255,0.52);
   border-color: rgba(15,23,42,0.08);
 }
 [data-theme="light"] .mock-banner:hover,
 [data-theme="light"] .mock-card:hover {
   border-color: rgba(11,61,145,0.35);
   box-shadow: 0 10px 28px rgba(15,23,42,0.1);
-  background: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.72);
 }
 .mock-banner h1 {
   font-family: 'Outfit', sans-serif; font-size: 1.45rem; font-weight: 800;
@@ -247,14 +251,31 @@ p, .page-sub { font-size: 0.92rem; }
 }
 [data-theme="light"] .mock-card h3 { color: #0f172a; }
 
+/* Barras de progreso */
+.mock-progress-block { margin-top: 14px; }
+.mock-progress-label {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.82rem; color: #94a3b8; margin-bottom: 6px; font-weight: 600;
+}
+.mock-progress-label strong { color: #e2e8f0; font-weight: 800; }
+[data-theme="light"] .mock-progress-label strong { color: #0f172a; }
 .mock-progress-track {
-  height: 8px; background: rgba(255,255,255,0.1); border-radius: 999px; overflow: hidden; margin-top: 10px;
+  height: 9px; background: rgba(255,255,255,0.12); border-radius: 999px; overflow: hidden;
 }
 [data-theme="light"] .mock-progress-track { background: #e2e8f0; }
 .mock-progress-fill {
-  height: 100%; width: 35%; background: #3b82f6; border-radius: 999px;
+  height: 100%; width: 0%; background: linear-gradient(90deg, #3b82f6, #60a5fa);
+  border-radius: 999px; transition: width 0.6s ease;
 }
-[data-theme="light"] .mock-progress-fill { background: #0f172a; }
+.mock-progress-fill.accent {
+  background: linear-gradient(90deg, #eab308, #fde047);
+}
+[data-theme="light"] .mock-progress-fill {
+  background: linear-gradient(90deg, #0b3d91, #2563eb);
+}
+[data-theme="light"] .mock-progress-fill.accent {
+  background: linear-gradient(90deg, #ca8a04, #eab308);
+}
 
 .mock-career-list { display: flex; flex-direction: column; gap: 8px; }
 .mock-career-item {
@@ -324,14 +345,14 @@ p, .page-sub { font-size: 0.92rem; }
 .list-rows { display: flex; flex-direction: column; gap: 8px; }
 .list-row {
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  background: rgba(15, 22, 40, 0.55);
+  background: rgba(15, 22, 40, 0.45);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 14px; padding: 14px 16px;
   backdrop-filter: blur(8px);
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 [data-theme="light"] .list-row {
-  background: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.6);
   border-color: #e8ecf4;
 }
 .list-row:hover { border-color: rgba(59,130,246,0.45); }
@@ -351,14 +372,14 @@ p, .page-sub { font-size: 0.92rem; }
 .list-row-actions { display: flex; align-items: center; gap: 7px; flex-shrink: 0; }
 
 .card, .card-premium, .filter-sidebar {
-  background: rgba(15, 22, 40, 0.55) !important;
+  background: rgba(15, 22, 40, 0.45) !important;
   border-color: rgba(255,255,255,0.08) !important;
   backdrop-filter: blur(8px);
 }
 [data-theme="light"] .card,
 [data-theme="light"] .card-premium,
 [data-theme="light"] .filter-sidebar {
-  background: rgba(255,255,255,0.75) !important;
+  background: rgba(255,255,255,0.7) !important;
   border-color: #e8ecf4 !important;
 }
 .form-input, .form-control, select.form-input {
@@ -396,24 +417,15 @@ p, .page-sub { font-size: 0.92rem; }
   z-index: 5; padding: 16px !important;
 }
 
-/* Carreras: sin scale exagerado */
-.carrera-row {
-  transform: none !important;
-}
-.carrera-row:hover {
-  transform: none !important;
-}
+.carrera-row { transform: none !important; }
+.carrera-row:hover { transform: none !important; }
 
-/* Detalle universidad: ficha NO sticky sobre el mapa */
 .ficha-sticky {
   position: relative !important;
   top: auto !important;
   z-index: 1 !important;
 }
-.map-card-container {
-  position: relative;
-  z-index: 2;
-}
+.map-card-container { position: relative; z-index: 2; }
 
 .paginacion-compacta { display: flex; justify-content: center; align-items: center; gap: 4px; margin-top: 20px; flex-wrap: wrap; }
 .pag-btn {
