@@ -9,7 +9,7 @@
         </p>
     </div>
 
-    <div class="preicfes-mode-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-bottom: 40px;">
+    <div class="preicfes-mode-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-bottom: 24px;">
         <?php foreach ($modalidades as $clave => $modalidad): ?>
             <?php $es_normal = $clave === 'normal'; ?>
             <a href="<?php echo $url_base; ?>simulacros/resolver?modo=aleatorio&modalidad=<?php echo urlencode($clave); ?>" class="card-premium preicfes-mode-card" style="border-top: 4px solid <?php echo $es_normal ? '#8b5cf6' : '#2563eb'; ?>; text-decoration: none; color: inherit;">
@@ -22,7 +22,21 @@
         <?php endforeach; ?>
     </div>
 
-    <p style="text-align: center; color: var(--text-secondary); margin: -18px auto 40px; max-width: 720px;">
+    <!-- Pre-ICFES profundizado (por materia) -->
+    <div class="card-premium preicfes-profundizado-banner" style="border-top: 4px solid #eab308; margin-bottom: 40px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px;">
+        <div style="flex: 1; min-width: 240px;">
+            <span class="badge badge-accent" style="margin-bottom: 8px;"><i class="fa-solid fa-layer-group"></i> Por competencias</span>
+            <h2 style="font-size: 1.35rem; margin: 0 0 8px;">Pre-ICFES profundizado</h2>
+            <p style="color: var(--text-secondary); margin: 0; font-size: 0.95rem; line-height: 1.5;">
+                Practica por materia (Matemáticas, Lectura Crítica, Ciencias, Sociales e Inglés) eligiendo 10, 25 o 50 preguntas. Al terminar verás tu porcentaje y las explicaciones de los errores.
+            </p>
+        </div>
+        <a href="<?php echo $url_base; ?>simulacros/profundizado" class="btn btn-accent" style="padding: 12px 22px; font-size: 0.95rem; white-space: nowrap;">
+            <i class="fa-solid fa-book-open-reader"></i> Ir a profundizado
+        </a>
+    </div>
+
+    <p style="text-align: center; color: var(--text-secondary); margin: -10px auto 40px; max-width: 720px;">
         El simulacro normal es una sola prueba de 247 preguntas: primero presenta 123 y, al pulsar continuar, presenta las 124 restantes. Cada sección tiene un límite de 4 horas, igual que la referencia de tiempo y cantidad de preguntas del ICFES real.
     </p>
 
@@ -59,6 +73,7 @@
 .preicfes-mode-card { min-height: 245px; display: flex; flex-direction: column; transition: transform .2s ease, box-shadow .2s ease; }
 .preicfes-mode-card .btn { margin-top: auto; }
 .preicfes-mode-card:hover { transform: translateY(-4px); }
+.preicfes-profundizado-banner:hover { border-color: rgba(234, 179, 8, 0.5); }
 @media (max-width: 620px) {
     .preicfes-mode-grid { grid-template-columns: 1fr !important; }
 }
