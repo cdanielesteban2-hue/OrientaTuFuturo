@@ -4,7 +4,7 @@ include_once "conexion.php";
 class ProgramasAcademicos {
     public static function listar() {
         $db = baseDatos::crearInstancia();
-        $sql = "SELECT p.*, u.nombre as universidad_nombre, u.ciudad as universidad_ciudad 
+        $sql = "SELECT p.*, u.nombre as universidad_nombre, u.ciudad as universidad_ciudad, u.sitio_web as universidad_sitio
                 FROM programas_academicos p
                 JOIN universidades u ON p.id_universidad = u.id_universidad
                 ORDER BY p.n_programa ASC";
@@ -46,7 +46,7 @@ class ProgramasAcademicos {
             $parametros[] = $id_universidad;
         }
 
-        $sql = "SELECT p.*, u.nombre as universidad_nombre, u.ciudad as universidad_ciudad 
+        $sql = "SELECT p.*, u.nombre as universidad_nombre, u.ciudad as universidad_ciudad, u.sitio_web as universidad_sitio
                 FROM programas_academicos p
                 JOIN universidades u ON p.id_universidad = u.id_universidad";
                 
@@ -127,7 +127,7 @@ class ProgramasAcademicos {
         $db = baseDatos::crearInstancia();
         $placeholders = implode(',', array_fill(0, count($areas), '?'));
         
-        $sql = "SELECT p.*, u.nombre as universidad_nombre, u.ciudad as universidad_ciudad 
+        $sql = "SELECT p.*, u.nombre as universidad_nombre, u.ciudad as universidad_ciudad, u.sitio_web as universidad_sitio
                 FROM programas_academicos p
                 JOIN universidades u ON p.id_universidad = u.id_universidad
                 WHERE p.area IN ($placeholders)
