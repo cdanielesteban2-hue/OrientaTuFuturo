@@ -2,7 +2,7 @@
 <div style="margin-bottom: 8px;">
     <span class="badge badge-primary"><i class="fa-solid fa-graduation-cap"></i> Programas Académicos</span>
     <h1 style="font-size: 2.1rem; margin-top: 8px;">Explorador de Carreras</h1>
-    <p style="color: var(--text-secondary); font-size: 0.95rem;">Encuentra carreras de pregrado acordes a tu vocación y ajústalas a tu presupuesto.</p>
+    <p style="color: var(--text-secondary); font-size: 0.95rem;">Encuentra carreras de pregrado acordes a tu vocación. Consulta precios en el sitio oficial de cada universidad.</p>
 </div>
 
 <div class="directory-layout">
@@ -41,20 +41,10 @@
                     <?php endforeach; ?>
                 </select>
             </div>
-            <div class="form-group" style="margin-bottom: 20px;">
-                <label class="form-label" for="costoMax">Matrícula máxima</label>
-                <select class="form-input" id="costoMax" name="costoMax">
-                    <option value="">Cualquier costo</option>
-                    <option value="1000000" <?php echo ($costoMax === '1000000') ? 'selected' : ''; ?>>Hasta $1.000.000</option>
-                    <option value="5000000" <?php echo ($costoMax === '5000000') ? 'selected' : ''; ?>>Hasta $5.000.000</option>
-                    <option value="12000000" <?php echo ($costoMax === '12000000') ? 'selected' : ''; ?>>Hasta $12.000.000</option>
-                    <option value="25000000" <?php echo ($costoMax === '25000000') ? 'selected' : ''; ?>>Hasta $25.000.000</option>
-                </select>
-            </div>
             <button type="submit" class="btn btn-primary" style="width: 100%;">
                 <i class="fa-solid fa-magnifying-glass"></i> Buscar
             </button>
-            <?php if ($area !== '' || $costoMax !== '' || $id_universidad !== '' || $buscar !== ''): ?>
+            <?php if ($area !== '' || $id_universidad !== '' || $buscar !== ''): ?>
                 <a href="<?php echo $url_base; ?>programas/inicio" class="btn btn-outline" style="width: 100%; margin-top: 10px; font-size: 0.85rem;">Limpiar</a>
             <?php endif; ?>
         </form>
@@ -65,11 +55,13 @@
             <div class="card" style="text-align: center; padding: 48px 20px;">
                 <div style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 12px;"><i class="fa-solid fa-book-open-reader"></i></div>
                 <h3>No se encontraron programas</h3>
-                <p style="color: var(--text-secondary); margin-top: 6px; font-size: 0.9rem;">Prueba variando área, universidad o costo.</p>
+                <p style="color: var(--text-secondary); margin-top: 6px; font-size: 0.9rem;">Prueba variando área o universidad.</p>
             </div>
         <?php else: ?>
             <div class="carreras-list">
-                <?php foreach ($programas as $prog): ?>
+                <?php foreach ($programas as $prog):
+                    $web = !empty($prog['universidad_sitio']) ? $prog['universidad_sitio'] : '';
+                ?>
                     <article class="carrera-row">
                         <div class="carrera-row-main">
                             <h3 class="carrera-row-title"><?php echo htmlspecialchars($prog['n_programa']); ?></h3>
@@ -83,7 +75,15 @@
                             </div>
                         </div>
                         <div class="carrera-row-cost">
-                            <?php echo ($prog['costo'] == 0) ? 'Variable' : '$' . number_format($prog['costo'], 0, ',', '.'); ?>
+                            <?php if ($web): ?>
+                                <a href="<?php echo htmlspecialchars($web); ?>" target="_blank" rel="noopener" class="btn btn-outline" style="padding:6px 12px; font-size:0.8rem; white-space:nowrap;">
+                                    <i class="fa-solid fa-coins"></i> Consultar precios
+                                </a>
+                            <?php else: ?>
+                                <a href="<?php echo $url_base; ?>universidades/detalle?id=<?php echo $prog['id_universidad']; ?>" class="btn btn-outline" style="padding:6px 12px; font-size:0.8rem; white-space:nowrap;">
+                                    <i class="fa-solid fa-coins"></i> Consultar precios
+                                </a>
+                            <?php endif; ?>
                         </div>
                         <div class="carrera-row-actions">
                             <a href="<?php echo $url_base; ?>usuarios/guardarPrograma?id=<?php echo $prog['id_programa']; ?>" class="btn btn-outline" style="padding: 7px 11px; border-color: #f43f5e; color: #f43f5e;" title="Guardar">
@@ -100,7 +100,6 @@
             <?php if ($total_paginas > 1):
                 $params_base = http_build_query(array_filter([
                     'area' => $area,
-                    'costoMax' => $costoMax,
                     'id_universidad' => $id_universidad,
                     'buscar' => $buscar,
                 ]));

@@ -18,7 +18,7 @@
             </div>
             <h1 style="font-size: 2.5rem; line-height: 1.2; color: var(--text-primary);"><?php echo htmlspecialchars($universidad['nombre']); ?></h1>
         </div>
-        <a href="<?php echo htmlspecialchars($universidad['sitio_web']); ?>" target="_blank" class="btn btn-primary">
+        <a href="<?php echo htmlspecialchars($universidad['sitio_web']); ?>" target="_blank" rel="noopener" class="btn btn-primary">
             <i class="fa-solid fa-earth-americas"></i> Visitar Sitio Web Oficial
         </a>
     </div>
@@ -49,7 +49,7 @@
                                 <th style="padding: 12px 10px;">Carrera / Programa</th>
                                 <th style="padding: 12px 10px;">Área</th>
                                 <th style="padding: 12px 10px; text-align: center;">Semestres</th>
-                                <th style="padding: 12px 10px; text-align: right;">Costo Matrícula</th>
+                                <th style="padding: 12px 10px; text-align: center;">Precios</th>
                                 <th style="padding: 12px 10px; text-align: center;">Acciones</th>
                             </tr>
                         </thead>
@@ -59,8 +59,10 @@
                                     <td style="padding: 14px 10px; font-weight: 700;"><?php echo htmlspecialchars($prog['n_programa']); ?></td>
                                     <td style="padding: 14px 10px;"><span class="badge badge-primary" style="font-size: 0.72rem;"><?php echo htmlspecialchars($prog['area']); ?></span></td>
                                     <td style="padding: 14px 10px; text-align: center; font-weight: 600;"><?php echo htmlspecialchars($prog['duracion']); ?></td>
-                                    <td style="padding: 14px 10px; text-align: right; font-weight: 700; color: var(--primary);">
-                                        <?php echo ($prog['costo'] == 0) ? 'Gratuito / Variable' : '$' . number_format($prog['costo'], 0, ',', '.'); ?>
+                                    <td style="padding: 14px 10px; text-align: center;">
+                                        <a href="<?php echo htmlspecialchars($universidad['sitio_web']); ?>" target="_blank" rel="noopener" class="btn btn-outline" style="padding:5px 10px; font-size:0.75rem;">
+                                            <i class="fa-solid fa-coins"></i> Consultar precios
+                                        </a>
                                     </td>
                                     <td style="padding: 14px 10px; text-align: center;">
                                         <div style="display: flex; gap: 8px; justify-content: center;">
@@ -78,7 +80,7 @@
     </div>
 
     <div class="detalle-sidebar">
-        <div class="card-premium ficha-sticky">
+        <div class="card-premium ficha-datos-card">
             <h3 style="font-size: 1.15rem; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
                 <i class="fa-solid fa-list-check"></i> Ficha de Datos
             </h3>
@@ -101,9 +103,12 @@
                     <span style="color: var(--text-secondary); display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-bottom: 2px;">Metodología y Horarios</span>
                     <strong><i class="fa-solid fa-clock"></i> <?php echo htmlspecialchars($universidad['jornadas']); ?></strong>
                 </div>
-                <div style="border-top: 1px solid var(--border-color); padding-top: 15px;">
-                    <a href="<?php echo htmlspecialchars($universidad['sitio_web']); ?>" target="_blank" class="btn btn-outline" style="width: 100%; font-size: 0.85rem; padding: 10px;">
+                <div style="border-top: 1px solid var(--border-color); padding-top: 15px; display:flex; flex-direction:column; gap:8px;">
+                    <a href="<?php echo htmlspecialchars($universidad['sitio_web']); ?>" target="_blank" rel="noopener" class="btn btn-outline" style="width: 100%; font-size: 0.85rem; padding: 10px;">
                         <i class="fa-solid fa-arrow-up-right-from-square"></i> Abrir Portal del Campus
+                    </a>
+                    <a href="<?php echo htmlspecialchars($universidad['sitio_web']); ?>" target="_blank" rel="noopener" class="btn btn-accent" style="width: 100%; font-size: 0.85rem; padding: 10px;">
+                        <i class="fa-solid fa-coins"></i> Consultar precios
                     </a>
                 </div>
             </div>
@@ -122,22 +127,14 @@
 <style>
 .detalle-uni-grid { align-items: start; }
 .detalle-sidebar { display: flex; flex-direction: column; gap: 20px; }
-.ficha-sticky {
-    position: sticky;
-    top: 90px;
-    z-index: 4;
-    /* no tapa el mapa: el mapa va debajo en el flujo */
-}
-.map-card-container {
-    position: relative;
-    z-index: 1;
-    margin-top: 0;
-}
+/* Ficha en flujo normal: ya no se sobrepone al mapa */
+.ficha-datos-card { position: relative; z-index: 1; }
+.map-card-container { position: relative; z-index: 2; }
 .map-frame { height: 250px; width: 100%; border-radius: 8px; border: 1px solid var(--border-color); z-index: 1; }
 .prog-row:hover { background: rgba(26,79,186,0.06); }
 [data-theme="dark"] .prog-row:hover { background: rgba(255,255,255,0.04); }
 .detalle-uni-grid .card:hover,
-.detalle-uni-grid .card-premium:hover { transform: none; }
+.detalle-uni-grid .card-premium:hover { transform: none !important; }
 </style>
 
 <script>
