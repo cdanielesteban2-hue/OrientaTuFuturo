@@ -50,6 +50,11 @@ $logado = isset($_SESSION['usuario']);
         <a href="<?php echo $url_base; ?>usuarios/dashboard" class="side-link <?php echo nav_active('usuarios/dashboard'); ?>">
             <i class="fa-solid fa-gauge"></i> Mi Panel
         </a>
+        <?php if (($_SESSION['usuario']['rol'] ?? '') === 'admin'): ?>
+        <a href="<?php echo $url_base; ?>usuarios/admin" class="side-link <?php echo nav_active('usuarios/admin'); ?>">
+            <i class="fa-solid fa-shield-halved"></i> Panel Admin
+        </a>
+        <?php endif; ?>
         <?php endif; ?>
     </nav>
     <div class="sidebar-foot">
@@ -84,6 +89,9 @@ $logado = isset($_SESSION['usuario']);
             </button>
             <div class="user-menu" id="user-menu">
                 <a href="<?php echo $url_base; ?>usuarios/dashboard"><i class="fa-solid fa-gauge"></i> Mi Panel</a>
+                <?php if (($_SESSION['usuario']['rol'] ?? '') === 'admin'): ?>
+                <a href="<?php echo $url_base; ?>usuarios/admin"><i class="fa-solid fa-shield-halved"></i> Panel Admin</a>
+                <?php endif; ?>
                 <a href="<?php echo $url_base; ?>cuestionarios/inicio"><i class="fa-solid fa-clipboard-list"></i> Test Vocacional</a>
                 <a href="<?php echo $url_base; ?>simulacros/inicio"><i class="fa-solid fa-pencil"></i> Pre-ICFES</a>
                 <a href="<?php echo $url_base; ?>simulacros/profundizado"><i class="fa-solid fa-layer-group"></i> Pre-ICFES profundizado</a>
