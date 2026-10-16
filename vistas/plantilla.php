@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orienta tu FUTURO - Plataforma de Orientación Vocacional</title>
     
-    <!-- Script síncrono para inicializar tema rápido y prevenir parpadeos -->
     <script>
         (function() {
             const savedTheme = localStorage.getItem('theme');
@@ -17,18 +16,29 @@
         })();
     </script>
     
-    <!-- Google Fonts optimizadas -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Hojas de estilos personalizadas con URL_BASE -->
-    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/miestilo.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/miestilo.css?v=20261016b">
+    <style>
+      /* Compatibilidad con vistas que usan tokens antiguos */
+      :root {
+        --border-color: var(--border);
+        --primary-light: var(--primary-soft);
+        --accent-light: var(--accent-soft);
+        --bg-body: var(--bg-main);
+        --danger: #dc2626;
+        --success: #059669;
+        --warning: #d97706;
+        --font-main: var(--font-sans);
+        --shadow-premium: var(--shadow-lg);
+        --radius-full: 9999px;
+      }
+    </style>
     
-    <!-- Iconos modernos de FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Tailwind CSS (Alojado localmente para evitar fallas de DNS/CDN) -->
     <script src="<?php echo constant('URL_BASE'); ?>recursos/js/tailwind.min.js"></script>
     <script>
       tailwind.config = {
@@ -37,12 +47,12 @@
           extend: {
             colors: {
               brand: {
-                gold: '#facc15',
-                darkgold: '#ca8a04',
-                blue: '#2563eb',
-                dark: '#0f172a',
-                darker: '#020617',
-                light: '#f8fafc'
+                gold: '#f5c518',
+                darkgold: '#e0b000',
+                blue: '#0b3d91',
+                dark: '#0a1628',
+                darker: '#070b14',
+                light: '#f4f6fb'
               }
             },
             fontFamily: {
@@ -54,73 +64,41 @@
       }
     </script>
     
-    <!-- AOS Animation CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body class="layout-container">
 
-    <!-- Navegación -->
     <?php include_once "vistas/modulos/navbar.php"; ?>
 
-    <!-- Contenido Dinámico Principal -->
     <main class="main-content">
         <?php include_once "./ruteador.php"; ?>
     </main>
 
-    <!-- Pie de página -->
     <?php include_once "vistas/modulos/footer.php"; ?>
 
-    <!-- Script de control del Modo Oscuro -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const themeToggle = document.getElementById("theme-toggle");
             if (themeToggle) {
                 themeToggle.addEventListener("click", function() {
                     const currentTheme = document.documentElement.getAttribute("data-theme");
-                    let newTheme = "light";
-                    if (currentTheme === "light") {
-                        newTheme = "dark";
-                    }
-                    
+                    let newTheme = currentTheme === "light" ? "dark" : "light";
                     document.documentElement.setAttribute("data-theme", newTheme);
                     localStorage.setItem("theme", newTheme);
-                    
-                    // Actualizar icono dinámicamente
                     const icon = themeToggle.querySelector("i");
-                    if (icon) {
-                        if (newTheme === "dark") {
-                            icon.className = "fa-solid fa-sun";
-                        } else {
-                            icon.className = "fa-solid fa-moon";
-                        }
-                    }
+                    if (icon) icon.className = newTheme === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon";
                 });
-                
-                // Sincronizar icono inicial según el tema cargado
                 const initialTheme = document.documentElement.getAttribute("data-theme");
                 const icon = themeToggle.querySelector("i");
-                if (icon) {
-                    if (initialTheme === "dark") {
-                        icon.className = "fa-solid fa-sun";
-                    } else {
-                        icon.className = "fa-solid fa-moon";
-                    }
-                }
+                if (icon) icon.className = initialTheme === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon";
             }
         });
     </script>
 
-    <!-- AOS Animation JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({
-            once: true,
-            offset: 50,
-            duration: 800,
-            easing: 'ease-out-cubic',
-        });
+        AOS.init({ once: true, offset: 50, duration: 700, easing: 'ease-out-cubic' });
     </script>
-    <!-- Mouse Glow & Interactivity Effects -->
     <script src="<?php echo constant('URL_BASE'); ?>recursos/js/mouse-glow.js"></script>
 </body>
 </html>
