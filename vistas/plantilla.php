@@ -16,37 +16,11 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/miestilo.css?v=20261016m">
-    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/app-shell.css?v=20261016m">
-    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/scrollbar.css?v=20261016m">
-    <style>
-      :root {
-        --border-color: var(--border);
-        --primary-light: var(--primary-soft);
-        --accent-light: var(--accent-soft);
-        --bg-body: var(--bg-main);
-        --danger: #dc2626;
-        --success: #059669;
-        --warning: #d97706;
-        --font-main: var(--font-sans);
-        --shadow-premium: var(--shadow-lg);
-        --radius-full: 9999px;
-      }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/miestilo.css?v=20261026r1">
+    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/app-shell.css?v=20261026r1">
+    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/scrollbar.css?v=20261026r1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="<?php echo constant('URL_BASE'); ?>recursos/js/tailwind.min.js"></script>
-    <script>
-      tailwind.config = {
-        darkMode: ['class', '[data-theme="dark"]'],
-        theme: {
-          extend: {
-            colors: { brand: { gold: '#eab308', blue: '#0b3d91', dark: '#0f172a', light: '#f0f2f7' } },
-            fontFamily: { sans: ['\"Plus Jakarta Sans\"', 'sans-serif'], heading: ['Outfit', 'sans-serif'] }
-          }
-        }
-      }
-    </script>
 </head>
 <body class="app-shell">
     <?php include_once "vistas/modulos/navbar.php"; ?>
@@ -74,6 +48,7 @@
                 const icon = themeToggle.querySelector("i");
                 if (icon) icon.className = initialTheme === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon";
             }
+
             const btn = document.getElementById('sidebar-toggle');
             const sidebar = document.getElementById('app-sidebar');
             if (btn && sidebar) {
@@ -81,6 +56,6 @@
             }
         });
     </script>
-    <script src="<?php echo constant('URL_BASE'); ?>recursos/js/mouse-glow.js?v=20261016j"></script>
+    <script src="<?php echo constant('URL_BASE'); ?>recursos/js/mouse-glow.js?v=20261026r1"></script>
 </body>
 </html>
