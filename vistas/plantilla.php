@@ -17,9 +17,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/miestilo.css?v=20261029restore">
-    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/app-shell.css?v=20261029restore">
-    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/scrollbar.css?v=20261029restore">
+    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/miestilo.css?v=20261029exact">
+    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/app-shell.css?v=20261029exact">
+    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/scrollbar.css?v=20261029exact">
     <style>
       :root {
         --border-color: var(--border);
@@ -31,7 +31,7 @@
         --warning: #d97706;
         --font-main: var(--font-sans);
         --shadow-premium: var(--shadow-lg);
-        --radius-full: 4px;
+        --radius-full: 999px;
       }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -81,6 +81,6 @@
             }
         });
     </script>
-    <script src="<?php echo constant('URL_BASE'); ?>recursos/js/mouse-glow.js?v=20261029restore"></script>
+    <script src="<?php echo constant('URL_BASE'); ?>recursos/js/mouse-glow.js?v=20261029exact"></script>
 </body>
 </html>
