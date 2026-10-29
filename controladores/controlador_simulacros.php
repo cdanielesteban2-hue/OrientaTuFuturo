@@ -2,7 +2,16 @@
 include_once "modelos/simulacro.php";
 
 class ControladorSimulacros {
+
+    private function bloquearAdmin() {
+        if (isset($_SESSION['usuario']['rol']) && $_SESSION['usuario']['rol'] === 'admin') {
+            header("Location: " . URL_BASE . "usuarios/admin");
+            exit;
+        }
+    }
+
     public function inicio() {
+        $this->bloquearAdmin();
         if (!isset($_SESSION['usuario'])) {
             header("Location: " . URL_BASE . "usuarios/login");
             exit;
@@ -16,6 +25,7 @@ class ControladorSimulacros {
     }
 
     public function profundizado() {
+        $this->bloquearAdmin();
         if (!isset($_SESSION['usuario'])) {
             header("Location: " . URL_BASE . "usuarios/login");
             exit;
@@ -27,6 +37,7 @@ class ControladorSimulacros {
     }
 
     public function resolver() {
+        $this->bloquearAdmin();
         if (!isset($_SESSION['usuario'])) {
             header("Location: " . URL_BASE . "usuarios/login");
             exit;
@@ -142,6 +153,7 @@ class ControladorSimulacros {
     }
 
     public function resultado() {
+        $this->bloquearAdmin();
         if (!isset($_SESSION['usuario'])) {
             header("Location: " . URL_BASE . "usuarios/login");
             exit;
