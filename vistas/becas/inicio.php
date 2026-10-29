@@ -13,25 +13,18 @@
         <p style="color:var(--text-secondary); margin-top:6px;">Vuelve pronto para nuevas oportunidades.</p>
     </div>
 <?php else: ?>
-    <div class="list-rows">
+    <div class="becas-grid">
         <?php foreach ($becas as $beca): ?>
-            <article class="list-row">
-                <div class="list-row-main">
-                    <div class="list-row-top">
-                        <span class="badge badge-accent"><i class="fa-solid fa-location-dot"></i> <?php echo htmlspecialchars($beca['campus']); ?></span>
-                        <span class="list-row-meta" style="color:var(--danger); font-weight:700;">
-                            <i class="fa-solid fa-calendar-day"></i> Límite: <?php echo date("d/m/Y", strtotime($beca['fecha_limite'])); ?>
-                        </span>
-                    </div>
-                    <h3 class="list-row-title"><?php echo htmlspecialchars($beca['nombre_beca']); ?></h3>
-                    <p class="list-row-desc"><?php echo htmlspecialchars($beca['requisitos']); ?></p>
-                </div>
-                <div class="list-row-actions">
+            <article class="beca-card">
+                <span class="badge badge-accent"><i class="fa-solid fa-location-dot"></i> <?php echo htmlspecialchars($beca['campus']); ?></span>
+                <h3><?php echo htmlspecialchars($beca['nombre_beca']); ?></h3>
+                <p class="beca-desc"><?php echo htmlspecialchars($beca['requisitos']); ?></p>
+                <div class="beca-actions">
                     <a href="<?php echo $url_base; ?>usuarios/guardarBeca?id=<?php echo $beca['id_becas']; ?>" class="btn btn-outline" style="padding:7px 10px; border-color:#f43f5e; color:#f43f5e;" title="Guardar">
                         <i class="fa-solid fa-heart"></i>
                     </a>
                     <a href="<?php echo htmlspecialchars($beca['enlace']); ?>" target="_blank" class="btn btn-outline" style="padding:7px 12px; font-size:0.8rem;">Portal</a>
-                    <a href="<?php echo $url_base; ?>becas/detalle?id=<?php echo $beca['id_becas']; ?>" class="btn btn-accent" style="padding:8px 16px; font-size:0.82rem;">Detalles</a>
+                    <a href="<?php echo $url_base; ?>becas/detalle?id=<?php echo $beca['id_becas']; ?>" class="btn btn-accent" style="padding:8px 14px; font-size:0.82rem;">Detalles</a>
                 </div>
             </article>
         <?php endforeach; ?>
