@@ -1,7 +1,8 @@
-.app-sidebar,.sidebar-nav,.app-main,.filter-sidebar{scrollbar-width:thin;scrollbar-color:rgba(234,179,8,0.4) transparent}
-[data-theme="light"] .app-sidebar,[data-theme="light"] .sidebar-nav{scrollbar-color:rgba(11,61,145,0.35) rgba(241,245,249,0.9)}
+/* Scrollbar discreto */
+.app-sidebar,.sidebar-nav,.app-main{scrollbar-width:thin;scrollbar-color:rgba(148,163,184,0.35) transparent}
+[data-theme="light"] .app-sidebar,[data-theme="light"] .sidebar-nav{scrollbar-color:rgba(11,61,145,0.25) rgba(241,245,249,0.9)}
 .app-sidebar::-webkit-scrollbar,.sidebar-nav::-webkit-scrollbar{width:6px}
 .app-sidebar::-webkit-scrollbar-track,.sidebar-nav::-webkit-scrollbar-track{background:transparent}
-.app-sidebar::-webkit-scrollbar-thumb,.sidebar-nav::-webkit-scrollbar-thumb{background:rgba(234,179,8,0.4);border-radius:2px}
-.app-sidebar::-webkit-scrollbar-thumb:hover{background:rgba(234,179,8,0.6)}
+.app-sidebar::-webkit-scrollbar-thumb,.sidebar-nav::-webkit-scrollbar-thumb{background:rgba(148,163,184,0.35);border-radius:3px}
+.app-sidebar::-webkit-scrollbar-thumb:hover{background:rgba(148,163,184,0.5)}
 .app-sidebar::-webkit-scrollbar-button{display:none;height:0;width:0}
