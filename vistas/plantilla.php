@@ -17,9 +17,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/miestilo.css?v=20261029zip">
-    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/app-shell.css?v=20261029zip">
-    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/scrollbar.css?v=20261029zip">
+    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/miestilo.css?v=20261029pro">
+    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/app-shell.css?v=20261029pro">
+    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/scrollbar.css?v=20261029pro">
     <style>
       :root {
         --border-color: var(--border);
@@ -31,7 +31,7 @@
         --warning: #d97706;
         --font-main: var(--font-sans);
         --shadow-premium: var(--shadow-lg);
-        --radius-full: 9999px;
+        --radius-full: 4px;
       }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -42,7 +42,8 @@
         theme: {
           extend: {
             colors: { brand: { gold: '#eab308', blue: '#0b3d91', dark: '#0f172a', light: '#f0f2f7' } },
-            fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'], heading: ['Outfit', 'sans-serif'] }
+            fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'], heading: ['Outfit', 'sans-serif'] },
+            borderRadius: { DEFAULT: '4px', sm: '4px', md: '6px', lg: '8px', full: '4px' }
           }
         }
       }
@@ -81,6 +82,6 @@
             }
         });
     </script>
-    <script src="<?php echo constant('URL_BASE'); ?>recursos/js/mouse-glow.js?v=20261029zip"></script>
+    <script src="<?php echo constant('URL_BASE'); ?>recursos/js/mouse-glow.js?v=20261029pro"></script>
 </body>
 </html>
