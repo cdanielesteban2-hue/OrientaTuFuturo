@@ -16,10 +16,10 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/miestilo.css?v=20261029pro">
-    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/app-shell.css?v=20261029pro">
-    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/scrollbar.css?v=20261029pro">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/miestilo.css?v=20261029slab">
+    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/app-shell.css?v=20261029slab">
+    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/scrollbar.css?v=20261029slab">
     <style>
       :root {
         --border-color: var(--border);
@@ -33,6 +33,9 @@
         --shadow-premium: var(--shadow-lg);
         --radius-full: 4px;
       }
+      body, h1, h2, h3, h4, h5, h6, .btn, .side-link, .page-title {
+        font-family: 'Roboto Slab', Georgia, serif !important;
+      }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="<?php echo constant('URL_BASE'); ?>recursos/js/tailwind.min.js"></script>
@@ -42,7 +45,7 @@
         theme: {
           extend: {
             colors: { brand: { gold: '#eab308', blue: '#0b3d91', dark: '#0f172a', light: '#f0f2f7' } },
-            fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'], heading: ['Outfit', 'sans-serif'] },
+            fontFamily: { sans: ['Roboto Slab', 'Georgia', 'serif'], heading: ['Roboto Slab', 'Georgia', 'serif'] },
             borderRadius: { DEFAULT: '4px', sm: '4px', md: '6px', lg: '8px', full: '4px' }
           }
         }
@@ -82,6 +85,6 @@
             }
         });
     </script>
-    <script src="<?php echo constant('URL_BASE'); ?>recursos/js/mouse-glow.js?v=20261029pro"></script>
+    <script src="<?php echo constant('URL_BASE'); ?>recursos/js/mouse-glow.js?v=20261029slab"></script>
 </body>
 </html>
