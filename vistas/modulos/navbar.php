@@ -41,9 +41,6 @@ $es_admin = $logado && (($_SESSION['usuario']['rol'] ?? '') === 'admin');
         <a href="<?php echo $url_base; ?>admin/simulacros" class="side-link <?php echo nav_active('admin/simulacros'); ?>">
             <i class="fa-solid fa-list-check"></i> Simulacros
         </a>
-        <a href="<?php echo $url_base; ?>universidades/inicio" class="side-link <?php echo nav_active('universidades/inicio'); ?>">
-            <i class="fa-solid fa-eye"></i> Ver sitio
-        </a>
         <?php else: ?>
         <a href="<?php echo $url_base; ?>paginas/inicio" class="side-link <?php echo (nav_active('paginas/inicio') || preg_match('#/(index\.php)?$#', $uri)) ? 'active' : ''; ?>">
             <i class="fa-solid fa-house"></i> Inicio
