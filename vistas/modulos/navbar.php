@@ -10,6 +10,7 @@ $avatar_actual = $_SESSION['usuario']['avatar'] ?? 'av1';
 $emoji = $avatares[$avatar_actual] ?? '👤';
 $nombre = isset($_SESSION['usuario']) ? htmlspecialchars($_SESSION['usuario']['nombre']) : 'Invitado';
 $logado = isset($_SESSION['usuario']);
+$es_admin = $logado && (($_SESSION['usuario']['rol'] ?? '') === 'admin');
 ?>
 <div class="app-dragon-bg" aria-hidden="true"></div>
 
@@ -21,6 +22,29 @@ $logado = isset($_SESSION['usuario']);
         </a>
     </div>
     <nav class="sidebar-nav">
+        <?php if ($es_admin): ?>
+        <a href="<?php echo $url_base; ?>usuarios/admin" class="side-link <?php echo nav_active('usuarios/admin') && !nav_active('adminGestion') ? 'active' : ''; ?>">
+            <i class="fa-solid fa-gauge-high"></i> Panel Admin
+        </a>
+        <a href="<?php echo $url_base; ?>usuarios/adminGestion" class="side-link <?php echo nav_active('adminGestion'); ?>">
+            <i class="fa-solid fa-pen-to-square"></i> Gestionar
+        </a>
+        <a href="<?php echo $url_base; ?>admin/usuarios" class="side-link <?php echo nav_active('admin/usuarios'); ?>">
+            <i class="fa-solid fa-users"></i> Usuarios
+        </a>
+        <a href="<?php echo $url_base; ?>admin/universidades" class="side-link <?php echo nav_active('admin/universidades'); ?>">
+            <i class="fa-solid fa-building-columns"></i> Universidades
+        </a>
+        <a href="<?php echo $url_base; ?>admin/becas" class="side-link <?php echo nav_active('admin/becas'); ?>">
+            <i class="fa-solid fa-award"></i> Becas
+        </a>
+        <a href="<?php echo $url_base; ?>admin/simulacros" class="side-link <?php echo nav_active('admin/simulacros'); ?>">
+            <i class="fa-solid fa-list-check"></i> Simulacros
+        </a>
+        <a href="<?php echo $url_base; ?>universidades/inicio" class="side-link <?php echo nav_active('universidades/inicio'); ?>">
+            <i class="fa-solid fa-eye"></i> Ver sitio
+        </a>
+        <?php else: ?>
         <a href="<?php echo $url_base; ?>paginas/inicio" class="side-link <?php echo (nav_active('paginas/inicio') || preg_match('#/(index\.php)?$#', $uri)) ? 'active' : ''; ?>">
             <i class="fa-solid fa-house"></i> Inicio
         </a>
@@ -49,10 +73,6 @@ $logado = isset($_SESSION['usuario']);
         <a href="<?php echo $url_base; ?>usuarios/dashboard" class="side-link <?php echo nav_active('usuarios/dashboard'); ?>">
             <i class="fa-solid fa-gauge"></i> Mi Panel
         </a>
-        <?php if (($_SESSION['usuario']['rol'] ?? '') === 'admin'): ?>
-        <a href="<?php echo $url_base; ?>usuarios/admin" class="side-link <?php echo nav_active('usuarios/admin'); ?>">
-            <i class="fa-solid fa-shield-halved"></i> Panel Admin
-        </a>
         <?php endif; ?>
         <?php endif; ?>
     </nav>
@@ -77,7 +97,7 @@ $logado = isset($_SESSION['usuario']);
     <button type="button" class="sidebar-toggle" id="sidebar-toggle" aria-label="Menú"><i class="fa-solid fa-bars"></i></button>
     <div class="topbar-search-hint">
         <i class="fa-solid fa-compass"></i>
-        <span>Informar para decidir, decidir para avanzar</span>
+        <span><?php echo $es_admin ? 'Panel de administración' : 'Informar para decidir, decidir para avanzar'; ?></span>
     </div>
     <div class="topbar-actions">
         <?php if ($logado): ?>
@@ -87,13 +107,15 @@ $logado = isset($_SESSION['usuario']);
                 <i class="fa-solid fa-chevron-down" style="font-size:0.7rem; opacity:0.65;"></i>
             </button>
             <div class="user-menu" id="user-menu" hidden>
+                <?php if ($es_admin): ?>
+                <a href="<?php echo $url_base; ?>usuarios/admin"><i class="fa-solid fa-gauge-high"></i> Panel Admin</a>
+                <a href="<?php echo $url_base; ?>usuarios/adminGestion"><i class="fa-solid fa-pen-to-square"></i> Gestionar contenido</a>
+                <?php else: ?>
                 <a href="<?php echo $url_base; ?>usuarios/dashboard"><i class="fa-solid fa-gauge"></i> Mi Panel</a>
-                <?php if (($_SESSION['usuario']['rol'] ?? '') === 'admin'): ?>
-                <a href="<?php echo $url_base; ?>usuarios/admin"><i class="fa-solid fa-shield-halved"></i> Panel Admin</a>
-                <?php endif; ?>
                 <a href="<?php echo $url_base; ?>cuestionarios/inicio"><i class="fa-solid fa-clipboard-list"></i> Test Vocacional</a>
                 <a href="<?php echo $url_base; ?>simulacros/inicio"><i class="fa-solid fa-pencil"></i> Pre-ICFES</a>
                 <a href="<?php echo $url_base; ?>simulacros/profundizado"><i class="fa-solid fa-layer-group"></i> Pre-ICFES profundizado</a>
+                <?php endif; ?>
                 <a href="<?php echo $url_base; ?>usuarios/logout" class="danger"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
             </div>
         <?php else: ?>
