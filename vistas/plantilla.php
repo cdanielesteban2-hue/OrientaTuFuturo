@@ -17,9 +17,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/miestilo.css?v=20261029r">
-    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/app-shell.css?v=20261029r">
-    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/scrollbar.css?v=20261029r">
+    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/miestilo.css?v=20261029v">
+    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/app-shell.css?v=20261029v">
+    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/scrollbar.css?v=20261029v">
     <style>
       :root {
         --border-color: var(--border);
@@ -31,7 +31,7 @@
         --warning: #d97706;
         --font-main: var(--font-sans);
         --shadow-premium: var(--shadow-lg);
-        --radius-full: 9999px;
+        --radius-full: 2px;
       }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -41,7 +41,7 @@
         darkMode: ['class', '[data-theme="dark"]'],
         theme: {
           extend: {
-            colors: { brand: { gold: '#5c7390', blue: '#1a2744', dark: '#0b0f17', light: '#f4f5f7' } },
+            colors: { brand: { gold: '#eab308', blue: '#0b3d91', dark: '#0a0f1a', light: '#f3f5f9' } },
             fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'], heading: ['Inter', 'system-ui', 'sans-serif'] }
           }
         }
@@ -81,6 +81,6 @@
             }
         });
     </script>
-    <script src="<?php echo constant('URL_BASE'); ?>recursos/js/mouse-glow.js?v=20261029r"></script>
+    <script src="<?php echo constant('URL_BASE'); ?>recursos/js/mouse-glow.js?v=20261029v"></script>
 </body>
 </html>
