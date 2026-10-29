@@ -1,21 +1,23 @@
-<!-- pasos 01-02-03 — textos con clases visibles en oscuro y claro -->
-<section style="margin-top:12px;">
-  <div class="mock-card">
+<!-- pasos 01-02-03 con pregunta motivadora -->
+<section style="margin-top:20px;">
+  <div class="mock-card why-try-card">
+    <h2 class="why-try-title">¿Por qué no intentas esto?</h2>
+    <p class="why-try-sub">Tres pasos simples para orientar tu futuro con claridad.</p>
     <div class="mock-steps">
-      <div>
+      <div class="mock-step">
         <div class="mock-step-num dark">01</div>
-        <strong class="mock-title" style="display:block;margin-bottom:4px;">Diagnóstico</strong>
-        <span class="mock-text" style="font-size:0.86rem;">Test RIASEC para mapear fortalezas.</span>
+        <strong class="mock-title">Diagnóstico</strong>
+        <span class="mock-text">Test RIASEC para mapear fortalezas.</span>
       </div>
-      <div>
+      <div class="mock-step">
         <div class="mock-step-num accent">02</div>
-        <strong class="mock-title" style="display:block;margin-bottom:4px;">Comparar</strong>
-        <span class="mock-text" style="font-size:0.86rem;">Universidades, costos y jornadas.</span>
+        <strong class="mock-title">Comparar</strong>
+        <span class="mock-text">Universidades, costos y jornadas.</span>
       </div>
-      <div>
+      <div class="mock-step">
         <div class="mock-step-num dark">03</div>
-        <strong class="mock-title" style="display:block;margin-bottom:4px;">Becas</strong>
-        <span class="mock-text" style="font-size:0.86rem;">Oportunidades de financiación.</span>
+        <strong class="mock-title">Becas</strong>
+        <span class="mock-text">Oportunidades de financiación.</span>
       </div>
     </div>
   </div>
