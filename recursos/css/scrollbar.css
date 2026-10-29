@@ -1,45 +1,35 @@
-/* Scrollbar alineado al tema */
+/* Scrollbar sobrio alineado al tema */
 .app-sidebar,
 .sidebar-nav,
 .app-main,
 .filter-sidebar {
   scrollbar-width: thin;
-  scrollbar-color: rgba(148, 163, 184, 0.45) transparent;
+  scrollbar-color: rgba(100, 116, 139, 0.35) transparent;
 }
 [data-theme="light"] .app-sidebar,
 [data-theme="light"] .sidebar-nav,
 [data-theme="light"] .app-main,
 [data-theme="light"] .filter-sidebar {
-  scrollbar-color: rgba(100, 116, 139, 0.55) rgba(241, 245, 249, 0.8);
+  scrollbar-color: rgba(100, 116, 139, 0.4) rgba(241, 245, 249, 0.9);
 }
 .app-sidebar::-webkit-scrollbar,
 .sidebar-nav::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 .app-sidebar::-webkit-scrollbar-track,
 .sidebar-nav::-webkit-scrollbar-track {
   background: transparent;
-  border-radius: 8px;
 }
 .app-sidebar::-webkit-scrollbar-thumb,
 .sidebar-nav::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.4);
-  border-radius: 8px;
-  border: 2px solid transparent;
-  background-clip: padding-box;
+  background: rgba(100, 116, 139, 0.35);
+  border-radius: 4px;
 }
 .app-sidebar::-webkit-scrollbar-thumb:hover {
-  background: rgba(234, 179, 8, 0.55);
-  background-clip: padding-box;
+  background: rgba(143, 163, 188, 0.5);
 }
-[data-theme="light"] .app-sidebar::-webkit-scrollbar-track {
-  background: rgba(241, 245, 249, 0.9);
-}
-[data-theme="light"] .app-sidebar::-webkit-scrollbar-thumb {
-  background: rgba(100, 116, 139, 0.45);
-  background-clip: padding-box;
-}
-[data-theme="light"] .app-sidebar::-webkit-scrollbar-thumb:hover {
-  background: rgba(11, 61, 145, 0.5);
-  background-clip: padding-box;
+.app-sidebar::-webkit-scrollbar-button {
+  display: none;
+  height: 0;
+  width: 0;
 }
