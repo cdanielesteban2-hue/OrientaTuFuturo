@@ -1,7 +1,6 @@
 <?php
 $url_base = constant('URL_BASE');
 
-// Progreso dinámico (test vocacional + Pre-ICFES)
 $pct_vocacional = 0;
 $pct_icfes = 0;
 $label_vocacional = 'Sin iniciar';
@@ -13,7 +12,6 @@ if (isset($_SESSION['usuario']['id'])) {
         include_once __DIR__ . '/../../modelos/cuestionario.php';
         include_once __DIR__ . '/../../modelos/simulacro.php';
 
-        // Test vocacional: completado = 100%, si no % de preguntas respondidas
         $realizados = Cuestionario::obtenerCuestionariosRealizados($id_usuario);
         if (!empty($realizados)) {
             $pct_vocacional = 100;
@@ -30,7 +28,6 @@ if (isset($_SESSION['usuario']['id'])) {
             $label_vocacional = $pct_vocacional > 0 ? 'En progreso' : 'Sin iniciar';
         }
 
-        // Pre-ICFES: barra = mejor puntaje real. Si no hay intentos o todos en 0 → 0%
         $intentos = Simulacro::obtenerIntentosUsuario($id_usuario);
         if (!empty($intentos)) {
             $mejor = 0;
@@ -42,7 +39,6 @@ if (isset($_SESSION['usuario']['id'])) {
             if ($pct_icfes > 0) {
                 $label_icfes = 'Mejor: ' . $pct_icfes . '%';
             } else {
-                // Intentos sin puntaje útil → se trata como no realizado
                 $pct_icfes = 0;
                 $label_icfes = 'Sin iniciar';
             }
@@ -51,7 +47,6 @@ if (isset($_SESSION['usuario']['id'])) {
             $label_icfes = 'Sin iniciar';
         }
     } catch (Exception $e) {
-        // Si falla la consulta, dejar en 0
     }
 } else {
     $label_vocacional = 'Inicia sesión';
@@ -59,7 +54,7 @@ if (isset($_SESSION['usuario']['id'])) {
 }
 ?>
 
-<div class="mock-banner">
+<div class="hero-title-only">
     <h1>Tu Viaje Hacia el Futuro<br>Comienza Aquí</h1>
     <a href="<?php echo $url_base; ?>cuestionarios/inicio" class="btn btn-accent">Comenzar</a>
 </div>
