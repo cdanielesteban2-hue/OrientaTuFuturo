@@ -197,16 +197,9 @@ class ControladorUsuarios {
             'programas' => $count("SELECT COUNT(*) FROM programas_academicos"),
             'becas' => $count("SELECT COUNT(*) FROM becas"),
             'tests_completados' => $count("SELECT COUNT(*) FROM usuario_cuestionario"),
-            'simulacros' => $count("SELECT COUNT(*) FROM simulacro_intentos"),
-            'preguntas_simulacro' => $count("SELECT COUNT(*) FROM simulacro_preguntas"),
             'preguntas_test' => $count("SELECT COUNT(*) FROM preguntas"),
             'respuestas_test' => $count("SELECT COUNT(*) FROM respuesta"),
-            'promedio_icfes' => 0,
         ];
-        try {
-            $avg = $db->query("SELECT AVG(puntaje) FROM simulacro_intentos")->fetchColumn();
-            $stats['promedio_icfes'] = $avg !== null ? round((float)$avg, 1) : 0;
-        } catch (Exception $e) { $stats['promedio_icfes'] = 0; }
         $ultimos_usuarios = [];
         try {
             $ultimos_usuarios = $db->query("SELECT nombre, correo, ciudad, rol, f_registro FROM usuarios ORDER BY id_usuarios DESC LIMIT 12")->fetchAll();
@@ -214,7 +207,7 @@ class ControladorUsuarios {
         $filtro_ciudad = isset($_GET['ciudad']) ? trim($_GET['ciudad']) : '';
         $periodo = isset($_GET['periodo']) ? trim($_GET['periodo']) : 'all';
         $chart_ciudades = []; $chart_contenido = [];
-        $chart_actividad = ['labels'=>['Sin datos'],'tests'=>[0],'icfes'=>[0]];
+        $chart_actividad = ['labels'=>['Sin datos'],'tests'=>[0]];
         $ciudades_filtro = [];
         try {
             $sql = "SELECT ciudad AS label, COUNT(*) AS value FROM universidades WHERE ciudad IS NOT NULL AND ciudad != '' GROUP BY ciudad ORDER BY value DESC LIMIT 12";
@@ -225,7 +218,6 @@ class ControladorUsuarios {
                 ['label'=>'Carreras','value'=>$count("SELECT COUNT(*) FROM programas_academicos")],
                 ['label'=>'Becas','value'=>$count("SELECT COUNT(*) FROM becas")],
                 ['label'=>'Tests','value'=>$count("SELECT COUNT(*) FROM usuario_cuestionario")],
-                ['label'=>'Pre-ICFES','value'=>$count("SELECT COUNT(*) FROM simulacro_intentos")],
             ];
             $ciudades_filtro = $db->query("SELECT DISTINCT ciudad FROM universidades WHERE ciudad IS NOT NULL AND ciudad != '' ORDER BY ciudad")->fetchAll(PDO::FETCH_COLUMN);
         } catch (Exception $e) {}
