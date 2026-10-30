@@ -206,20 +206,11 @@ class ControladorUsuarios {
             $stats = [
                 'usuarios' => $count("SELECT COUNT(*) FROM usuarios WHERE ciudad = ?", [$filtro_ciudad]),
                 'universidades' => $count("SELECT COUNT(*) FROM universidades WHERE ciudad = ?", [$filtro_ciudad]),
-                'programas' => $count(
-                    "SELECT COUNT(*) FROM programas_academicos p JOIN universidades u ON p.id_universidad = u.id_universidad WHERE u.ciudad = ?",
-                    [$filtro_ciudad]
-                ),
+                'programas' => $count("SELECT COUNT(*) FROM programas_academicos p JOIN universidades u ON p.id_universidad = u.id_universidad WHERE u.ciudad = ?", [$filtro_ciudad]),
                 'becas' => $count("SELECT COUNT(*) FROM becas"),
-                'tests_completados' => $count(
-                    "SELECT COUNT(*) FROM usuario_cuestionario uc JOIN usuarios us ON uc.id_usuario = us.id_usuarios WHERE us.ciudad = ?",
-                    [$filtro_ciudad]
-                ),
+                'tests_completados' => $count("SELECT COUNT(*) FROM usuario_cuestionario uc JOIN usuarios us ON uc.id_usuario = us.id_usuarios WHERE us.ciudad = ?", [$filtro_ciudad]),
                 'preguntas_test' => $count("SELECT COUNT(*) FROM preguntas"),
-                'respuestas_test' => $count(
-                    "SELECT COUNT(*) FROM respuesta r JOIN usuarios us ON r.id_usuario = us.id_usuarios WHERE us.ciudad = ?",
-                    [$filtro_ciudad]
-                ),
+                'respuestas_test' => $count("SELECT COUNT(*) FROM respuesta r JOIN usuarios us ON r.id_usuario = us.id_usuarios WHERE us.ciudad = ?", [$filtro_ciudad]),
             ];
         } else {
             $stats = [
@@ -255,9 +246,7 @@ class ControladorUsuarios {
                 $st->execute([$filtro_ciudad]);
                 $chart_ciudades = $st->fetchAll(PDO::FETCH_ASSOC);
             } else {
-                $chart_ciudades = $db->query(
-                    "SELECT ciudad AS label, COUNT(*) AS value FROM universidades WHERE ciudad IS NOT NULL AND ciudad != '' GROUP BY ciudad ORDER BY value DESC LIMIT 12"
-                )->fetchAll(PDO::FETCH_ASSOC);
+                $chart_ciudades = $db->query("SELECT ciudad AS label, COUNT(*) AS value FROM universidades WHERE ciudad IS NOT NULL AND ciudad != '' GROUP BY ciudad ORDER BY value DESC LIMIT 12")->fetchAll(PDO::FETCH_ASSOC);
             }
             foreach ($chart_ciudades as &$r) { $r['value'] = (int)$r['value']; } unset($r);
 
@@ -276,16 +265,12 @@ class ControladorUsuarios {
                 $dateCond = " AND uc.fecha >= DATE_SUB(CURDATE(), INTERVAL 90 DAY)";
             }
 
-            $sqlAct = "SELECT DATE(uc.fecha) AS dia, COUNT(*) AS total
-                       FROM usuario_cuestionario uc
-                       INNER JOIN usuarios us ON us.id_usuarios = uc.id_usuario
-                       WHERE uc.fecha IS NOT NULL" . $dateCond;
+            $sqlAct = "SELECT DATE(uc.fecha) AS dia, COUNT(*) AS total FROM usuario_cuestionario uc INNER JOIN usuarios us ON us.id_usuarios = uc.id_usuario WHERE uc.fecha IS NOT NULL" . $dateCond;
             if ($filtro_ciudad !== '') {
                 $sqlAct .= " AND us.ciudad = ?";
                 $paramsAct[] = $filtro_ciudad;
             }
             $sqlAct .= " GROUP BY DATE(uc.fecha) ORDER BY dia ASC LIMIT 60";
-
             $st = $db->prepare($sqlAct);
             $st->execute($paramsAct);
             $rows = $st->fetchAll(PDO::FETCH_ASSOC);
@@ -298,10 +283,7 @@ class ControladorUsuarios {
                 } elseif ($periodo === '90') {
                     $dateCondR = " AND r.fecha >= DATE_SUB(CURDATE(), INTERVAL 90 DAY)";
                 }
-                $sqlR = "SELECT DATE(r.fecha) AS dia, COUNT(DISTINCT r.id_usuario) AS total
-                         FROM respuesta r
-                         INNER JOIN usuarios us ON us.id_usuarios = r.id_usuario
-                         WHERE r.fecha IS NOT NULL" . $dateCondR;
+                $sqlR = "SELECT DATE(r.fecha) AS dia, COUNT(DISTINCT r.id_usuario) AS total FROM respuesta r INNER JOIN usuarios us ON us.id_usuarios = r.id_usuario WHERE r.fecha IS NOT NULL" . $dateCondR;
                 if ($filtro_ciudad !== '') {
                     $sqlR .= " AND us.ciudad = ?";
                     $paramsR[] = $filtro_ciudad;
@@ -321,9 +303,7 @@ class ControladorUsuarios {
                 $chart_actividad = ['labels' => ['Sin datos'], 'tests' => [0]];
             }
 
-            $ciudades_filtro = $db->query(
-                "SELECT DISTINCT ciudad FROM universidades WHERE ciudad IS NOT NULL AND ciudad != '' ORDER BY ciudad"
-            )->fetchAll(PDO::FETCH_COLUMN);
+            $ciudades_filtro = $db->query("SELECT DISTINCT ciudad FROM universidades WHERE ciudad IS NOT NULL AND ciudad != '' ORDER BY ciudad")->fetchAll(PDO::FETCH_COLUMN);
         } catch (Exception $e) {
             if (empty($chart_actividad['labels'])) {
                 $chart_actividad = ['labels' => ['Sin datos'], 'tests' => [0]];
