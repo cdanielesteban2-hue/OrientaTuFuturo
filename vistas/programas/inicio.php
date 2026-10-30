@@ -50,14 +50,19 @@
         <div class="card" style="text-align:center;padding:40px 16px;"><h3>No se encontraron carreras</h3></div>
       <?php else: ?>
         <div class="uni-grid">
-          <?php foreach ($programas as $prog): ?>
+          <?php foreach ($programas as $prog):
+            $uni_nombre = $prog['universidad_nombre'] ?? $prog['universidad'] ?? $prog['nombre_universidad'] ?? '';
+          ?>
           <article class="uni-card uni-card-frame">
             <div class="uni-card-top">
               <span class="uni-badge uni-badge-pub"><i class="fa-solid fa-book"></i> <?php echo htmlspecialchars($prog['area'] ?? 'General'); ?></span>
               <span class="uni-ficha-tag"><i class="fa-solid fa-circle-info"></i> Ficha técnica</span>
             </div>
             <h3 class="uni-card-title"><?php echo htmlspecialchars($prog['n_programa'] ?? $prog['nombre'] ?? ''); ?></h3>
-            <p class="uni-card-city"><i class="fa-solid fa-building-columns"></i> <?php echo htmlspecialchars($prog['universidad'] ?? $prog['nombre_universidad'] ?? ''); ?></p>
+            <p class="uni-card-city" style="display:flex;align-items:flex-start;gap:8px;margin:4px 0 8px;">
+              <span class="uni-ico" title="Universidad" style="width:28px;height:28px;flex-shrink:0;"><i class="fa-solid fa-building-columns"></i></span>
+              <span style="font-size:.88rem;font-weight:600;line-height:1.3;color:#e2e8f0;"><?php echo htmlspecialchars($uni_nombre !== '' ? $uni_nombre : 'Universidad no indicada'); ?></span>
+            </p>
             <?php
               $dur_raw = trim((string)($prog['duracion'] ?? ''));
               if ($dur_raw === '') { $dur_txt = '—'; }
