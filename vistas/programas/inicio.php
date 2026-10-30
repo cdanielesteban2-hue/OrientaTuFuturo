@@ -5,12 +5,12 @@
     <h1 class="dir-rotating-title" id="carRotateTitle">Elige sabiamente</h1>
     <p class="page-sub">Encuentra carreras de pregrado acordes a tu vocación.</p>
   </header>
-  <div class="dir-legend-bar">
+  <div class="dir-legend-bar dir-legend-box">
     <span class="dir-legend-label">Ficha técnica</span>
     <div class="dir-legend-items">
-      <span class="dir-leg"><i class="fa-solid fa-book"></i> Área</span>
-      <span class="dir-leg"><i class="fa-solid fa-clock"></i> Duración</span>
-      <span class="dir-leg"><i class="fa-solid fa-building-columns"></i> Universidad</span>
+      <span class="dir-leg dir-leg-box"><i class="fa-solid fa-book"></i> Área</span>
+      <span class="dir-leg dir-leg-box"><i class="fa-solid fa-clock"></i> Duración</span>
+      <span class="dir-leg dir-leg-box"><i class="fa-solid fa-building-columns"></i> Universidad</span>
     </div>
   </div>
   <div class="directory-layout compact-filters">
@@ -51,7 +51,7 @@
       <?php else: ?>
         <div class="uni-grid">
           <?php foreach ($programas as $prog): ?>
-          <article class="uni-card">
+          <article class="uni-card uni-card-frame">
             <div class="uni-card-top">
               <span class="uni-badge uni-badge-pub"><i class="fa-solid fa-book"></i> <?php echo htmlspecialchars($prog['area'] ?? 'General'); ?></span>
               <span class="uni-ficha-tag"><i class="fa-solid fa-circle-info"></i> Ficha técnica</span>

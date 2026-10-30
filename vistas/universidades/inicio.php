@@ -5,14 +5,14 @@
     <h1 class="dir-rotating-title" id="uniRotateTitle">¿Ya sabes cuál es tu uni?</h1>
     <p class="page-sub">Explora instituciones y elige con información clara.</p>
   </header>
-  <div class="dir-legend-bar">
+  <div class="dir-legend-bar dir-legend-box">
     <span class="dir-legend-label">Ficha técnica</span>
     <div class="dir-legend-items">
-      <span class="dir-leg"><i class="fa-solid fa-sun leg-sun"></i> Diurna</span>
-      <span class="dir-leg"><i class="fa-solid fa-moon"></i> Nocturna</span>
-      <span class="dir-leg"><i class="fa-solid fa-circle-half-stroke"></i> Ambas</span>
-      <span class="dir-leg"><i class="fa-solid fa-laptop"></i> Virtual</span>
-      <span class="dir-leg"><i class="fa-solid fa-user"></i> Presencial</span>
+      <span class="dir-leg dir-leg-box"><i class="fa-solid fa-sun leg-sun"></i> Diurna</span>
+      <span class="dir-leg dir-leg-box"><i class="fa-solid fa-moon"></i> Nocturna</span>
+      <span class="dir-leg dir-leg-box"><i class="fa-solid fa-circle-half-stroke"></i> Ambas</span>
+      <span class="dir-leg dir-leg-box"><i class="fa-solid fa-laptop"></i> Virtual</span>
+      <span class="dir-leg dir-leg-box"><i class="fa-solid fa-user"></i> Presencial</span>
     </div>
   </div>
   <div class="directory-layout compact-filters">
@@ -62,7 +62,7 @@
             elseif ($has_diurna) { $jornada_icon = 'sun'; }
             else { $jornada_icon = 'sun'; }
           ?>
-          <article class="uni-card">
+          <article class="uni-card uni-card-frame">
             <div class="uni-card-top">
               <span class="uni-badge <?php echo ($uni['tipo']==0)?'uni-badge-pub':'uni-badge-priv'; ?>"><?php echo ($uni['tipo']==0)?'Pública':'Privada'; ?></span>
               <span class="uni-ficha-tag" title="Ficha técnica"><i class="fa-solid fa-circle-info"></i> Ficha técnica</span>
