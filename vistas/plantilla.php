@@ -17,9 +17,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/miestilo.css?v=20261029why">
-    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/app-shell.css?v=20261029why">
-    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/scrollbar.css?v=20261029why">
+    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/miestilo.css?v=20261030frames">
+    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/app-shell.css?v=20261030frames">
+    <link rel="stylesheet" href="<?php echo constant('URL_BASE'); ?>recursos/css/scrollbar.css?v=20261030frames">
     <style>
       :root {
         --border-color: var(--border);
@@ -85,6 +85,6 @@
             }
         });
     </script>
-    <script src="<?php echo constant('URL_BASE'); ?>recursos/js/mouse-glow.js?v=20261029why"></script>
+    <script src="<?php echo constant('URL_BASE'); ?>recursos/js/mouse-glow.js?v=20261030frames"></script>
 </body>
 </html>
