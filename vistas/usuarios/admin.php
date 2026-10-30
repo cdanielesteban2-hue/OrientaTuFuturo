@@ -52,10 +52,10 @@ $ciudades_filtro = $ciudades_filtro ?? [];
     <div class="admin-charts">
         <div class="admin-card">
             <div class="admin-card-head">
-                <h3><i class="fa-solid fa-chart-column"></i> Universidades por ciudad</h3>
+                <h3><i class="fa-solid fa-chart-column"></i> Universidades más visitadas</h3>
                 <select id="chart-type-ciudades" class="form-input admin-select-sm">
-                    <option value="bar">Barras</option>
-                    <option value="doughnut">Dona</option>
+                    <option value="bar">Barras (ascendente)</option>
+                    <option value="line">Línea</option>
                 </select>
             </div>
             <div class="chart-box"><canvas id="chartCiudades"></canvas></div>
@@ -130,19 +130,19 @@ $ciudades_filtro = $ciudades_filtro ?? [];
   const dataActividad = <?php echo json_encode($chart_actividad, JSON_UNESCAPED_UNICODE); ?>;
   const labelsC = dataCiudades.map(x => x.label);
   const valuesC = dataCiudades.map(x => x.value);
-  const colors = ['#2563eb','#eab308','#10b981','#8b5cf6','#ef4444','#06b6d4','#f97316','#ec4899','#84cc16','#6366f1'];
+  const colors = ['#2563eb','#eab308','#10b981','#8b5cf6','#ef4444','#06b6d4','#f97316','#ec4899','#84cc16','#6366f1','#14b8a6','#a855f7'];
   let chartCiudades = new Chart(document.getElementById('chartCiudades'), {
     type: 'bar',
-    data: { labels: labelsC, datasets: [{ label: 'Universidades', data: valuesC, backgroundColor: colors.slice(0, labelsC.length), borderRadius: 4, borderSkipped: false }] },
-    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { maxRotation: 40 }, grid: { display: false } }, y: { beginAtZero: true, ticks: { precision: 0 } } } }
+    data: { labels: labelsC, datasets: [{ label: 'Visitas', data: valuesC, backgroundColor: colors.slice(0, labelsC.length), borderRadius: 4, borderSkipped: false }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { maxRotation: 45 }, grid: { display: false } }, y: { beginAtZero: true, ticks: { precision: 0 } } } }
   });
   document.getElementById('chart-type-ciudades').addEventListener('change', function(){
     const t = this.value;
     chartCiudades.destroy();
     chartCiudades = new Chart(document.getElementById('chartCiudades'), {
       type: t,
-      data: { labels: labelsC, datasets: [{ label: 'Universidades', data: valuesC, backgroundColor: colors.slice(0, labelsC.length), borderRadius: t === 'bar' ? 4 : 0 }] },
-      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: t !== 'bar', position: 'bottom' } }, scales: t === 'bar' ? { x: { ticks: { maxRotation: 40 }, grid: { display: false } }, y: { beginAtZero: true, ticks: { precision: 0 } } } : undefined }
+      data: { labels: labelsC, datasets: [{ label: 'Visitas', data: valuesC, backgroundColor: colors.slice(0, labelsC.length), borderColor: '#3b82f6', fill: t==='line', tension: 0.3, borderRadius: t === 'bar' ? 4 : 0 }] },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { maxRotation: 45 }, grid: { display: false } }, y: { beginAtZero: true, ticks: { precision: 0 } } } }
     });
   });
   new Chart(document.getElementById('chartContenido'), {
