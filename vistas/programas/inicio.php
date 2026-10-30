@@ -58,9 +58,17 @@
             </div>
             <h3 class="uni-card-title"><?php echo htmlspecialchars($prog['n_programa'] ?? $prog['nombre'] ?? ''); ?></h3>
             <p class="uni-card-city"><i class="fa-solid fa-building-columns"></i> <?php echo htmlspecialchars($prog['universidad'] ?? $prog['nombre_universidad'] ?? ''); ?></p>
+            <?php
+              $dur_raw = trim((string)($prog['duracion'] ?? ''));
+              if ($dur_raw === '') { $dur_txt = '—'; }
+              elseif (preg_match('/(\d+)/', $dur_raw, $m)) {
+                $n = (int)$m[1];
+                $dur_txt = $n . ' semestre' . ($n === 1 ? '' : 's');
+              } else { $dur_txt = htmlspecialchars($dur_raw); }
+            ?>
             <div class="uni-card-icons">
               <span class="uni-ico" title="Duración"><i class="fa-solid fa-clock"></i></span>
-              <span style="font-size:.82rem;color:#94a3b8;align-self:center;"><?php echo htmlspecialchars($prog['duracion'] ?? '—'); ?></span>
+              <span style="font-size:.82rem;color:#94a3b8;align-self:center;"><?php echo $dur_txt; ?></span>
             </div>
             <a href="<?php echo $url_base; ?>programas/detalle?id=<?php echo $prog['id_programa']; ?>" class="btn btn-accent uni-card-btn">Ver detalle</a>
           </article>
