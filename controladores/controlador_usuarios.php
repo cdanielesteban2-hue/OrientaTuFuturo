@@ -186,6 +186,7 @@ class ControladorUsuarios {
             exit;
         }
         include_once "conexion.php";
+        include_once "modelos/universidad.php";
         $db = baseDatos::crearInstancia();
 
         $filtro_ciudad = isset($_GET['ciudad']) ? trim($_GET['ciudad']) : '';
@@ -241,13 +242,7 @@ class ControladorUsuarios {
         $ciudades_filtro = [];
 
         try {
-            if ($filtro_ciudad !== '') {
-                $st = $db->prepare("SELECT ciudad AS label, COUNT(*) AS value FROM universidades WHERE ciudad = ? GROUP BY ciudad");
-                $st->execute([$filtro_ciudad]);
-                $chart_ciudades = $st->fetchAll(PDO::FETCH_ASSOC);
-            } else {
-                $chart_ciudades = $db->query("SELECT ciudad AS label, COUNT(*) AS value FROM universidades WHERE ciudad IS NOT NULL AND ciudad != '' GROUP BY ciudad ORDER BY value DESC LIMIT 12")->fetchAll(PDO::FETCH_ASSOC);
-            }
+            $chart_ciudades = Universidad::rankingVisitas($filtro_ciudad, 12);
             foreach ($chart_ciudades as &$r) { $r['value'] = (int)$r['value']; } unset($r);
 
             $chart_contenido = [
