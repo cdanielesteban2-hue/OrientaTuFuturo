@@ -21,7 +21,7 @@
         </div>
 
         <div class="footer-socials">
-            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://www.facebook.com/share/1M3eXJZZxU/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
             <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
             <a href="#" aria-label="X Twitter"><i class="fa-brands fa-x-twitter"></i></a>
             <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
