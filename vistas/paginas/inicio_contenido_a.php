@@ -2,15 +2,12 @@
 $url_base = constant('URL_BASE');
 
 $pct_vocacional = 0;
-$pct_icfes = 0;
 $label_vocacional = 'Sin iniciar';
-$label_icfes = 'Sin iniciar';
 
 if (isset($_SESSION['usuario']['id'])) {
     $id_usuario = (int)$_SESSION['usuario']['id'];
     try {
         include_once __DIR__ . '/../../modelos/cuestionario.php';
-        include_once __DIR__ . '/../../modelos/simulacro.php';
 
         $realizados = Cuestionario::obtenerCuestionariosRealizados($id_usuario);
         if (!empty($realizados)) {
@@ -27,36 +24,16 @@ if (isset($_SESSION['usuario']['id'])) {
             }
             $label_vocacional = $pct_vocacional > 0 ? 'En progreso' : 'Sin iniciar';
         }
-
-        $intentos = Simulacro::obtenerIntentosUsuario($id_usuario);
-        if (!empty($intentos)) {
-            $mejor = 0;
-            foreach ($intentos as $it) {
-                $p = (float)($it['puntaje'] ?? 0);
-                if ($p > $mejor) $mejor = $p;
-            }
-            $pct_icfes = (int)min(100, max(0, round($mejor)));
-            if ($pct_icfes > 0) {
-                $label_icfes = 'Mejor: ' . $pct_icfes . '%';
-            } else {
-                $pct_icfes = 0;
-                $label_icfes = 'Sin iniciar';
-            }
-        } else {
-            $pct_icfes = 0;
-            $label_icfes = 'Sin iniciar';
-        }
     } catch (Exception $e) {
     }
 } else {
     $label_vocacional = 'Inicia sesión';
-    $label_icfes = 'Inicia sesión';
 }
 ?>
 
-<div class="hero-title-only">
-    <h1>Tu Viaje Hacia el Futuro<br>Comienza Aquí</h1>
-    <a href="<?php echo $url_base; ?>cuestionarios/inicio" class="btn btn-accent">Comenzar</a>
+<div class="hero-title-only" style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px;">
+    <h1 style="margin:0;">Tu Viaje Hacia el Futuro<br>Comienza Aquí</h1>
+    <a href="<?php echo $url_base; ?>cuestionarios/inicio" class="btn btn-accent" style="flex-shrink:0;">Comenzar</a>
 </div>
 
 <div class="mock-grid">
@@ -65,9 +42,6 @@ if (isset($_SESSION['usuario']['id'])) {
         <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:4px;">
             <a href="<?php echo $url_base; ?>cuestionarios/inicio" class="btn btn-accent" style="padding:8px 14px; font-size:0.85rem;">
                 <i class="fa-solid fa-clipboard-list"></i> Test Vocacional
-            </a>
-            <a href="<?php echo $url_base; ?>simulacros/inicio" class="btn btn-outline" style="padding:8px 14px; font-size:0.85rem;">
-                <i class="fa-solid fa-pencil"></i> Pre-ICFES
             </a>
         </div>
 
@@ -78,16 +52,6 @@ if (isset($_SESSION['usuario']['id'])) {
             </div>
             <div class="mock-progress-track" role="progressbar" aria-valuenow="<?php echo (int)$pct_vocacional; ?>" aria-valuemin="0" aria-valuemax="100">
                 <div class="mock-progress-fill" style="width: <?php echo (int)$pct_vocacional; ?>%;"></div>
-            </div>
-        </div>
-
-        <div class="mock-progress-block">
-            <div class="mock-progress-label">
-                <span>Pre-ICFES · <?php echo htmlspecialchars($label_icfes); ?></span>
-                <strong><?php echo (int)$pct_icfes; ?>%</strong>
-            </div>
-            <div class="mock-progress-track" role="progressbar" aria-valuenow="<?php echo (int)$pct_icfes; ?>" aria-valuemin="0" aria-valuemax="100">
-                <div class="mock-progress-fill accent" style="width: <?php echo (int)$pct_icfes; ?>%;"></div>
             </div>
         </div>
     </div>
@@ -137,13 +101,6 @@ if (isset($_SESSION['usuario']['id'])) {
                 <span>Compara instituciones y jornadas</span>
             </div>
         </div>
-        <div class="mock-session">
-            <div class="mock-session-bar"></div>
-            <div>
-                <strong>Practicar Pre-ICFES</strong>
-                <span>Simulacros al azar de matemáticas</span>
-            </div>
-        </div>
     </div>
 
     <div class="mock-card">
@@ -164,13 +121,6 @@ if (isset($_SESSION['usuario']['id'])) {
                 <span>Catálogo de programas</span>
             </div>
             <a href="<?php echo $url_base; ?>programas/inicio" class="btn btn-outline" style="padding:5px 10px; font-size:0.8rem;">Abrir</a>
-        </div>
-        <div class="mock-event">
-            <div class="mock-event-left">
-                <i class="fa-solid fa-pencil"></i>
-                <span>Pre-ICFES interactivo</span>
-            </div>
-            <a href="<?php echo $url_base; ?>simulacros/inicio" class="btn btn-accent" style="padding:5px 10px; font-size:0.8rem;">Practicar</a>
         </div>
     </div>
 </div>

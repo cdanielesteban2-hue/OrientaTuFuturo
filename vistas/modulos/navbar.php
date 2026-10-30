@@ -38,9 +38,6 @@ $es_admin = $logado && (($_SESSION['usuario']['rol'] ?? '') === 'admin');
         <a href="<?php echo $url_base; ?>admin/becas" class="side-link <?php echo nav_active('admin/becas'); ?>">
             <i class="fa-solid fa-award"></i> Becas
         </a>
-        <a href="<?php echo $url_base; ?>admin/simulacros" class="side-link <?php echo nav_active('admin/simulacros'); ?>">
-            <i class="fa-solid fa-list-check"></i> Simulacros
-        </a>
         <?php else: ?>
         <a href="<?php echo $url_base; ?>paginas/inicio" class="side-link <?php echo (nav_active('paginas/inicio') || preg_match('#/(index\.php)?$#', $uri)) ? 'active' : ''; ?>">
             <i class="fa-solid fa-house"></i> Inicio
@@ -56,12 +53,6 @@ $es_admin = $logado && (($_SESSION['usuario']['rol'] ?? '') === 'admin');
         </a>
         <a href="<?php echo $url_base; ?>cuestionarios/inicio" class="side-link <?php echo nav_active('cuestionarios'); ?>">
             <i class="fa-solid fa-clipboard-list"></i> Test Vocacional
-        </a>
-        <a href="<?php echo $url_base; ?>simulacros/inicio" class="side-link <?php echo (nav_active('simulacros/inicio') || (nav_active('simulacros') && !nav_active('profundizado'))) ? 'active' : ''; ?>">
-            <i class="fa-solid fa-pencil"></i> Pre-ICFES
-        </a>
-        <a href="<?php echo $url_base; ?>simulacros/profundizado" class="side-link <?php echo nav_active('profundizado'); ?>">
-            <i class="fa-solid fa-layer-group"></i> Pre-ICFES profundizado
         </a>
         <a href="<?php echo $url_base; ?>paginas/nosotros" class="side-link <?php echo nav_active('nosotros'); ?>">
             <i class="fa-solid fa-people-group"></i> Nosotros
@@ -110,8 +101,6 @@ $es_admin = $logado && (($_SESSION['usuario']['rol'] ?? '') === 'admin');
                 <?php else: ?>
                 <a href="<?php echo $url_base; ?>usuarios/dashboard"><i class="fa-solid fa-gauge"></i> Mi Panel</a>
                 <a href="<?php echo $url_base; ?>cuestionarios/inicio"><i class="fa-solid fa-clipboard-list"></i> Test Vocacional</a>
-                <a href="<?php echo $url_base; ?>simulacros/inicio"><i class="fa-solid fa-pencil"></i> Pre-ICFES</a>
-                <a href="<?php echo $url_base; ?>simulacros/profundizado"><i class="fa-solid fa-layer-group"></i> Pre-ICFES profundizado</a>
                 <?php endif; ?>
                 <a href="<?php echo $url_base; ?>usuarios/logout" class="danger"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
             </div>
