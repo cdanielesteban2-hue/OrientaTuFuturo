@@ -8,7 +8,8 @@ $url_base = defined('URL_BASE') ? constant('URL_BASE') : '';
         Orientación Vocacional · Modelo John Holland (RIASEC)
     </div>
 
-    <h1>Descubre tu vocación y proyecta tus <span class="accent">sueños profesionales</span></h1>
+    <h1 class="dir-rotating-title voc-rotate-title" id="vocRotateTitle">Quizás esto te ayude a elegir</h1>
+    <p class="voc-sub-static">Descubre tu vocación y proyecta tus <span>sueños profesionales</span></p>
 
     <p class="voc-lead">
         Un test gratuito, rápido y validado psicométricamente para estudiantes de grados 10° y 11°.
@@ -80,4 +81,12 @@ $url_base = defined('URL_BASE') ? constant('URL_BASE') : '';
 function abrirModalEtica(){ var m=document.getElementById('modalEtica'); if(m){ m.style.display='flex'; } }
 function cerrarModalEtica(){ var m=document.getElementById('modalEtica'); if(m){ m.style.display='none'; } }
 document.addEventListener('keydown', function(e){ if(e.key==='Escape') cerrarModalEtica(); });
+(function(){
+  var msgs=["Quizás esto te ayude a elegir","¿Quieres una mano? aquí está","Descubre un poco","Un pequeño empujón","No hay respuestas incorrectas"];
+  var el=document.getElementById('vocRotateTitle'); if(!el) return;
+  var i=Math.floor(Math.random()*msgs.length);
+  el.textContent=msgs[i];
+  function next(){ el.classList.add('fade-out'); setTimeout(function(){ i=(i+1+Math.floor(Math.random()*(msgs.length-1)))%msgs.length; el.textContent=msgs[i]; el.classList.remove('fade-out'); },420); }
+  setInterval(next, 4200);
+})();
 </script>
