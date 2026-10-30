@@ -124,5 +124,46 @@ class Universidad {
         $consulta = $db->prepare($sql);
         return $consulta->execute([$id]);
     }
+
+    public static function asegurarColumnaVisitas() {
+        $db = baseDatos::crearInstancia();
+        try {
+            $db->query("SELECT visitas FROM universidades LIMIT 1");
+        } catch (Exception $e) {
+            try {
+                $db->exec("ALTER TABLE universidades ADD COLUMN visitas INT NOT NULL DEFAULT 0");
+            } catch (Exception $e2) {}
+        }
+    }
+
+    public static function registrarVisita($id) {
+        self::asegurarColumnaVisitas();
+        $db = baseDatos::crearInstancia();
+        try {
+            $st = $db->prepare("UPDATE universidades SET visitas = visitas + 1 WHERE id_universidad = ?");
+            return $st->execute([(int)$id]);
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    public static function rankingVisitas($ciudad = '', $limite = 12) {
+        self::asegurarColumnaVisitas();
+        $db = baseDatos::crearInstancia();
+        $limite = max(1, min(30, (int)$limite));
+        try {
+            if ($ciudad !== '') {
+                $st = $db->prepare("SELECT nombre AS label, visitas AS value FROM universidades WHERE ciudad = ? ORDER BY visitas ASC, nombre ASC LIMIT $limite");
+                $st->execute([$ciudad]);
+            } else {
+                $st = $db->query("SELECT nombre AS label, visitas AS value FROM universidades ORDER BY visitas ASC, nombre ASC LIMIT $limite");
+            }
+            $rows = $st->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($rows as &$r) { $r['value'] = (int)($r['value'] ?? 0); }
+            return $rows;
+        } catch (Exception $e) {
+            return [];
+        }
+    }
 }
 ?>
