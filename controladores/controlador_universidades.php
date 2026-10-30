@@ -8,7 +8,7 @@ class ControladorUniversidades {
         $tipo    = isset($_GET['tipo'])    ? trim($_GET['tipo'])    : '';
         $buscar  = isset($_GET['buscar'])  ? trim($_GET['buscar'])  : '';
         $pagina  = isset($_GET['pagina'])  ? max(1, (int)$_GET['pagina']) : 1;
-        $por_pagina = 9; // 3 columnas x 3 filas = grid completo sin huecos
+        $por_pagina = 9;
 
         if ($_POST) {
             $ciudad  = isset($_POST['ciudad'])  ? trim($_POST['ciudad'])  : '';
@@ -44,6 +44,7 @@ class ControladorUniversidades {
         }
 
         $id = $universidad['id_universidad'];
+        Universidad::registrarVisita($id);
         $programas  = Universidad::obtenerProgramas($id);
         $resenias   = Resenia::obtenerPorUniversidad($id);
         $calificacion = Resenia::promedioCalificacion($id);
